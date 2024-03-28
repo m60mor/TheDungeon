@@ -1,0 +1,117 @@
+[gd_scene load_steps=8 format=3 uid="uid://b8ex0q41aches"]
+
+[ext_resource type="Script" path="res://scenes/menu/main_menu.gd" id="1_b25lk"]
+[ext_resource type="Texture2D" uid="uid://drov8tc0uu1a2" path="res://assets/Map/stone_tiles.png" id="1_fbcoa"]
+[ext_resource type="PackedScene" uid="uid://c6qhtlb55fbxp" path="res://scenes/menu/options_menu.tscn" id="3_1yl7d"]
+
+[sub_resource type="SystemFont" id="SystemFont_nbojv"]
+font_names = PackedStringArray("Calisto MT")
+font_weight = 500
+font_stretch = 125
+
+[sub_resource type="SystemFont" id="SystemFont_qaoby"]
+font_names = PackedStringArray("Calisto MT")
+
+[sub_resource type="SystemFont" id="SystemFont_m6ng5"]
+font_names = PackedStringArray("Calisto MT")
+
+[sub_resource type="SystemFont" id="SystemFont_ol0iw"]
+font_names = PackedStringArray("Calisto MT")
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_b25lk")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_fbcoa")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 60
+
+[node name="Separator" type="Control" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 4
+theme_override_constants/shadow_offset_y = 8
+theme_override_constants/outline_size = 16
+theme_override_fonts/font = SubResource("SystemFont_nbojv")
+theme_override_font_sizes/font_size = 65
+text = "The Dungeon"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 18
+alignment = 1
+
+[node name="Separator3" type="Control" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+
+[node name="NewGame" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+theme_override_fonts/font = SubResource("SystemFont_qaoby")
+theme_override_font_sizes/font_size = 30
+text = "New Game
+"
+
+[node name="Options" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+theme_override_fonts/font = SubResource("SystemFont_m6ng5")
+theme_override_font_sizes/font_size = 30
+text = "Options"
+
+[node name="Separator2" type="Control" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+
+[node name="Quit" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+theme_override_fonts/font = SubResource("SystemFont_ol0iw")
+theme_override_font_sizes/font_size = 30
+text = "Quit
+"
+
+[node name="OptionsMenu" parent="." instance=ExtResource("3_1yl7d")]
+visible = false
+layout_mode = 1
+
+[connection signal="button_down" from="MarginContainer/HBoxContainer/VBoxContainer/NewGame" to="." method="_on_new_game_button_down"]
+[connection signal="button_down" from="MarginContainer/HBoxContainer/VBoxContainer/Options" to="." method="_on_options_button_down"]
+[connection signal="button_down" from="MarginContainer/HBoxContainer/VBoxContainer/Quit" to="." method="_on_quit_button_down"]

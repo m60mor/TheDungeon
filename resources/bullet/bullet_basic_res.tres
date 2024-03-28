@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="BulletBaseResource" load_steps=3 format=3 uid="uid://c8qo8rsul3ifv"]
+
+[ext_resource type="Texture2D" uid="uid://c3opof3l8txqn" path="res://assets/Bullets/bullet-basic.png" id="1_1oppr"]
+[ext_resource type="Script" path="res://resources/bullet_base-resource.gd" id="2_ej4cp"]
+
+[resource]
+script = ExtResource("2_ej4cp")
+bullet_sprite = ExtResource("1_1oppr")
+bullet_speed = 1500.0
