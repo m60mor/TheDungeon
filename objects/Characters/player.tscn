@@ -2,9 +2,7 @@
 
 [ext_resource type="Script" path="res://objects/Characters/player.gd" id="1_22vqr"]
 [ext_resource type="Resource" uid="uid://c8qo8rsul3ifv" path="res://resources/bullet/bullet_basic_res.tres" id="2_rp7i4"]
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_21cba"]
-load_path = "res://.godot/imported/player.png-5e5dc5d33f4e5ad1c0ba2dc9834f3691.ctex"
+[ext_resource type="Texture2D" uid="uid://dnqx482ckiavu" path="res://assets/Characters/player.png" id="3_8t2gf"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_obnny"]
 size = Vector2(13, 30)
@@ -16,7 +14,7 @@ script = ExtResource("1_22vqr")
 bullet_resource = ExtResource("2_rp7i4")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = SubResource("CompressedTexture2D_21cba")
+texture = ExtResource("3_8t2gf")
 
 [node name="Timer" type="Timer" parent="."]
 
