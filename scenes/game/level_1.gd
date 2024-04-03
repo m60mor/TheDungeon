@@ -1,6 +1,6 @@
 extends Node2D
 
-var borders = Rect2(-100, -100, 200, 200)
+var borders = Rect2(-500, -500, 1000, 1000)
 
 @onready var tile_map = $TileMap
 
@@ -10,6 +10,6 @@ func _ready():
 	
 func generate_level():
 	var walker = MapGenerator.new(Vector2(100, 100), borders, tile_map)
-	var map = walker.walk(20)
+	var map = walker.walk(30)
 	walker.queue_free()
 	#tile_map.update_bitmask_region(borders.position, borders.end)

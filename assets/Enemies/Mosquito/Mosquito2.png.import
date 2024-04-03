@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cpvpm8cstselj"
-path="res://.godot/imported/mosquito.png-ee4cd0fc2851ea52ab9d22c769245dce.ctex"
+uid="uid://ockiosa3kj0k"
+path="res://.godot/imported/Mosquito2.png-57ede3b486dab816b0385d84c7dde3a7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Enemies/mosquito.png"
-dest_files=["res://.godot/imported/mosquito.png-ee4cd0fc2851ea52ab9d22c769245dce.ctex"]
+source_file="res://assets/Enemies/Mosquito/Mosquito2.png"
+dest_files=["res://.godot/imported/Mosquito2.png-57ede3b486dab816b0385d84c7dde3a7.ctex"]
 
 [params]
 

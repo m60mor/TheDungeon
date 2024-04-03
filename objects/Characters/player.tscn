@@ -9,7 +9,7 @@ size = Vector2(13, 30)
 
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
 position = Vector2(161, 76)
-collision_layer = 0
+collision_layer = 3
 script = ExtResource("1_22vqr")
 bullet_resource = ExtResource("2_rp7i4")
 
@@ -18,7 +18,7 @@ texture = ExtResource("3_8t2gf")
 
 [node name="Timer" type="Timer" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="Hitbox" type="CollisionShape2D" parent="."]
 position = Vector2(-0.5, 0)
 shape = SubResource("RectangleShape2D_obnny")
 

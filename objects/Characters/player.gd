@@ -4,10 +4,11 @@ extends CharacterBody2D
 @onready var timer = $Timer
 
 @export var fire_rate: float = 0.5
-@export var player_speed : float = 200
+@export var player_speed : float = 400
 @export var bullet_resource : BulletBaseResource = null
 
 var can_fire : bool = true	
+var hp : float = 100
 
 func _physics_process(_delta):
 	var input_direction = Vector2(
@@ -31,3 +32,12 @@ func _process(_delta):
 func _on_timer_timeout():
 	can_fire = true
 	timer.stop()
+	
+func do_damage(dmg):
+	hp = hp - dmg
+	print(hp)
+	if (hp <= 0):
+		queue_free()
+	
+func player():
+	pass

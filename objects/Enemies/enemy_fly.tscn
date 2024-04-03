@@ -1,0 +1,63 @@
+[gd_scene load_steps=8 format=3 uid="uid://8tftgrd2a13f"]
+
+[ext_resource type="Script" path="res://objects/Enemies/enemy_fly.gd" id="1_7jax0"]
+[ext_resource type="Texture2D" uid="uid://cvuxaw5v65ec7" path="res://assets/Enemies/Fly/Fly1.png" id="1_p1xnb"]
+[ext_resource type="Texture2D" uid="uid://ckfgp4e8f7uxd" path="res://assets/Enemies/Fly/Fly2.png" id="2_w245y"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_62w21"]
+radius = 6.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_jkmp4"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_p1xnb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_w245y")
+}],
+"loop": true,
+"name": &"default",
+"speed": 15.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_xvblt"]
+radius = 6.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8bq7u"]
+radius = 311.708
+
+[node name="EnemyFly" type="CharacterBody2D"]
+script = ExtResource("1_7jax0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("CircleShape2D_62w21")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_jkmp4")
+autoplay = "default"
+frame_progress = 0.250069
+
+[node name="BulletDetection" type="Area2D" parent="."]
+visible = false
+collision_layer = 4
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BulletDetection"]
+shape = SubResource("CircleShape2D_xvblt")
+
+[node name="PlayerDetection" type="Area2D" parent="."]
+visible = false
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetection"]
+shape = SubResource("CircleShape2D_8bq7u")
+
+[node name="AnimationTimer" type="Timer" parent="."]
+
+[connection signal="body_entered" from="BulletDetection" to="." method="_on_bullet_detection_body_entered"]
+[connection signal="body_entered" from="PlayerDetection" to="." method="_on_player_detection_body_entered"]
+[connection signal="body_exited" from="PlayerDetection" to="." method="_on_player_detection_body_exited"]
+[connection signal="timeout" from="AnimationTimer" to="." method="_on_animation_timer_timeout"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://w51x7n2m5flk"]
+[gd_scene load_steps=13 format=3 uid="uid://w51x7n2m5flk"]
 
 [ext_resource type="PackedScene" uid="uid://bps2csw6lp0t4" path="res://objects/Characters/player.tscn" id="1_lkcid"]
 [ext_resource type="Script" path="res://scenes/game/level_1.gd" id="1_ypse6"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://drov8tc0uu1a2" path="res://assets/Map/stone_tiles.png" id="4_irx4f"]
 [ext_resource type="PackedScene" uid="uid://c26o6f37fsbg8" path="res://scenes/managers/bullet_manager.tscn" id="5_qogh2"]
 [ext_resource type="PackedScene" uid="uid://caejvhdseukju" path="res://objects/Enemies/enemy_mosquito.tscn" id="6_hf4d6"]
+[ext_resource type="PackedScene" uid="uid://8tftgrd2a13f" path="res://objects/Enemies/enemy_fly.tscn" id="8_txxi5"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_e7dff"]
 texture = ExtResource("2_753yh")
@@ -128,6 +129,7 @@ sources/2 = SubResource("TileSetAtlasSource_18q8g")
 
 [node name="Level1" type="Node2D" groups=["Level_container"]]
 process_mode = 1
+scale = Vector2(4, 4)
 script = ExtResource("1_ypse6")
 
 [node name="Player" parent="." instance=ExtResource("1_lkcid")]
@@ -143,7 +145,6 @@ rendering_quadrant_size = 32
 format = 2
 layer_0/name = "BaseGround"
 layer_0/z_index = -5
-layer_0/tile_data = PackedInt32Array(-655362, 4, 0, -655363, 4, 0, -720899, 4, 0, -720898, 4, 0, -720897, 4, 0, -655361, 4, 0, -720896, 4, 0, -786432, 4, 0, -786431, 4, 0, -720895, 4, 0)
 layer_1/name = "BottomGround"
 layer_1/z_index = -6
 layer_1/tile_data = PackedInt32Array()
@@ -152,16 +153,19 @@ layer_1/tile_data = PackedInt32Array()
 position = Vector2(208, 144)
 zoom = Vector2(0.5, 0.5)
 
-[node name="Bullet_Container" type="Node2D" parent="." groups=["Bullet_container"]]
+[node name="BulletContainer" type="Node2D" parent="." groups=["Bullet_container"]]
 
-[node name="Manager_Container" type="Node2D" parent="."]
+[node name="ManagerContainer" type="Node2D" parent="."]
 
-[node name="Bullet_Manager" parent="Manager_Container" instance=ExtResource("5_qogh2")]
+[node name="Bullet_Manager" parent="ManagerContainer" instance=ExtResource("5_qogh2")]
 
-[node name="Enemy_Container" type="Node2D" parent="."]
+[node name="EnemyContainer" type="Node2D" parent="."]
 
-[node name="EnemyMosquito" parent="Enemy_Container" instance=ExtResource("6_hf4d6")]
-position = Vector2(39, 6)
+[node name="EnemyMosquito" parent="EnemyContainer" instance=ExtResource("6_hf4d6")]
+position = Vector2(26, 164)
 
-[node name="EnemyMosquito2" parent="Enemy_Container" instance=ExtResource("6_hf4d6")]
-position = Vector2(47, 89)
+[node name="EnemyMosquito2" parent="EnemyContainer" instance=ExtResource("6_hf4d6")]
+position = Vector2(-293.5, 284.5)
+
+[node name="EnemyFly" parent="EnemyContainer" instance=ExtResource("8_txxi5")]
+position = Vector2(526.667, -21)
