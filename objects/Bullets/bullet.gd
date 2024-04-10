@@ -20,3 +20,5 @@ func _on_screen_exited():
 
 func _on_timer_timeout():
 	queue_free()
+	
+

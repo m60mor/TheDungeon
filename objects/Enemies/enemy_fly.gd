@@ -52,7 +52,7 @@ func _on_player_detection_body_exited(body):
 	player_chase = false
 
 func _on_bullet_detection_body_entered(body):
-	player_chase = true
+	#player_chase = true
 	hp = hp - 50
 	if (hp <= 0):
 		queue_free()

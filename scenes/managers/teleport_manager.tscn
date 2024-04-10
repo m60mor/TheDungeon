@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://d0vo3kfr86h5g"]
+
+[ext_resource type="Script" path="res://scenes/managers/teleport_manager.gd" id="1_yka5j"]
+
+[node name="TeleportManager" type="Node2D"]
+script = ExtResource("1_yka5j")

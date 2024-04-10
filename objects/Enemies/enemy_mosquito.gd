@@ -64,11 +64,11 @@ func _on_player_detection_body_exited(body):
 	player_chase = false
 
 func _on_bullet_detection_body_entered(body):
+	print("A")
 	player_chase = true
 	hp = hp - 20
 	if (hp <= 0):
 		queue_free()
-	body.queue_free()
 
 
 func _on_attack_detection_body_entered(body):

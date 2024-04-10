@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://cdcn7p8f1msx1"]
+
+[ext_resource type="Script" path="res://objects/MapObjects/room_teleport.gd" id="1_ggahm"]
+[ext_resource type="Texture2D" uid="uid://dyaik1ahxt26o" path="res://assets/Map/StoneDoor.png" id="2_rpqbo"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ik1i0"]
+size = Vector2(10, 32)
+
+[node name="RoomTeleport" type="Area2D"]
+script = ExtResource("1_ggahm")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(11, 0)
+shape = SubResource("RectangleShape2D_ik1i0")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(12.5, 0)
+texture = ExtResource("2_rpqbo")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]
