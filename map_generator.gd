@@ -11,13 +11,19 @@ var borders = Rect2()
 var room_positions = []
 var room_sizes = []
 var base_room_size = [9, 9, 13, 13, 13, 15, 15, 15, 17]
-var room_size : float = 7
-var prev_room_size : float = 7
+var room_size : Vector2 = Vector2(7, 7)
+var prev_room_size : Vector2 = Vector2(7, 7)
 
 var room_manager : RoomManager = null;
 var teleport_manager : TeleportManager = null;
 
-func _init(starting_position, new_borders, new_tile_map):
+func is_not_room_at_position(position):
+	for i in range(room_positions.size()):
+		if position == room_positions[i]:
+			return false
+	return true
+
+func _init(starting_position, new_borders, new_tile_map, steps):
 	assert(new_borders.has_point(starting_position))
 	room_positions.append(position)
 	room_sizes.append(room_size)
@@ -26,6 +32,7 @@ func _init(starting_position, new_borders, new_tile_map):
 	room_manager = RoomManager.new()
 	teleport_manager = TeleportManager.new()
 	create_room(position)
+	walk(steps)
 
 func walk(steps):
 	var step = 1
@@ -43,9 +50,11 @@ func walk(steps):
 	return room_positions
 	
 func step():
-	room_size = base_room_size[randi() % 9]
-	var target_position = position + (direction * (ceil(room_size / 2) + ceil(prev_room_size / 2) + 10))
-	if borders.has_point(target_position) and tile_map.get_cell_source_id(0, target_position) == -1 and tile_map.get_cell_source_id(0, target_position + Vector2(room_size / 2, room_size / 2).ceil()) == -1 and tile_map.get_cell_source_id(0, target_position + Vector2(-room_size / 2, -room_size / 2).floor()) == -1 and tile_map.get_cell_source_id(0, target_position + Vector2(ceil(room_size / 2), floor(-room_size / 2))) == -1 and tile_map.get_cell_source_id(0, target_position + Vector2(floor(-room_size / 2), ceil(room_size / 2))) == -1:
+	var new_room_size = base_room_size[randi() % 9]
+	room_size = Vector2(new_room_size, new_room_size - 2)
+	var target_position = position + (direction * Vector2(30, 30))
+	#var target_position = position + (direction * (ceil(room_size / 2) + ceil(prev_room_size / 2) + Vector2(10, 10)))
+	if borders.has_point(target_position) and is_not_room_at_position(target_position):
 		create_door(position, target_position, prev_room_size, room_size)
 		position = target_position
 		return true
@@ -62,7 +71,7 @@ func change_direction():
 		
 func create_room(position):
 	prev_room_size = room_size
-	var size = Vector2(room_size, room_size)
+	var size = room_size
 	var top_left = (position - size/2).ceil()
 	room_manager.spawn_room(position * 32, size)
 	
@@ -88,8 +97,7 @@ func create_hole(top_left, size):
 	tile_map.set_cells_terrain_connect(0, cells, 2, 0)
 	
 func create_door(position, target_position, prev_room_size, room_size):
-	print((position + direction * round(prev_room_size / 2)), "  ", ((target_position + (-direction * round(room_size / 2)))), " ", prev_room_size, " ", room_size)
-	var prev_teleport_position = (position + direction * floori(prev_room_size / 2)) * 32
-	var next_teleport_position = ((target_position - direction * floori(room_size / 2)) * 32)
+	var prev_teleport_position = (position + direction * (prev_room_size / 2).floor()) * 32
+	var next_teleport_position = ((target_position - direction * (room_size / 2).floor()) * 32)
 	teleport_manager.spawn_teleport(prev_teleport_position, next_teleport_position, direction)
 	teleport_manager.spawn_teleport(next_teleport_position, prev_teleport_position, -direction)
