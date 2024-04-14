@@ -6,4 +6,4 @@
 [resource]
 script = ExtResource("2_ej4cp")
 bullet_sprite = ExtResource("1_1oppr")
-bullet_speed = 1500.0
+bullet_speed = 200.0

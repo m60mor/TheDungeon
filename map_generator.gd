@@ -17,9 +17,9 @@ var prev_room_size : Vector2 = Vector2(7, 7)
 var room_manager : RoomManager = null;
 var teleport_manager : TeleportManager = null;
 
-func is_not_room_at_position(position):
+func is_not_room_at_position(pos):
 	for i in range(room_positions.size()):
-		if position == room_positions[i]:
+		if pos == room_positions[i]:
 			return false
 	return true
 
@@ -35,8 +35,8 @@ func _init(starting_position, new_borders, new_tile_map, steps):
 	walk(steps)
 
 func walk(steps):
-	var step = 1
-	while step < steps:
+	var step_count = 1
+	while step_count < steps:
 		change_direction()
 			
 		if step():
@@ -46,7 +46,7 @@ func walk(steps):
 		else:
 			change_direction()
 			#step -= 1
-		step += 1
+		step_count += 1
 	return room_positions
 	
 func step():
@@ -69,32 +69,11 @@ func change_direction():
 	while not borders.has_point(position + direction):
 		direction = directions.pop_front()
 		
-func create_room(position):
+func create_room(pos):
 	prev_room_size = room_size
 	var size = room_size
-	var top_left = (position - size/2).ceil()
-	room_manager.spawn_room(position * 32, size)
-	
-	var cells = []
-	for y in size.y:
-		for x in size.x:
-			var room_cell_position = top_left + Vector2(x, y)
-			if borders.has_point(room_cell_position):
-				cells.append(room_cell_position)
-	tile_map.set_cells_terrain_connect(0, cells, 1, 0)
-	if (randi() % 10 < 3):
-		create_hole(top_left, size)
-
-func create_hole(top_left, size):
-	var cells = []
-	var hole_width = 3 + randi() % (floori(size.x/2) - 1)
-	var hole_height = 3 + randi() % (floori(size.y/2) - 1)
-	top_left += Vector2(1 + randi() % int(size.x - hole_width - 1), 1 + randi() % int(size.y - hole_height - 1))
-	for y in range(0, hole_height):
-		for x in range(0, hole_width):
-			var hole_cell_position = top_left + Vector2(x, y)
-			cells.append(hole_cell_position)
-	tile_map.set_cells_terrain_connect(0, cells, 2, 0)
+	var top_left = (pos - size/2).ceil()
+	room_manager.spawn_room(pos * 32, size)
 	
 func create_door(position, target_position, prev_room_size, room_size):
 	var prev_teleport_position = (position + direction * (prev_room_size / 2).floor()) * 32

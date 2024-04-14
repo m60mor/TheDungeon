@@ -1,4 +1,5 @@
 extends CharacterBody2D
+class_name EnemyFly
 
 @onready var animated_sprite = $AnimatedSprite2D
 @onready var animation_timer = $AnimationTimer
@@ -46,10 +47,11 @@ func _on_player_detection_body_entered(body):
 	animated_sprite.speed_scale = 1.3
 	
 func _on_player_detection_body_exited(body):
-	animation_timer.stop()
-	animation_timer.start(1)
-	animated_sprite.speed_scale = 1.0
-	player_chase = false
+	if (body.has_method("player")):
+		animation_timer.stop()
+		animation_timer.start(1)
+		animated_sprite.speed_scale = 1.0
+		player_chase = false
 
 func _on_bullet_detection_body_entered(body):
 	#player_chase = true

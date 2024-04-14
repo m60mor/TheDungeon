@@ -13,6 +13,8 @@ func _physics_process(delta):
 	bullet_move(delta)
 	
 func bullet_move(delta : float):
+	if (move_and_collide(speed * direction * delta)):
+		queue_free()
 	move_and_collide(speed * direction * delta)
 
 func _on_screen_exited():
@@ -21,4 +23,5 @@ func _on_screen_exited():
 func _on_timer_timeout():
 	queue_free()
 	
-
+func bullet():
+	pass

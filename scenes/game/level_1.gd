@@ -3,7 +3,6 @@ extends Node2D
 var borders = Rect2(-500, -500, 1000, 1000)
 
 @onready var tile_map = $TileMap
-@onready var room_detector : Area2D = $RoomDetector
 
 func _ready():
 	generate_level()

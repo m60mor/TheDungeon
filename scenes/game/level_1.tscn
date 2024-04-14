@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://w51x7n2m5flk"]
+[gd_scene load_steps=12 format=3 uid="uid://w51x7n2m5flk"]
 
 [ext_resource type="PackedScene" uid="uid://bps2csw6lp0t4" path="res://objects/Characters/player.tscn" id="1_lkcid"]
 [ext_resource type="Script" path="res://scenes/game/level_1.gd" id="1_ypse6"]
@@ -7,8 +7,6 @@
 [ext_resource type="Texture2D" uid="uid://dp8ybd466udmp" path="res://assets/Map/stone_tiles.png" id="4_irx4f"]
 [ext_resource type="PackedScene" uid="uid://c26o6f37fsbg8" path="res://scenes/managers/bullet_manager.tscn" id="5_qogh2"]
 [ext_resource type="Script" path="res://scenes/game/Camera2D.gd" id="6_27bba"]
-[ext_resource type="PackedScene" uid="uid://caejvhdseukju" path="res://objects/Enemies/enemy_mosquito.tscn" id="6_hf4d6"]
-[ext_resource type="PackedScene" uid="uid://8tftgrd2a13f" path="res://objects/Enemies/enemy_fly.tscn" id="8_txxi5"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_e7dff"]
 texture = ExtResource("2_753yh")
@@ -333,6 +331,7 @@ position = Vector2(16, 15)
 remote_path = NodePath("../../Camera2D")
 
 [node name="TileMap" type="TileMap" parent="."]
+visible = false
 tile_set = SubResource("TileSet_tf66a")
 rendering_quadrant_size = 32
 format = 2
@@ -354,17 +353,6 @@ script = ExtResource("6_27bba")
 [node name="ManagerContainer" type="Node2D" parent="."]
 
 [node name="Bullet_Manager" parent="ManagerContainer" instance=ExtResource("5_qogh2")]
-
-[node name="EnemyContainer" type="Node2D" parent="."]
-
-[node name="EnemyMosquito" parent="EnemyContainer" instance=ExtResource("6_hf4d6")]
-position = Vector2(-113, 510)
-
-[node name="EnemyMosquito2" parent="EnemyContainer" instance=ExtResource("6_hf4d6")]
-position = Vector2(-293.5, 284.5)
-
-[node name="EnemyFly" parent="EnemyContainer" instance=ExtResource("8_txxi5")]
-position = Vector2(526.667, -21)
 
 [node name="TeleportContainer" type="Node2D" parent="." groups=["Teleport_container"]]
 

@@ -58,17 +58,19 @@ func _on_player_detection_body_entered(body):
 	animated_sprite.speed_scale = 2.0
 	
 func _on_player_detection_body_exited(body):
-	animation_timer.stop()
-	animation_timer.start(1)
-	animated_sprite.speed_scale = 1.0
-	player_chase = false
+	if (body.has_method("player")):
+		animation_timer.stop()
+		animation_timer.start(1)
+		animated_sprite.speed_scale = 1.0
+		player_chase = false
 
 func _on_bullet_detection_body_entered(body):
 	print("A")
-	player_chase = true
-	hp = hp - 20
-	if (hp <= 0):
-		queue_free()
+	if (body.has_method("bullet")):
+		player_chase = true
+		hp = hp - 20
+		if (hp <= 0):
+			queue_free()
 
 
 func _on_attack_detection_body_entered(body):
