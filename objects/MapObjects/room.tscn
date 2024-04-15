@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://dp8ybd466udmp" path="res://assets/Map/stone_tiles.png" id="3_5flut"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ai2ky"]
+size = Vector2(32, 32)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_l2oco"]
 texture = ExtResource("2_d0ipq")
@@ -596,13 +597,14 @@ sources/1 = SubResource("TileSetAtlasSource_ai4x7")
 script = ExtResource("1_totxq")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(16, 16)
 shape = SubResource("RectangleShape2D_ai2ky")
 
 [node name="EnemyContainer" type="Node2D" parent="."]
+position = Vector2(4, 4)
 
 [node name="TileMap" type="TileMap" parent="."]
 z_index = -1
-position = Vector2(-16, -16)
 tile_set = SubResource("TileSet_tgv1f")
 rendering_quadrant_size = 32
 format = 2
