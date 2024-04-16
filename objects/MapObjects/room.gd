@@ -54,11 +54,10 @@ func spawn_enemies():
 	
 	var spawn_positions = []
 	for i in range(enemy_num):
-		var spawn_pos_x = (randi() % int(size.x)) - floor(size.x/2)
-		var spawn_pos_y = (randi() % int(size.y)) - floor(size.y/2)
+		var spawn_pos_x = (randi() % int(size.x - 2)) - floor((size.x - 2)/2)
+		var spawn_pos_y = (randi() % int(size.y - 2)) - floor((size.y - 2)/2)
 		if (!spawn_positions.has(Vector2(spawn_pos_x, spawn_pos_y))):
 			var select_enemy_from_list = randi() % enemy_list.size()
-			print(select_enemy_from_list)
 			var new_enemy = enemy_list[select_enemy_from_list].instantiate()
 			new_enemy.position = Vector2(spawn_pos_x, spawn_pos_y) * 32 + Vector2(16, 16)
 			enemy_container.add_child(new_enemy)
@@ -83,5 +82,5 @@ func _on_body_entered(body):
 
 
 func _on_body_exited(body):
-	print(body)
+	#print(body)
 	pass # Replace with function body.

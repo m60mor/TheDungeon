@@ -10,7 +10,7 @@ var direction = Vector2.RIGHT
 var borders = Rect2()
 var room_positions = []
 var room_sizes = []
-var base_room_size = [9, 9, 13, 13, 13, 15, 15, 15, 17]
+var base_room_size = [11, 11, 13, 13, 13, 15, 15, 15, 17]
 var room_size : Vector2 = Vector2(7, 7)
 var prev_room_size : Vector2 = Vector2(7, 7)
 
@@ -76,7 +76,7 @@ func create_room(pos):
 	room_manager.spawn_room(pos * 32, size)
 	
 func create_door(position, target_position, prev_room_size, room_size):
-	var prev_teleport_position = (position + direction * (prev_room_size / 2).floor()) * 32
-	var next_teleport_position = ((target_position - direction * (room_size / 2).floor()) * 32)
+	var prev_teleport_position = (position + direction * Vector2(int(prev_room_size.x / 2), int(prev_room_size.y / 2))) * 32 + Vector2(16, 16)
+	var next_teleport_position = ((target_position - direction * Vector2(int(room_size.x / 2), int(room_size.y / 2))) * 32) + Vector2(16, 16)
 	teleport_manager.spawn_teleport(prev_teleport_position, next_teleport_position, direction)
 	teleport_manager.spawn_teleport(next_teleport_position, prev_teleport_position, -direction)

@@ -35,7 +35,7 @@ func _physics_process(_delta):
 				
 func pick_fly_direction():
 	if (player_chase == true):
-		print(player.position, " ", self.position)
+		#print(player.position, " ", self.position)
 		move_direction = Vector2(player.position - self.position).normalized()
 		move_speed_mosquito = 2 * move_speed_mosquito
 	else:
@@ -75,7 +75,7 @@ func _on_bullet_detection_body_entered(body):
 
 func _on_attack_detection_body_entered(body):
 	if (body.has_method("player")):
-		player.do_damage(damage)
+		#player.do_damage(damage)
 		attack_timer.start(1)
 
 func _on_attack_detection_body_exited(body):

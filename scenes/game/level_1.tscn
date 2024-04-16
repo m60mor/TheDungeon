@@ -4,7 +4,6 @@
 [ext_resource type="Script" path="res://scenes/game/level_1.gd" id="1_ypse6"]
 [ext_resource type="Texture2D" uid="uid://dxbfn8is6tbpx" path="res://assets/Map/swamp.png" id="2_753yh"]
 [ext_resource type="Texture2D" uid="uid://ccls6yhw0eba6" path="res://assets/Map/grassTiles.png" id="2_uyrei"]
-[ext_resource type="Texture2D" uid="uid://dp8ybd466udmp" path="res://assets/Map/stone_tiles.png" id="4_irx4f"]
 [ext_resource type="PackedScene" uid="uid://c26o6f37fsbg8" path="res://scenes/managers/bullet_manager.tscn" id="5_qogh2"]
 [ext_resource type="Script" path="res://scenes/game/Camera2D.gd" id="6_27bba"]
 
@@ -84,8 +83,11 @@ texture_region_size = Vector2i(32, 32)
 3:1/0/terrains_peering_bit/bottom_right_corner = 0
 3:1/0/terrains_peering_bit/top_right_corner = 0
 
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_pqno4"]
+load_path = "res://.godot/imported/stone_tiles.png-37b34cb5e101b86620e79fbb5cea9751.ctex"
+
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_balab"]
-texture = ExtResource("4_irx4f")
+texture = SubResource("CompressedTexture2D_pqno4")
 texture_region_size = Vector2i(32, 32)
 1:0/0 = 0
 1:0/0/terrain_set = 1
@@ -346,6 +348,7 @@ metadata/_edit_group_ = true
 position = Vector2(16, 15)
 zoom = Vector2(1.7, 1.7)
 position_smoothing_enabled = true
+position_smoothing_speed = 20.0
 script = ExtResource("6_27bba")
 
 [node name="BulletContainer" type="Node2D" parent="." groups=["Bullet_container"]]
