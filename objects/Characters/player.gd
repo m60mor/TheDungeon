@@ -21,7 +21,7 @@ func _physics_process(_delta):
 		print((position/32).floor().snapped(Vector2(1, 1)))
 		can_fire = false
 		timer.start(fire_rate)
-		SignalBus.emit_shoot(bullet_resource, position, (get_global_mouse_position() - global_position).normalized())
+		SignalBus.emit_shoot(bullet_resource, position, (get_global_mouse_position() - global_position).normalized(), 3)
 			
 	velocity = input_direction * player_speed
 	move_and_slide()

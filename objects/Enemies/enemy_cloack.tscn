@@ -1,0 +1,54 @@
+[gd_scene load_steps=9 format=3 uid="uid://1dn4etfx85d2"]
+
+[ext_resource type="Script" path="res://objects/Enemies/enemy_cloack.gd" id="1_ht40x"]
+[ext_resource type="PackedScene" uid="uid://c46pylbu81y6u" path="res://objects/Enemies/enemy.tscn" id="1_utmqs"]
+[ext_resource type="Texture2D" uid="uid://cnacybaf2lx22" path="res://assets/Enemies/Cloack/Cloak.png" id="2_rvwsu"]
+[ext_resource type="Resource" uid="uid://c2ch6sq3eid07" path="res://resources/bullet/bulled_red_res.tres" id="3_n7lw1"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fklb3"]
+resource_local_to_scene = true
+size = Vector2(18, 23)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_xaf42"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_rvwsu")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2dtlu"]
+size = Vector2(18, 23)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_c3na5"]
+radius = 259.031
+
+[node name="EnemyCloack" instance=ExtResource("1_utmqs")]
+script = ExtResource("1_ht40x")
+bullet_resource = ExtResource("3_n7lw1")
+move_speed = 40.0
+damage = 20.0
+hp = 150.0
+
+[node name="CollisionShape2D" parent="." index="0"]
+position = Vector2(-2, 2.5)
+shape = SubResource("RectangleShape2D_fklb3")
+
+[node name="AnimatedSprite2D" parent="." index="1"]
+sprite_frames = SubResource("SpriteFrames_xaf42")
+
+[node name="CollisionShape2D" parent="BulletDetection" index="0"]
+position = Vector2(-2, 2.5)
+shape = SubResource("RectangleShape2D_2dtlu")
+
+[node name="CollisionShape2D" parent="PlayerDetection" index="0"]
+position = Vector2(-2, 3)
+shape = SubResource("CircleShape2D_c3na5")
+
+[node name="AttackTimer" type="Timer" parent="." index="5"]
+one_shot = true
+
+[connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timer_timeout"]

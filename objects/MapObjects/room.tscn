@@ -278,8 +278,8 @@ texture_region_size = Vector2i(32, 32)
 
 [sub_resource type="TileSet" id="TileSet_tgv1f"]
 tile_size = Vector2i(32, 32)
-physics_layer_0/collision_layer = 5
-physics_layer_0/collision_mask = 5
+physics_layer_0/collision_layer = 13
+physics_layer_0/collision_mask = 13
 terrain_set_0/mode = 0
 terrain_set_0/terrain_0/name = "TerrainGrass"
 terrain_set_0/terrain_0/color = Color(0.117647, 0.439216, 0.25098, 1)
@@ -293,6 +293,8 @@ sources/0 = SubResource("TileSetAtlasSource_l2oco")
 sources/1 = SubResource("TileSetAtlasSource_pgiii")
 
 [node name="Area2D" type="Area2D"]
+collision_layer = 13
+collision_mask = 13
 script = ExtResource("1_totxq")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

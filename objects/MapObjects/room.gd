@@ -3,7 +3,8 @@ class_name Room
 
 var mosquito_scene : PackedScene = preload("res://objects/Enemies/enemy_mosquito.tscn")
 var fly_scene : PackedScene = preload("res://objects/Enemies/enemy_fly.tscn")
-var enemy_list = [mosquito_scene, fly_scene]
+var cloack_scene : PackedScene = preload("res://objects/Enemies/enemy_cloack.tscn")
+var enemy_list = [mosquito_scene, fly_scene, cloack_scene]
 
 @onready var collision_shape = $CollisionShape2D
 @onready var enemy_container = $EnemyContainer
@@ -11,6 +12,7 @@ var enemy_list = [mosquito_scene, fly_scene]
 
 var borders = Rect2(-500, -500, 1000, 1000)
 var size : Vector2 = Vector2(7, 7);
+var explored : bool = false
 	
 func create_room(pos, size):
 	position = pos
@@ -64,21 +66,13 @@ func spawn_enemies():
 			spawn_positions.append(Vector2(spawn_pos_x, spawn_pos_y))
 		else:
 			i -= 1
-		
-	#for i in range(spawn_pos.x, ceil(size.x / 2), 1):
-		#for j in range(spawn_pos.y, ceil(size.y / 2), 1):
-			#if (randi() % int(size.x * size.y)) < 1:
-				#var new_fly = fly_scene.instantiate() as EnemyFly
-				#new_fly.position = Vector2(i, j) * 32 + Vector2(16, 16)
-				#enemy_container.add_child(new_fly)
-	
-	#new_fly.position = -(size/2).floor() * 32 + Vector2(16, 16)
-	#enemy_container.add_child(new_fly)
 	
 func _on_body_entered(body):
-	if (body.has_method("player")):
-		SignalBus.emit_change_room_camera(position)
-		spawn_enemies()
+	if (!explored):
+		if (body.has_method("player")):
+			SignalBus.emit_change_room_camera(position)
+			spawn_enemies()
+			explored = true
 
 
 func _on_body_exited(body):

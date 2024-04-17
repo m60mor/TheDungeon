@@ -8,7 +8,7 @@ enum STATE_MOSQUITO { IDLE, CHASE}
 @onready var attack_timer = $AttackTimer
 
 
-@export var move_speed_mosquito : float = 100
+@export var move_speed_mosquito : float = 50
 
 var player_chase = false
 var player : CharacterBody2D = null
@@ -35,8 +35,11 @@ func _physics_process(_delta):
 				
 func pick_fly_direction():
 	if (player_chase == true):
-		#print(player.position, " ", self.position)
-		move_direction = Vector2(player.position - self.position).normalized()
+		var direction = player.global_position - global_position 
+		move_direction = Vector2(player.global_position - global_position).normalized()
+		if (abs(direction.x) + abs(direction.y) < 40):
+			move_direction.x = 0
+			move_direction.y = 0
 		move_speed_mosquito = 2 * move_speed_mosquito
 	else:
 		move_direction = Vector2(randf_range(-1, 1), randf_range(-1, 1))
@@ -48,7 +51,7 @@ func pick_fly_direction():
 
 
 func _on_animation_timer_timeout():
-	move_speed_mosquito = 100
+	move_speed_mosquito = 50
 	pick_fly_direction()
 
 func _on_player_detection_body_entered(body):
@@ -68,9 +71,10 @@ func _on_player_detection_body_exited(body):
 func _on_bullet_detection_body_entered(body):
 	if (body.has_method("bullet")):
 		player_chase = true
-		hp = hp - 20
+		hp = hp - body.damage
 		if (hp <= 0):
 			queue_free()
+		body.queue_free()
 
 
 func _on_attack_detection_body_entered(body):

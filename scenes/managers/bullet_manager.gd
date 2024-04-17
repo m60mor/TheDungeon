@@ -6,7 +6,7 @@ extends Node2D
 func _ready():
 	SignalBus.connect("shoot", build_bullet)
 
-func build_bullet(resource : BulletBaseResource, location : Vector2, direction : Vector2) -> void:
+func build_bullet(resource : BulletBaseResource, location : Vector2, direction : Vector2, collision : int) -> void:
 	var new_bullet = base_bullet_scene.instantiate() as Bullet
 	new_bullet.sprite = resource.bullet_sprite
 	
@@ -14,6 +14,8 @@ func build_bullet(resource : BulletBaseResource, location : Vector2, direction :
 	new_bullet.direction = (direction - global_position).normalized()
 	new_bullet.rotation = new_bullet.direction.angle()
 	new_bullet.speed = resource.bullet_speed
+	new_bullet.set_collision_layer_value(collision, true)
+	new_bullet.set_collision_mask_value(collision, true)
 	spawn_bullet(new_bullet)
 	
 func spawn_bullet(bullet : Bullet):

@@ -1,8 +1,8 @@
 extends Node
 
-signal shoot(resource : BulletBaseResource, location : Vector2, direction : Vector2)
-func emit_shoot(resource : BulletBaseResource, location : Vector2, direction : Vector2):
-	shoot.emit(resource, location, direction)
+signal shoot(resource : BulletBaseResource, location : Vector2, direction : Vector2, collision : int)
+func emit_shoot(resource : BulletBaseResource, location : Vector2, direction : Vector2, collision : int):
+	shoot.emit(resource, location, direction, collision)
 
 
 signal options_close()

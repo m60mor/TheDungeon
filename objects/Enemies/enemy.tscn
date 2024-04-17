@@ -1,0 +1,33 @@
+[gd_scene load_steps=3 format=3 uid="uid://c46pylbu81y6u"]
+
+[ext_resource type="Script" path="res://objects/Enemies/enemy.gd" id="1_xgneh"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_f8fe6"]
+resource_local_to_scene = true
+
+[node name="Enemy" type="CharacterBody2D"]
+script = ExtResource("1_xgneh")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_f8fe6")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+
+[node name="BulletDetection" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BulletDetection"]
+
+[node name="PlayerDetection" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetection"]
+
+[node name="AnimationTimer" type="Timer" parent="."]
+
+[connection signal="body_entered" from="BulletDetection" to="." method="_on_bullet_detection_body_entered"]
+[connection signal="body_entered" from="PlayerDetection" to="." method="_on_player_detection_body_entered"]
+[connection signal="body_exited" from="PlayerDetection" to="." method="_on_player_detection_body_exited"]
+[connection signal="timeout" from="AnimationTimer" to="." method="_on_animation_timer_timeout"]

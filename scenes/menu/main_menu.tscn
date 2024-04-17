@@ -1,7 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://b8ex0q41aches"]
+[gd_scene load_steps=9 format=3 uid="uid://b8ex0q41aches"]
 
 [ext_resource type="Script" path="res://scenes/menu/main_menu.gd" id="1_b25lk"]
-[ext_resource type="Texture2D" uid="uid://drov8tc0uu1a2" path="res://assets/Map/stone_tiles.png" id="1_fbcoa"]
+[ext_resource type="Texture2D" uid="uid://cchgu2u1h514" path="res://assets/Menu/main_menu.png" id="2_s760h"]
 [ext_resource type="PackedScene" uid="uid://c6qhtlb55fbxp" path="res://scenes/menu/options_menu.tscn" id="3_1yl7d"]
 
 [sub_resource type="SystemFont" id="SystemFont_nbojv"]
@@ -11,6 +11,9 @@ font_stretch = 125
 
 [sub_resource type="SystemFont" id="SystemFont_qaoby"]
 font_names = PackedStringArray("Calisto MT")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7kx0o"]
+bg_color = Color(0.854902, 0.721569, 0.533333, 1)
 
 [sub_resource type="SystemFont" id="SystemFont_m6ng5"]
 font_names = PackedStringArray("Calisto MT")
@@ -34,7 +37,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("1_fbcoa")
+texture = ExtResource("2_s760h")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -82,15 +85,17 @@ custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 
 [node name="NewGame" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer"]
-custom_minimum_size = Vector2(200, 50)
+custom_minimum_size = Vector2(250, 60)
 layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = SubResource("SystemFont_qaoby")
 theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxFlat_7kx0o")
 text = "New Game
 "
 
 [node name="Options" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer"]
-custom_minimum_size = Vector2(200, 50)
+custom_minimum_size = Vector2(200, 60)
 layout_mode = 2
 theme_override_fonts/font = SubResource("SystemFont_m6ng5")
 theme_override_font_sizes/font_size = 30
@@ -101,7 +106,7 @@ custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 
 [node name="Quit" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer"]
-custom_minimum_size = Vector2(200, 50)
+custom_minimum_size = Vector2(200, 60)
 layout_mode = 2
 theme_override_fonts/font = SubResource("SystemFont_ol0iw")
 theme_override_font_sizes/font_size = 30
