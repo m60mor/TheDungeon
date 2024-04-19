@@ -18,6 +18,7 @@ bullet_resource = ExtResource("2_rp7i4")
 texture = ExtResource("3_8t2gf")
 
 [node name="Timer" type="Timer" parent="."]
+one_shot = true
 
 [node name="Hitbox" type="CollisionShape2D" parent="."]
 position = Vector2(-0.5, 0)

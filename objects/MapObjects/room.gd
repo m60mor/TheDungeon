@@ -12,11 +12,13 @@ var enemy_list = [mosquito_scene, fly_scene, cloack_scene]
 
 var borders = Rect2(-500, -500, 1000, 1000)
 var size : Vector2 = Vector2(7, 7);
+var room_type : String = "normal"
 var explored : bool = false
 	
-func create_room(pos, size):
-	position = pos
+func create_room(position, size, room_type):
+	self.position = position
 	self.size = size
+	self.room_type = room_type
 	collision_shape = $CollisionShape2D
 	enemy_container = $EnemyContainer
 	tile_map = $TileMap
@@ -24,7 +26,13 @@ func create_room(pos, size):
 	var rect_shape = RectangleShape2D.new()
 	rect_shape.extents = size * 16
 	collision_shape.shape = rect_shape
-	create_tiles(pos, size)
+	
+	create_tiles(position, size)
+	if (room_type == "loot"):
+		tile_map.set_cell(0, Vector2(0, 0), 1, Vector2(4, 2))
+	else:
+		if (randi() % 10 < 3):
+			create_hole((- size/2).ceil(), size)
 	
 func create_tiles(pos, size):
 	var top_left = (- size/2).ceil()
@@ -35,8 +43,6 @@ func create_tiles(pos, size):
 			if borders.has_point(room_cell_position):
 				cells.append(room_cell_position)
 	tile_map.set_cells_terrain_connect(0, cells, 1, 0)
-	if (randi() % 10 < 3):
-		create_hole(top_left, size)
 
 func create_hole(top_left, size):
 	var cells = []
@@ -50,22 +56,23 @@ func create_hole(top_left, size):
 	tile_map.set_cells_terrain_connect(0, cells, 2, 0)
 
 func spawn_enemies():
-	var temp = int(size.x * size.y / 100) * 2
-	var more = temp * randi() % (temp + 1)
-	var enemy_num = 1 + more
-	
-	var spawn_positions = []
-	for i in range(enemy_num):
-		var spawn_pos_x = (randi() % int(size.x - 2)) - floor((size.x - 2)/2)
-		var spawn_pos_y = (randi() % int(size.y - 2)) - floor((size.y - 2)/2)
-		if (!spawn_positions.has(Vector2(spawn_pos_x, spawn_pos_y))):
-			var select_enemy_from_list = randi() % enemy_list.size()
-			var new_enemy = enemy_list[select_enemy_from_list].instantiate()
-			new_enemy.position = Vector2(spawn_pos_x, spawn_pos_y) * 32 + Vector2(16, 16)
-			enemy_container.add_child(new_enemy)
-			spawn_positions.append(Vector2(spawn_pos_x, spawn_pos_y))
-		else:
-			i -= 1
+	if (room_type == "normal"):
+		var temp = int(size.x * size.y / 100) * 2
+		var more = temp * randi() % (temp + 1)
+		var enemy_num = 1 + more
+		
+		var spawn_positions = []
+		for i in range(enemy_num):
+			var spawn_pos_x = (randi() % int(size.x - 2)) - floor((size.x - 2)/2)
+			var spawn_pos_y = (randi() % int(size.y - 2)) - floor((size.y - 2)/2)
+			if (!spawn_positions.has(Vector2(spawn_pos_x, spawn_pos_y))):
+				var select_enemy_from_list = randi() % enemy_list.size()
+				var new_enemy = enemy_list[select_enemy_from_list].instantiate()
+				new_enemy.position = Vector2(spawn_pos_x, spawn_pos_y) * 32 + Vector2(16, 16)
+				enemy_container.add_child(new_enemy)
+				spawn_positions.append(Vector2(spawn_pos_x, spawn_pos_y))
+			else:
+				i -= 1
 	
 func _on_body_entered(body):
 	if (!explored):

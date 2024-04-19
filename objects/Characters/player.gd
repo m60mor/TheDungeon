@@ -4,7 +4,7 @@ extends CharacterBody2D
 @onready var timer = $Timer
 
 @export var fire_rate: float = 0.5
-@export var player_speed : float = 400
+@export var player_speed : float = 600
 @export var bullet_resource : BulletBaseResource = null
 
 var can_fire : bool = true	
@@ -22,7 +22,7 @@ func _physics_process(_delta):
 		can_fire = false
 		timer.start(fire_rate)
 		SignalBus.emit_shoot(bullet_resource, position, (get_global_mouse_position() - global_position).normalized(), 3)
-			
+		print(player_speed)
 	velocity = input_direction * player_speed
 	move_and_slide()
 

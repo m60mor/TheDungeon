@@ -1,10 +1,8 @@
 extends Node
 class_name MapGenerator
 
-#@onready var teleport_manager_scene = preload("res://scenes/managers/teleport_manager.tscn")
 const DIRECTIONS = [Vector2.RIGHT, Vector2.UP, Vector2.LEFT, Vector2.DOWN]
 
-var tile_map : TileMap = null
 var position = Vector2.ZERO
 var direction = Vector2.RIGHT
 var borders = Rect2()
@@ -23,37 +21,60 @@ func is_not_room_at_position(pos):
 			return false
 	return true
 
-func _init(starting_position, new_borders, new_tile_map, steps):
+func _init(starting_position, new_borders, steps):
 	assert(new_borders.has_point(starting_position))
 	room_positions.append(position)
 	room_sizes.append(room_size)
 	borders = new_borders
-	tile_map = new_tile_map
 	room_manager = RoomManager.new()
 	teleport_manager = TeleportManager.new()
-	create_room(position)
+	create_room(position, "first")
 	walk(steps)
 
 func walk(steps):
 	var step_count = 1
+	var n = 0
 	while step_count < steps:
 		change_direction()
+		
+		if (step_count == steps - 1):
+			n = 23
 			
-		if step():
-			create_room(position)
+		if step(n):
+			create_room(position, "normal")
+			prev_room_size = room_size
 			room_positions.append(position)
 			room_sizes.append(room_size)
 		else:
 			change_direction()
-			#step -= 1
+			step_count -= 1
 		step_count += 1
+		
+	add_loot_rooms(floori(steps / 10))
 	return room_positions
 	
-func step():
+func add_loot_rooms(number):
+	var i = 0
+	var room_number = room_sizes.size()
+	while i < number:
+		var select = randi() % (room_number - 2) + 1
+		prev_room_size = room_sizes[select]
+		position = room_positions[select]
+		for j in range(4):
+			change_direction()
+			if step(7):
+				room_sizes.append(Vector2(7, 7))
+				room_positions.append(position)
+				create_room(position, "loot")
+				i += 1
+				break
+	
+func step(set_room_size : int = 0):
 	var new_room_size = base_room_size[randi() % 9]
-	room_size = Vector2(new_room_size, new_room_size - 2)
+	if (set_room_size != 0):
+		new_room_size = set_room_size
+	room_size = Vector2(new_room_size, new_room_size)
 	var target_position = position + (direction * Vector2(30, 30))
-	#var target_position = position + (direction * (ceil(room_size / 2) + ceil(prev_room_size / 2) + Vector2(10, 10)))
 	if borders.has_point(target_position) and is_not_room_at_position(target_position):
 		create_door(position, target_position, prev_room_size, room_size)
 		position = target_position
@@ -69,11 +90,10 @@ func change_direction():
 	while not borders.has_point(position + direction):
 		direction = directions.pop_front()
 		
-func create_room(pos):
-	prev_room_size = room_size
+func create_room(pos, room_type):
 	var size = room_size
 	var top_left = (pos - size/2).ceil()
-	room_manager.spawn_room(pos * 32, size)
+	room_manager.spawn_room(pos * 32, size, room_type)
 	
 func create_door(position, target_position, prev_room_size, room_size):
 	var prev_teleport_position = (position + direction * Vector2(int(prev_room_size.x / 2), int(prev_room_size.y / 2))) * 32 + Vector2(16, 16)
