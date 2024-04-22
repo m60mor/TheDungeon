@@ -15,10 +15,10 @@ var size : Vector2 = Vector2(7, 7);
 var room_type : String = "normal"
 var explored : bool = false
 	
-func create_room(position, size, room_type):
-	self.position = position
-	self.size = size
-	self.room_type = room_type
+func create_room(pos, siz, room_typ):
+	position = pos
+	size = siz
+	room_type = room_typ
 	collision_shape = $CollisionShape2D
 	enemy_container = $EnemyContainer
 	tile_map = $TileMap

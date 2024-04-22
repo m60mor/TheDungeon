@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="InventoryItem" load_steps=3 format=3 uid="uid://pv601aurd8o8"]
+
+[ext_resource type="Script" path="res://resources/inventory/inventory_item.gd" id="1_x71ut"]
+[ext_resource type="Texture2D" uid="uid://pnnljo28nbub" path="res://assets/Weapons/staff.png" id="2_x4xrs"]
+
+[resource]
+script = ExtResource("1_x71ut")
+name = "Basic Staff"
+texture = ExtResource("2_x4xrs")

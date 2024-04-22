@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="Inventory" load_steps=3 format=3 uid="uid://bopmek3c3jomp"]
+
+[ext_resource type="Resource" uid="uid://pv601aurd8o8" path="res://resources/inventory/weapons/basic_staff.tres" id="1_41gsy"]
+[ext_resource type="Script" path="res://resources/inventory/inventory.gd" id="2_ssdo2"]
+
+[resource]
+script = ExtResource("2_ssdo2")
+items = [ExtResource("1_41gsy"), null, null]
