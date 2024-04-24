@@ -1,0 +1,18 @@
+[gd_scene load_steps=5 format=3 uid="uid://cn6wj0tyhxgqw"]
+
+[ext_resource type="PackedScene" uid="uid://cmbtitxqsnfag" path="res://objects/MapObjects/Collectibles/collectable.tscn" id="1_vv0dv"]
+[ext_resource type="Texture2D" uid="uid://pnnljo28nbub" path="res://assets/Weapons/staff.png" id="2_88ls5"]
+[ext_resource type="Resource" uid="uid://pv601aurd8o8" path="res://resources/inventory/weapons/basic_staff.tres" id="2_k2cbc"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ndru2"]
+size = Vector2(32, 32)
+
+[node name="Collectable" instance=ExtResource("1_vv0dv")]
+item_res = ExtResource("2_k2cbc")
+
+[node name="Sprite2D" parent="." index="0"]
+position = Vector2(16, 16)
+texture = ExtResource("2_88ls5")
+
+[node name="CollisionShape2D" parent="." index="1"]
+shape = SubResource("RectangleShape2D_ndru2")

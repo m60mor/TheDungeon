@@ -13,3 +13,15 @@ func emit_options_close():
 signal change_room_camera(pos)
 func emit_change_room_camera(pos):
 	change_room_camera.emit(pos)
+	
+signal update_hotbar()
+func emit_update_hotbar():
+	update_hotbar.emit()
+	
+signal update_selected_index(index)
+func emit_update_selected_index(index):
+	update_selected_index.emit(index)
+	
+signal drop_item(item)
+func emit_drop_item(item):
+	drop_item.emit(item)

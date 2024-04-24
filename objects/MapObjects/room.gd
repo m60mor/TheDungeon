@@ -1,14 +1,19 @@
 extends Area2D
 class_name Room
 
+var basic_staff_scene : PackedScene = preload("res://objects/MapObjects/Collectibles/collectable_basic_staff.tscn")
+const collectable_blue_crystal = preload("res://objects/MapObjects/Collectibles/collectable_blue_crystal.tscn")
+var collectables_list = [basic_staff_scene, collectable_blue_crystal]
+
 var mosquito_scene : PackedScene = preload("res://objects/Enemies/enemy_mosquito.tscn")
 var fly_scene : PackedScene = preload("res://objects/Enemies/enemy_fly.tscn")
 var cloack_scene : PackedScene = preload("res://objects/Enemies/enemy_cloack.tscn")
 var enemy_list = [mosquito_scene, fly_scene, cloack_scene]
 
+@onready var tile_map = $TileMap
 @onready var collision_shape = $CollisionShape2D
 @onready var enemy_container = $EnemyContainer
-@onready var tile_map = $TileMap
+@onready var collectable_container = $CollectableContainer
 
 var borders = Rect2(-500, -500, 1000, 1000)
 var size : Vector2 = Vector2(7, 7);
@@ -19,9 +24,10 @@ func create_room(pos, siz, room_typ):
 	position = pos
 	size = siz
 	room_type = room_typ
+	tile_map = $TileMap
 	collision_shape = $CollisionShape2D
 	enemy_container = $EnemyContainer
-	tile_map = $TileMap
+	collectable_container = $CollectableContainer
 	
 	var rect_shape = RectangleShape2D.new()
 	rect_shape.extents = size * 16
@@ -30,6 +36,9 @@ func create_room(pos, siz, room_typ):
 	create_tiles(position, size)
 	if (room_type == "loot"):
 		tile_map.set_cell(0, Vector2(0, 0), 1, Vector2(4, 2))
+		var collectable = collectables_list[randi() % collectables_list.size()].instantiate()
+		collectable.position = Vector2(0, 0)
+		collectable_container.add_child(collectable)
 	else:
 		if (randi() % 10 < 3):
 			create_hole((- size/2).ceil(), size)

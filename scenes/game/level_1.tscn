@@ -31,3 +31,5 @@ script = ExtResource("6_27bba")
 [node name="TeleportContainer" type="Node2D" parent="." groups=["Teleport_container"]]
 
 [node name="RoomContainer" type="Node2D" parent="." groups=["Room_container"]]
+
+[node name="CollectableContainer" type="Node2D" parent="." groups=["Collectable_container"]]

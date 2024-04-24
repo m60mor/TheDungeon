@@ -50,7 +50,7 @@ func walk(steps):
 			step_count -= 1
 		step_count += 1
 		
-	add_loot_rooms(floori(steps / 10))
+	add_loot_rooms(floori(steps / 2))
 	return room_positions
 	
 func add_loot_rooms(number):

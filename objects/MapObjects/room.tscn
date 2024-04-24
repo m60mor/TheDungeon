@@ -238,5 +238,7 @@ tile_set = SubResource("TileSet_tgv1f")
 rendering_quadrant_size = 32
 format = 2
 
+[node name="CollectableContainer" type="Node2D" parent="."]
+
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_body_exited"]
