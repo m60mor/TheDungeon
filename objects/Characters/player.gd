@@ -9,7 +9,7 @@ const collectables : Array[PackedScene] = [id_0, id_1]
 @onready var collectibles_detection = $CollectiblesDetection
 
 
-@export var fire_rate: float = 0.5
+@export var fire_rate: float = 0
 @export var player_speed : float = 600
 @export var bullet_resource : BulletBaseResource = null
 @export var inventory : Inventory
@@ -18,9 +18,19 @@ var hp : float = 100
 var can_fire : bool = true	
 var can_teleport : bool = true
 var can_pick_up : bool = true
+var selected_index : int = 0
 
 func _init():
 	SignalBus.connect("drop_item", drop_item)
+	SignalBus.connect("update_selected_index", update_selected_index)
+	
+func _ready():
+	update_selected_index(selected_index)
+
+func update_selected_index(index):
+	selected_index = index
+	print(inventory.items[selected_index].fire_rate)
+	fire_rate = inventory.items[selected_index].fire_rate
 
 func pick_up_item():
 	if (can_pick_up):
@@ -31,6 +41,7 @@ func pick_up_item():
 				i.collect(inventory)
 				break
 		pick_up_timer.start(0.3)
+		update_selected_index(selected_index)
 	
 func drop_item(item : InventoryItem):
 	var new_collectable = collectables[item.id].instantiate()
@@ -51,11 +62,13 @@ func _physics_process(_delta):
 		pick_up_item()
 	elif (Input.is_action_pressed("drop")):
 		inventory.drop()
+		update_selected_index(selected_index)
 				
-	if (Input.is_action_pressed("shoot")):
-		#print((position/32).floor().snapped(Vector2(1, 1)))
-		can_fire = false
-		timer.start(fire_rate)
+	if (Input.is_action_pressed("shoot") and fire_rate > 0):
+		if (can_fire):
+			SignalBus.shoot.emit(bullet_resource, position + Vector2(16, 0), -(global_position - get_global_mouse_position()).normalized(), 3)
+			can_fire = false
+			timer.start(fire_rate)
 	
 func do_damage(dmg):
 	hp = hp - dmg

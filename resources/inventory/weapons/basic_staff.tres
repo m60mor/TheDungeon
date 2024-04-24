@@ -8,3 +8,4 @@ script = ExtResource("1_x71ut")
 id = 0
 name = "Basic Staff"
 texture = ExtResource("2_x4xrs")
+fire_rate = 0.3
