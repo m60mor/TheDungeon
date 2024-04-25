@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="BulletBaseResource" load_steps=4 format=3 uid="uid://bv1ug74sd6dng"]
+
+[ext_resource type="Texture2D" uid="uid://dr5ty88qsj41c" path="res://assets/Bullets/bullet_fire.png" id="1_gj7tw"]
+[ext_resource type="Script" path="res://resources/bullet/bullet_base-resource.gd" id="2_h1vap"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5qwpm"]
+size = Vector2(8, 11)
+
+[resource]
+script = ExtResource("2_h1vap")
+sprite = ExtResource("1_gj7tw")
+shape = SubResource("RectangleShape2D_5qwpm")
+speed = 50.0
+damage = 100.0

@@ -29,8 +29,8 @@ func _ready():
 
 func update_selected_index(index):
 	selected_index = index
-	print(inventory.items[selected_index].fire_rate)
 	fire_rate = inventory.items[selected_index].fire_rate
+	bullet_resource = inventory.items[selected_index].bullet_resource
 
 func pick_up_item():
 	if (can_pick_up):
@@ -66,7 +66,8 @@ func _physics_process(_delta):
 				
 	if (Input.is_action_pressed("shoot") and fire_rate > 0):
 		if (can_fire):
-			SignalBus.shoot.emit(bullet_resource, position + Vector2(16, 0), -(global_position - get_global_mouse_position()).normalized(), 3)
+			var dir = -(global_position - get_global_mouse_position()).normalized()
+			SignalBus.shoot.emit(bullet_resource, position + dir * Vector2(16, 16), dir, 3)
 			can_fire = false
 			timer.start(fire_rate)
 	

@@ -1,7 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://byfsiak4dt5b"]
+[gd_scene load_steps=3 format=3 uid="uid://byfsiak4dt5b"]
 
 [ext_resource type="Script" path="res://objects/Bullets/bullet.gd" id="1_0ycnd"]
-[ext_resource type="Texture2D" uid="uid://c3opof3l8txqn" path="res://assets/Bullets/bullet-basic.png" id="1_py4oy"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6f6ra"]
 size = Vector2(5, 5)
@@ -13,16 +12,14 @@ collision_mask = 0
 script = ExtResource("1_0ycnd")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_py4oy")
+position = Vector2(0.5, -0.5)
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
-position = Vector2(-0.5, 0.5)
 scale = Vector2(0.25, 0.25)
 
 [node name="Timer" type="Timer" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-0.5, 0.5)
 shape = SubResource("RectangleShape2D_6f6ra")
 
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_screen_exited"]

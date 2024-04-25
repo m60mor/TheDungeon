@@ -28,7 +28,7 @@ func _init(starting_position, new_borders, steps):
 	borders = new_borders
 	room_manager = RoomManager.new()
 	teleport_manager = TeleportManager.new()
-	create_room(position, "first")
+	#create_room(position, "first")
 	walk(steps)
 
 func walk(steps):
@@ -47,13 +47,14 @@ func walk(steps):
 			room_sizes.append(room_size)
 		else:
 			change_direction()
-			step_count -= 1
+			#step_count -= 1
 		step_count += 1
-		
-	add_loot_rooms(floori(steps / 2))
+	
+	add_loot_rooms(floori(steps / 4))
 	return room_positions
 	
 func add_loot_rooms(number):
+	#fix infinite loop
 	var i = 0
 	var room_number = room_sizes.size()
 	while i < number:

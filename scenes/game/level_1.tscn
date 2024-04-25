@@ -11,6 +11,7 @@ script = ExtResource("1_ypse6")
 
 [node name="Player" parent="." instance=ExtResource("1_lkcid")]
 position = Vector2(16, 15)
+bullet_resource = null
 
 [node name="RemoteTransform2D" type="RemoteTransform2D" parent="Player"]
 remote_path = NodePath("../../Camera2D")

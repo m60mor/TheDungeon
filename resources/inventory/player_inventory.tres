@@ -8,11 +8,13 @@
 script = ExtResource("2_ct8un")
 id = -1
 name = ""
+fire_rate = 0.0
 
 [sub_resource type="Resource" id="Resource_qe1a0"]
 script = ExtResource("2_ct8un")
 id = -1
 name = ""
+fire_rate = 0.0
 
 [resource]
 script = ExtResource("3_no4na")

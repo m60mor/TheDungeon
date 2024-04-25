@@ -8,15 +8,16 @@ func _ready():
 
 func build_bullet(resource : BulletBaseResource, location : Vector2, direction : Vector2, collision : int) -> void:
 	var new_bullet = base_bullet_scene.instantiate() as Bullet
-	new_bullet.sprite = resource.bullet_sprite
-	
 	new_bullet.position = location
 	new_bullet.direction = (direction - global_position).normalized()
 	new_bullet.rotation = new_bullet.direction.angle()
-	new_bullet.speed = resource.bullet_speed
+	new_bullet.speed = resource.speed
+	new_bullet.damage = resource.damage
 	new_bullet.set_collision_layer_value(collision, true)
 	new_bullet.set_collision_mask_value(collision, true)
 	spawn_bullet(new_bullet)
+	new_bullet.sprite.texture = resource.sprite
+	new_bullet.collision_shape.shape = resource.shape
 	
 func spawn_bullet(bullet : Bullet):
 	var bullet_container = NodeExtensions.get_bullet_container()
