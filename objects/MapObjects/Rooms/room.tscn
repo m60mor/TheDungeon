@@ -1,14 +1,14 @@
 [gd_scene load_steps=8 format=3 uid="uid://ccioaoyqgrnmw"]
 
-[ext_resource type="Script" path="res://objects/MapObjects/room.gd" id="1_totxq"]
-[ext_resource type="Texture2D" uid="uid://ccls6yhw0eba6" path="res://assets/Map/grassTiles.png" id="2_d0ipq"]
-[ext_resource type="Texture2D" uid="uid://d3paivt2fyb4e" path="res://assets/Map/stone_tiles.png" id="3_5flut"]
+[ext_resource type="Script" path="res://objects/MapObjects/Rooms/room.gd" id="1_vy01r"]
+[ext_resource type="Texture2D" uid="uid://ccls6yhw0eba6" path="res://assets/Map/grassTiles.png" id="2_x4pgj"]
+[ext_resource type="Texture2D" uid="uid://d3paivt2fyb4e" path="res://assets/Map/stone_tiles.png" id="3_jvts2"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ai2ky"]
 size = Vector2(32, 32)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_l2oco"]
-texture = ExtResource("2_d0ipq")
+texture = ExtResource("2_x4pgj")
 texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
 0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
@@ -36,7 +36,7 @@ texture_region_size = Vector2i(32, 32)
 3:1/0/physics_layer_0/angular_velocity = 0.0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_pgiii"]
-texture = ExtResource("3_5flut")
+texture = ExtResource("3_jvts2")
 texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
 0:0/0/terrain_set = 1
@@ -221,9 +221,9 @@ sources/0 = SubResource("TileSetAtlasSource_l2oco")
 sources/1 = SubResource("TileSetAtlasSource_pgiii")
 
 [node name="Area2D" type="Area2D"]
-collision_layer = 13
-collision_mask = 13
-script = ExtResource("1_totxq")
+collision_layer = 29
+collision_mask = 29
+script = ExtResource("1_vy01r")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(16, 16)

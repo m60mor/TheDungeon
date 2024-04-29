@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="InventoryItem" load_steps=4 format=3 uid="uid://cc3tepor0m4xw"]
 
+[ext_resource type="Resource" uid="uid://cd3ixljx05vcs" path="res://resources/bullet/bullet_slow.tres" id="1_mkqp7"]
 [ext_resource type="Script" path="res://resources/inventory/inventory_item.gd" id="1_tbxjc"]
-[ext_resource type="Resource" uid="uid://c2ch6sq3eid07" path="res://resources/bullet/bulled_red_res.tres" id="1_uf33g"]
 [ext_resource type="Texture2D" uid="uid://b36bc2dmeecgp" path="res://assets/Weapons/blue_crystal.png" id="2_88n6n"]
 
 [resource]
@@ -9,5 +9,5 @@ script = ExtResource("1_tbxjc")
 id = 1
 name = "blue_crystal"
 texture = ExtResource("2_88n6n")
-bullet_resource = ExtResource("1_uf33g")
+bullet_resource = ExtResource("1_mkqp7")
 fire_rate = 0.1

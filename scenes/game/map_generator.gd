@@ -50,7 +50,7 @@ func walk(steps):
 			#step_count -= 1
 		step_count += 1
 	
-	add_loot_rooms(floori(steps / 4))
+	add_loot_rooms(floori(steps / 3))
 	return room_positions
 	
 func add_loot_rooms(number):
@@ -74,7 +74,7 @@ func step(set_room_size : int = 0):
 	var new_room_size = base_room_size[randi() % 9]
 	if (set_room_size != 0):
 		new_room_size = set_room_size
-	room_size = Vector2(new_room_size, new_room_size)
+	room_size = Vector2(4 + new_room_size, new_room_size)
 	var target_position = position + (direction * Vector2(30, 30))
 	if borders.has_point(target_position) and is_not_room_at_position(target_position):
 		create_door(position, target_position, prev_room_size, room_size)

@@ -12,3 +12,5 @@ sprite = ExtResource("1_gj7tw")
 shape = SubResource("RectangleShape2D_5qwpm")
 speed = 50.0
 damage = 100.0
+slow_multiplier = 1.0
+slow_time = 0.0

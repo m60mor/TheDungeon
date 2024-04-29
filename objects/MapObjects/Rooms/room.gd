@@ -1,9 +1,10 @@
 extends Area2D
 class_name Room
 
-var basic_staff_scene : PackedScene = preload("res://objects/MapObjects/Collectibles/collectable_basic_staff.tscn")
-const collectable_blue_crystal = preload("res://objects/MapObjects/Collectibles/collectable_blue_crystal.tscn")
-var collectables_list = [basic_staff_scene, collectable_blue_crystal]
+const w1 : PackedScene = preload("res://objects/MapObjects/Collectibles/collectable_basic_staff.tscn")
+const w2 : PackedScene = preload("res://objects/MapObjects/Collectibles/collectable_blue_crystal.tscn")
+const w3 : PackedScene = preload("res://objects/MapObjects/Collectibles/collectable_fire_staff.tscn")
+var collectables_list = [w1, w2, w3]
 
 var mosquito_scene : PackedScene = preload("res://objects/Enemies/enemy_mosquito.tscn")
 var fly_scene : PackedScene = preload("res://objects/Enemies/enemy_fly.tscn")

@@ -28,6 +28,8 @@ func _ready():
 	update_selected_index(selected_index)
 
 func update_selected_index(index):
+	timer.stop()
+	timer.start(0.5)
 	selected_index = index
 	fire_rate = inventory.items[selected_index].fire_rate
 	bullet_resource = inventory.items[selected_index].bullet_resource
@@ -71,9 +73,9 @@ func _physics_process(_delta):
 			can_fire = false
 			timer.start(fire_rate)
 	
-func do_damage(dmg):
+func do_damage(dmg, slow_mul, slow_time):
 	hp = hp - dmg
-	print(hp)
+	print(hp, "__")
 	if (hp <= 0):
 		queue_free()
 	

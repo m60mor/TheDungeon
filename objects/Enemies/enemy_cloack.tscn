@@ -5,9 +5,11 @@
 [ext_resource type="Texture2D" uid="uid://cnacybaf2lx22" path="res://assets/Enemies/Cloack/Cloak.png" id="2_rvwsu"]
 [ext_resource type="Resource" uid="uid://c2ch6sq3eid07" path="res://resources/bullet/bulled_red_res.tres" id="3_n7lw1"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_fklb3"]
-resource_local_to_scene = true
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2dtlu"]
 size = Vector2(18, 23)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sbem2"]
+resource_local_to_scene = true
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_xaf42"]
 animations = [{
@@ -20,9 +22,6 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_2dtlu"]
-size = Vector2(18, 23)
-
 [sub_resource type="CircleShape2D" id="CircleShape2D_c3na5"]
 radius = 259.031
 
@@ -33,16 +32,15 @@ move_speed = 40.0
 damage = 20.0
 hp = 150.0
 
-[node name="CollisionShape2D" parent="." index="0"]
-position = Vector2(-2, 2.5)
-shape = SubResource("RectangleShape2D_fklb3")
-
-[node name="AnimatedSprite2D" parent="." index="1"]
-sprite_frames = SubResource("SpriteFrames_xaf42")
-
-[node name="CollisionShape2D" parent="BulletDetection" index="0"]
+[node name="BulletDetection#CollisionShape2D" type="CollisionShape2D" parent="." index="0"]
 position = Vector2(-2, 2.5)
 shape = SubResource("RectangleShape2D_2dtlu")
+
+[node name="CollisionShape2D" parent="." index="1"]
+shape = SubResource("RectangleShape2D_sbem2")
+
+[node name="AnimatedSprite2D" parent="." index="2"]
+sprite_frames = SubResource("SpriteFrames_xaf42")
 
 [node name="CollisionShape2D" parent="PlayerDetection" index="0"]
 position = Vector2(-2, 3)

@@ -11,4 +11,6 @@ script = ExtResource("1_oaefp")
 sprite = ExtResource("1_qshfe")
 shape = SubResource("RectangleShape2D_iirxg")
 speed = 80.0
-damage = 50.0
+damage = 15.0
+slow_multiplier = 1.0
+slow_time = 0.0

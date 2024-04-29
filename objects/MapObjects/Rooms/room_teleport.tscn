@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://cdcn7p8f1msx1"]
 
-[ext_resource type="Script" path="res://objects/MapObjects/room_teleport.gd" id="1_ggahm"]
+[ext_resource type="Script" path="res://objects/MapObjects/Rooms/room_teleport.gd" id="1_ggahm"]
 [ext_resource type="Texture2D" uid="uid://dyaik1ahxt26o" path="res://assets/Map/StoneDoor.png" id="2_rpqbo"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ik1i0"]

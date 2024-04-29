@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="BulletBaseResource" load_steps=3 format=3 uid="uid://cd3ixljx05vcs"]
+
+[ext_resource type="Script" path="res://resources/bullet/bullet_base-resource.gd" id="1_c1ywc"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0pqom"]
+size = Vector2(1, 100)
+
+[resource]
+script = ExtResource("1_c1ywc")
+shape = SubResource("RectangleShape2D_0pqom")
+speed = 100.0
+damage = 0.0
+slow_multiplier = 0.3
+slow_time = 5.0

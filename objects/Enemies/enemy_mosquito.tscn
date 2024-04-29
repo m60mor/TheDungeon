@@ -1,79 +1,56 @@
-[gd_scene load_steps=9 format=3 uid="uid://caejvhdseukju"]
+[gd_scene load_steps=9 format=3 uid="uid://bn684prpq3qwo"]
 
-[ext_resource type="Script" path="res://objects/Enemies/enemy_mosquito.gd" id="1_2wdeq"]
-[ext_resource type="Texture2D" uid="uid://b0hsrccbkca1u" path="res://assets/Enemies/Mosquito/Mosquito1.png" id="2_u1ygc"]
-[ext_resource type="Texture2D" uid="uid://dvqqx8l7kv7wn" path="res://assets/Enemies/Mosquito/Mosquito2.png" id="3_88c7t"]
+[ext_resource type="PackedScene" uid="uid://c46pylbu81y6u" path="res://objects/Enemies/enemy.tscn" id="1_suth8"]
+[ext_resource type="Script" path="res://objects/Enemies/enemy_mosquito.gd" id="2_bep41"]
+[ext_resource type="Texture2D" uid="uid://b0hsrccbkca1u" path="res://assets/Enemies/Mosquito/Mosquito1.png" id="3_wpuk7"]
+[ext_resource type="Texture2D" uid="uid://dvqqx8l7kv7wn" path="res://assets/Enemies/Mosquito/Mosquito2.png" id="4_cldah"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_hr8ge"]
-size = Vector2(23.0938, 16.875)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_aehg1"]
+resource_local_to_scene = true
+size = Vector2(20, 15)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_16q0y"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_nxwew"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_u1ygc")
+"texture": ExtResource("3_wpuk7")
 }, {
 "duration": 1.0,
-"texture": ExtResource("3_88c7t")
+"texture": ExtResource("4_cldah")
 }],
 "loop": true,
-"name": &"idle",
+"name": &"default",
 "speed": 10.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_sag8o"]
-size = Vector2(23.5, 17)
+[sub_resource type="CircleShape2D" id="CircleShape2D_ca4xu"]
+radius = 175.103
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_wci7t"]
-radius = 145.0
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_fbjao"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_brnrw"]
 radius = 23.0868
 
-[node name="EnemyMosquito" type="CharacterBody2D" groups=["Enemy"]]
-script = ExtResource("1_2wdeq")
+[node name="Enemy" instance=ExtResource("1_suth8")]
+script = ExtResource("2_bep41")
 
-[node name="BulletDetection" type="Area2D" parent="."]
-collision_layer = 4
-collision_mask = 4
+[node name="CollisionShape2D" parent="." index="0"]
+position = Vector2(1, -2.5)
+shape = SubResource("RectangleShape2D_aehg1")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="BulletDetection"]
-position = Vector2(1, -3.4375)
-shape = SubResource("RectangleShape2D_hr8ge")
+[node name="AnimatedSprite2D" parent="." index="1"]
+sprite_frames = SubResource("SpriteFrames_nxwew")
+autoplay = "default"
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-sprite_frames = SubResource("SpriteFrames_16q0y")
-animation = &"idle"
-autoplay = "idle"
-frame = 1
-frame_progress = 0.278904
+[node name="CollisionShape2D" parent="PlayerDetection" index="0"]
+shape = SubResource("CircleShape2D_ca4xu")
 
-[node name="AnimationTimer" type="Timer" parent="."]
+[node name="AttackDetection" type="Area2D" parent="." index="5"]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(1, -3.5)
-shape = SubResource("RectangleShape2D_sag8o")
-
-[node name="PlayerDetection" type="Area2D" parent="."]
-collision_layer = 2
-collision_mask = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetection"]
-position = Vector2(1, -4)
-shape = SubResource("CircleShape2D_wci7t")
-
-[node name="AttackDetection" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackDetection"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackDetection" index="0"]
 position = Vector2(1, -2)
-shape = SubResource("CircleShape2D_fbjao")
+shape = SubResource("CircleShape2D_brnrw")
 
-[node name="AttackTimer" type="Timer" parent="."]
+[node name="AttackTimer" type="Timer" parent="." index="6"]
 
-[connection signal="body_entered" from="BulletDetection" to="." method="_on_bullet_detection_body_entered"]
-[connection signal="timeout" from="AnimationTimer" to="." method="_on_animation_timer_timeout"]
-[connection signal="body_entered" from="PlayerDetection" to="." method="_on_player_detection_body_entered"]
-[connection signal="body_exited" from="PlayerDetection" to="." method="_on_player_detection_body_exited"]
 [connection signal="body_entered" from="AttackDetection" to="." method="_on_attack_detection_body_entered"]
 [connection signal="body_exited" from="AttackDetection" to="." method="_on_attack_detection_body_exited"]
 [connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timer_timeout"]
