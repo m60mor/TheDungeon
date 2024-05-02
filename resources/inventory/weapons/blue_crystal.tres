@@ -9,5 +9,6 @@ script = ExtResource("1_tbxjc")
 id = 1
 name = "blue_crystal"
 texture = ExtResource("2_88n6n")
+pick_chance = 50.0
 bullet_resource = ExtResource("1_mkqp7")
 fire_rate = 0.1

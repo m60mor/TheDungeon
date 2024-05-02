@@ -6,3 +6,7 @@ func pick_direction():
 	else:
 		move_direction = Vector2(randf_range(-1, 1), randf_range(-1, 1))
 	super()
+	
+func do_damage(dmg, slow_mul, slow_time):
+	ItemDrops.collectables_list = [[100, ItemDrops.pid0]]
+	super(dmg, slow_mul, slow_time)

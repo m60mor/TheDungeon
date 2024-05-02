@@ -1,16 +1,6 @@
 extends Area2D
 class_name Room
 
-const w1 : PackedScene = preload("res://objects/MapObjects/Collectibles/collectable_basic_staff.tscn")
-const w2 : PackedScene = preload("res://objects/MapObjects/Collectibles/collectable_blue_crystal.tscn")
-const w3 : PackedScene = preload("res://objects/MapObjects/Collectibles/collectable_fire_staff.tscn")
-var collectables_list = [w1, w2, w3]
-
-var mosquito_scene : PackedScene = preload("res://objects/Enemies/enemy_mosquito.tscn")
-var fly_scene : PackedScene = preload("res://objects/Enemies/enemy_fly.tscn")
-var cloack_scene : PackedScene = preload("res://objects/Enemies/enemy_cloack.tscn")
-var enemy_list = [mosquito_scene, fly_scene, cloack_scene]
-
 @onready var tile_map = $TileMap
 @onready var collision_shape = $CollisionShape2D
 @onready var enemy_container = $EnemyContainer
@@ -37,7 +27,7 @@ func create_room(pos, siz, room_typ):
 	create_tiles(position, size)
 	if (room_type == "loot"):
 		tile_map.set_cell(0, Vector2(0, 0), 1, Vector2(4, 2))
-		var collectable = collectables_list[randi() % collectables_list.size()].instantiate()
+		var collectable = ItemDrops.weapon_list[randi() % ItemDrops.weapon_list.size()][1].instantiate()
 		collectable.position = Vector2(0, 0)
 		collectable_container.add_child(collectable)
 	else:
@@ -76,18 +66,18 @@ func spawn_enemies():
 			var spawn_pos_x = (randi() % int(size.x - 2)) - floor((size.x - 2)/2)
 			var spawn_pos_y = (randi() % int(size.y - 2)) - floor((size.y - 2)/2)
 			if (!spawn_positions.has(Vector2(spawn_pos_x, spawn_pos_y))):
-				var select_enemy_from_list = randi() % enemy_list.size()
-				var new_enemy = enemy_list[select_enemy_from_list].instantiate()
+				var select_enemy_from_list = randi() % ItemDrops.enemy_list.size()
+				var new_enemy = ItemDrops.enemy_list[select_enemy_from_list][1].instantiate()
 				new_enemy.position = Vector2(spawn_pos_x, spawn_pos_y) * 32 + Vector2(16, 16)
-				enemy_container.add_child(new_enemy)
+				enemy_container.call_deferred("add_child", new_enemy)
 				spawn_positions.append(Vector2(spawn_pos_x, spawn_pos_y))
 			else:
 				i -= 1
 	
 func _on_body_entered(body):
-	if (!explored):
-		if (body.has_method("player")):
-			SignalBus.emit_change_room_camera(position)
+	if (body.has_method("player")):
+		SignalBus.emit_change_room_camera(position, size)
+		if (!explored):
 			spawn_enemies()
 			explored = true
 

@@ -9,5 +9,6 @@ script = ExtResource("2_ahymh")
 id = 2
 name = "Fire Staff"
 texture = ExtResource("3_v3p84")
+pick_chance = 40.0
 bullet_resource = ExtResource("1_fm4jp")
 fire_rate = 1.0

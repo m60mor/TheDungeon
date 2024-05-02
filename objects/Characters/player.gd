@@ -1,16 +1,12 @@
 class_name Player
 extends CharacterBody2D
 
-const id_0 = preload("res://objects/MapObjects/Collectibles/collectable_basic_staff.tscn")
-const id_1 = preload("res://objects/MapObjects/Collectibles/collectable_blue_crystal.tscn")
-const collectables : Array[PackedScene] = [id_0, id_1]
 @onready var timer = $Timer
 @onready var pick_up_timer = $PickUpTimer
 @onready var collectibles_detection = $CollectiblesDetection
 
-
 @export var fire_rate: float = 0
-@export var player_speed : float = 600
+@export var player_speed : float = 200
 @export var bullet_resource : BulletBaseResource = null
 @export var inventory : Inventory
 
@@ -46,7 +42,11 @@ func pick_up_item():
 		update_selected_index(selected_index)
 	
 func drop_item(item : InventoryItem):
-	var new_collectable = collectables[item.id].instantiate()
+	var new_collectable
+	if (item.id_type == "w"): 
+		new_collectable = ItemDrops.weapon_list[item.id][1].instantiate()
+	elif (item.id_type == "i"):
+		new_collectable = ItemDrops.item_list[item.id][1].instantiate()
 	new_collectable.position = position - Vector2(16, 16)
 	NodeExtensions.get_collectable_container().add_child(new_collectable)
 		
@@ -73,7 +73,7 @@ func _physics_process(_delta):
 			can_fire = false
 			timer.start(fire_rate)
 	
-func do_damage(dmg, slow_mul, slow_time):
+func do_damage(dmg, slow_mul = 1, slow_time = 0):
 	hp = hp - dmg
 	print(hp, "__")
 	if (hp <= 0):

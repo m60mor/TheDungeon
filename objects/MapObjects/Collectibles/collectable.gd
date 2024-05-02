@@ -1,4 +1,5 @@
 extends Area2D
+class_name Collectable
 
 @export var item_res : InventoryItem
 

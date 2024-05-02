@@ -13,7 +13,6 @@ var player_chase = false
 var player : CharacterBody2D = null
 var move_direction : Vector2 = Vector2(0, 0)
 
-
 func _ready():
 	animation_timer.start(1)
 
@@ -28,7 +27,6 @@ func pick_direction():
 		animated_sprite.flip_h = true
 	elif (move_direction.x > 0):
 		animated_sprite.flip_h = false
-
 
 func _on_animation_timer_timeout():
 	pick_direction()
@@ -48,12 +46,22 @@ func _on_player_detection_body_exited(body):
 		player_chase = false
 
 func do_damage(dmg, slow_mul, slow_time):
+	print(ItemDrops.collectables_list)
 	hp = hp - dmg
 	move_speed_multiplier = slow_mul
 	slow_timer.start(slow_time)
 	if (hp <= 0):
+		var select_drop : Array = ItemDrops.drop_collectable()
+		if (select_drop.size() > 0):
+			for collectable in select_drop:
+				var new = collectable.instantiate()
+				new.position = global_position - Vector2(16, 16)
+				NodeExtensions.get_collectable_container().add_child(new)
 		queue_free()
 		
+#func random_drops():
+			#
+
 func _on_slow_timer_timeout():
 	move_speed_multiplier = 1
 

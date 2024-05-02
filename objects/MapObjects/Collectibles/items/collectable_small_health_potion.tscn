@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://y0es8qyegesp"]
+
+[ext_resource type="PackedScene" uid="uid://cmbtitxqsnfag" path="res://objects/MapObjects/Collectibles/collectable.tscn" id="1_snqb4"]
+[ext_resource type="Resource" uid="uid://bbvl73j55wdm2" path="res://resources/inventory/items/small_health_potion.tres" id="2_4ebf0"]
+[ext_resource type="Texture2D" uid="uid://4206b8ye5l3m" path="res://assets/Items/small_health_potion.png" id="3_3wnlk"]
+
+[node name="Collectable" instance=ExtResource("1_snqb4")]
+item_res = ExtResource("2_4ebf0")
+
+[node name="Sprite2D" parent="." index="0"]
+position = Vector2(16, 16)
+texture = ExtResource("3_3wnlk")
+
+[node name="CollisionShape2D" parent="." index="1"]
+position = Vector2(15.5, 16.5)

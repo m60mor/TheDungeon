@@ -21,3 +21,7 @@ func pick_direction():
 func _on_attack_timer_timeout():
 	SignalBus.emit_shoot(bullet_resource, global_position, (player.global_position - global_position).normalized(), 4)
 	can_fire = true
+
+func do_damage(dmg, slow_mul, slow_time):
+	ItemDrops.collectables_list = [[100, ItemDrops.wid1]]
+	super(dmg, slow_mul, slow_time)

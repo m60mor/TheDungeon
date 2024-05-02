@@ -10,9 +10,9 @@ func emit_options_close():
 	options_close.emit()
 	
 	
-signal change_room_camera(pos)
-func emit_change_room_camera(pos):
-	change_room_camera.emit(pos)
+signal change_room_camera(pos, size)
+func emit_change_room_camera(pos, size):
+	change_room_camera.emit(pos, size)
 	
 signal update_hotbar()
 func emit_update_hotbar():

@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="InventoryItem" load_steps=3 format=3 uid="uid://bbvl73j55wdm2"]
+
+[ext_resource type="Script" path="res://resources/inventory/inventory_item.gd" id="1_knexh"]
+[ext_resource type="Texture2D" uid="uid://4206b8ye5l3m" path="res://assets/Items/small_health_potion.png" id="2_uiaf7"]
+
+[resource]
+script = ExtResource("1_knexh")
+id = 0
+id_type = "i"
+name = "Small_health_potion"
+texture = ExtResource("2_uiaf7")
+drop_chance = 50.0
+fire_rate = 0.0
