@@ -30,7 +30,13 @@ func create_room(pos, siz, room_typ):
 		var collectable = ItemDrops.weapon_list[randi() % ItemDrops.weapon_list.size()][1].instantiate()
 		collectable.position = Vector2(0, 0)
 		collectable_container.add_child(collectable)
+	elif (room_type == "walled"):
+		for i in range(size.x):
+			tile_map.set_cell(0, Vector2(i, 0), 1, Vector2(4, 2))
 	else:
+		for i in range(4, size.x - 3, 3):
+			for j in range(3, size.y - 3):
+				tile_map.set_cell(0, Vector2(ceili(-size.x / 2) + i, ceili(-size.y / 2) + j), 1, Vector2(4, 2))
 		if (randi() % 10 < 3):
 			create_hole((- size/2).ceil(), size)
 	

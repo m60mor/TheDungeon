@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://cgi04bk1w1piw"]
+
+[ext_resource type="Texture2D" uid="uid://dn3151g6265b0" path="res://assets/Menu/health_bar_under.png" id="1_2w67v"]
+[ext_resource type="Texture2D" uid="uid://bynul62ms7t0c" path="res://assets/Menu/health_bar_progress.png" id="2_omr43"]
+[ext_resource type="Script" path="res://scenes/menu/healthbar/texture_progress_bar.gd" id="3_wfgvs"]
+
+[node name="TextureProgressBar" type="TextureProgressBar"]
+custom_minimum_size = Vector2(112, 16)
+offset_left = 62.0
+offset_top = 35.0
+offset_right = 174.0
+offset_bottom = 51.0
+scale = Vector2(2, 2)
+texture_under = ExtResource("1_2w67v")
+texture_progress = ExtResource("2_omr43")
+texture_progress_offset = Vector2(7, 2)
+script = ExtResource("3_wfgvs")

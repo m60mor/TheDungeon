@@ -25,8 +25,10 @@ func set_action_name() -> void:
 			label.text = "Move Down"
 		"shoot":
 			label.text = "Shoot"
-		"space":
-			label.text = "Backspace"
+		"pick_up":
+			label.text = "Pick Up"
+		"drop":
+			label.text = "Drop"
 			
 func set_key_text():
 	var action_events = InputMap.action_get_events(action_name)

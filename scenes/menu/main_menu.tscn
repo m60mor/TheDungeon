@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://b8ex0q41aches"]
+[gd_scene load_steps=18 format=3 uid="uid://b8ex0q41aches"]
 
 [ext_resource type="Script" path="res://scenes/menu/main_menu.gd" id="1_b25lk"]
 [ext_resource type="Texture2D" uid="uid://cchgu2u1h514" path="res://assets/Menu/main_menu.png" id="2_s760h"]
-[ext_resource type="PackedScene" uid="uid://c6qhtlb55fbxp" path="res://scenes/menu/options_menu.tscn" id="3_1yl7d"]
+[ext_resource type="PackedScene" uid="uid://c6qhtlb55fbxp" path="res://scenes/menu/options/options_menu.tscn" id="3_1yl7d"]
+[ext_resource type="Texture2D" uid="uid://cjcs3f3kg73d2" path="res://assets/Menu/button_select.png" id="3_72dsu"]
 
 [sub_resource type="SystemFont" id="SystemFont_nbojv"]
 font_names = PackedStringArray("Calisto MT")
@@ -12,14 +13,41 @@ font_stretch = 125
 [sub_resource type="SystemFont" id="SystemFont_qaoby"]
 font_names = PackedStringArray("Calisto MT")
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7kx0o"]
-bg_color = Color(0.854902, 0.721569, 0.533333, 1)
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_xfbxs"]
+texture = ExtResource("3_72dsu")
+modulate_color = Color(1, 1, 1, 0.862745)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_a0111"]
+texture = ExtResource("3_72dsu")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_dhy8u"]
+texture = ExtResource("3_72dsu")
 
 [sub_resource type="SystemFont" id="SystemFont_m6ng5"]
 font_names = PackedStringArray("Calisto MT")
 
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_fo51m"]
+texture = ExtResource("3_72dsu")
+modulate_color = Color(1, 1, 1, 0.862745)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_f33c3"]
+texture = ExtResource("3_72dsu")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_vtukm"]
+texture = ExtResource("3_72dsu")
+
 [sub_resource type="SystemFont" id="SystemFont_ol0iw"]
 font_names = PackedStringArray("Calisto MT")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_5i4jr"]
+texture = ExtResource("3_72dsu")
+modulate_color = Color(1, 1, 1, 0.866667)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_pb8om"]
+texture = ExtResource("3_72dsu")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_a8lvh"]
+texture = ExtResource("3_72dsu")
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -85,20 +113,26 @@ custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 
 [node name="NewGame" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer"]
-custom_minimum_size = Vector2(250, 60)
+custom_minimum_size = Vector2(270, 60)
 layout_mode = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0.196078, 0, 0, 1)
 theme_override_fonts/font = SubResource("SystemFont_qaoby")
 theme_override_font_sizes/font_size = 30
-theme_override_styles/normal = SubResource("StyleBoxFlat_7kx0o")
+theme_override_styles/normal = SubResource("StyleBoxTexture_xfbxs")
+theme_override_styles/hover = SubResource("StyleBoxTexture_a0111")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_dhy8u")
 text = "New Game
 "
 
 [node name="Options" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(200, 60)
 layout_mode = 2
+theme_override_colors/font_color = Color(0.196078, 0, 0, 1)
 theme_override_fonts/font = SubResource("SystemFont_m6ng5")
 theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxTexture_fo51m")
+theme_override_styles/hover = SubResource("StyleBoxTexture_f33c3")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_vtukm")
 text = "Options"
 
 [node name="Separator2" type="Control" parent="MarginContainer/HBoxContainer/VBoxContainer"]
@@ -108,8 +142,12 @@ layout_mode = 2
 [node name="Quit" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(200, 60)
 layout_mode = 2
+theme_override_colors/font_color = Color(0.196078, 0, 0, 1)
 theme_override_fonts/font = SubResource("SystemFont_ol0iw")
 theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxTexture_5i4jr")
+theme_override_styles/hover = SubResource("StyleBoxTexture_pb8om")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_a8lvh")
 text = "Quit
 "
 

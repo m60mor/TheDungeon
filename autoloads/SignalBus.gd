@@ -25,3 +25,11 @@ func emit_update_selected_index(index):
 signal drop_item(item)
 func emit_drop_item(item):
 	drop_item.emit(item)
+	
+signal health_bar_damage(dmg)
+func emit_health_bar_damage(dmg):
+	health_bar_damage.emit(dmg)
+	
+signal death_screen()
+func emit_death_screen():
+	death_screen.emit()

@@ -75,8 +75,10 @@ func _physics_process(_delta):
 	
 func do_damage(dmg, slow_mul = 1, slow_time = 0):
 	hp = hp - dmg
+	SignalBus.health_bar_damage.emit(dmg)
 	print(hp, "__")
 	if (hp <= 0):
+		SignalBus.death_screen.emit()
 		queue_free()
 	
 func _on_timer_timeout():

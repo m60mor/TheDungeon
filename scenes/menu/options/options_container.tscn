@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://htku1qlr7tmb"]
 
-[ext_resource type="PackedScene" uid="uid://b0l636jjl3rw3" path="res://scenes/menu/button_rebind.tscn" id="1_3fwo3"]
+[ext_resource type="PackedScene" uid="uid://b0l636jjl3rw3" path="res://scenes/menu/options/button_rebind.tscn" id="1_ya63h"]
 
 [sub_resource type="SystemFont" id="SystemFont_dvrxx"]
 font_names = PackedStringArray("Calisto MT")
@@ -25,16 +25,18 @@ anchors_preset = -1
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 100.0
-offset_top = 100.0
+offset_top = 50.0
 offset_right = -100.0
-offset_bottom = -100.0
+offset_bottom = -80.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_fonts/font = SubResource("SystemFont_dvrxx")
 theme_override_font_sizes/font_size = 20
 tab_alignment = 1
+current_tab = 2
 
 [node name="General" type="TabBar" parent="TabContainer"]
+visible = false
 layout_mode = 2
 tab_alignment = 1
 
@@ -104,7 +106,6 @@ text = "Res
 "
 
 [node name="Controls" type="TabBar" parent="TabContainer"]
-visible = false
 layout_mode = 2
 tab_alignment = 1
 
@@ -124,34 +125,42 @@ theme_override_constants/margin_bottom = 40
 layout_mode = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Controls/MarginContainer/ScrollContainer"]
+custom_minimum_size = Vector2(0, 420)
 layout_mode = 2
 theme_override_constants/separation = 60
 
 [node name="HSeparator" type="HSeparator" parent="TabContainer/Controls/MarginContainer/ScrollContainer/VBoxContainer"]
+visible = false
 layout_mode = 2
 
-[node name="button_rebind" parent="TabContainer/Controls/MarginContainer/ScrollContainer/VBoxContainer" instance=ExtResource("1_3fwo3")]
+[node name="button_rebind" parent="TabContainer/Controls/MarginContainer/ScrollContainer/VBoxContainer" instance=ExtResource("1_ya63h")]
 layout_mode = 2
 
-[node name="button_rebind2" parent="TabContainer/Controls/MarginContainer/ScrollContainer/VBoxContainer" instance=ExtResource("1_3fwo3")]
+[node name="button_rebind2" parent="TabContainer/Controls/MarginContainer/ScrollContainer/VBoxContainer" instance=ExtResource("1_ya63h")]
 layout_mode = 2
 action_name = "right"
 
-[node name="button_rebind3" parent="TabContainer/Controls/MarginContainer/ScrollContainer/VBoxContainer" instance=ExtResource("1_3fwo3")]
+[node name="button_rebind3" parent="TabContainer/Controls/MarginContainer/ScrollContainer/VBoxContainer" instance=ExtResource("1_ya63h")]
 layout_mode = 2
 action_name = "up"
 
-[node name="button_rebind4" parent="TabContainer/Controls/MarginContainer/ScrollContainer/VBoxContainer" instance=ExtResource("1_3fwo3")]
+[node name="button_rebind4" parent="TabContainer/Controls/MarginContainer/ScrollContainer/VBoxContainer" instance=ExtResource("1_ya63h")]
 layout_mode = 2
 action_name = "down"
 
-[node name="button_rebind5" parent="TabContainer/Controls/MarginContainer/ScrollContainer/VBoxContainer" instance=ExtResource("1_3fwo3")]
+[node name="button_rebind5" parent="TabContainer/Controls/MarginContainer/ScrollContainer/VBoxContainer" instance=ExtResource("1_ya63h")]
 layout_mode = 2
 action_name = "shoot"
 
-[node name="button_rebind6" parent="TabContainer/Controls/MarginContainer/ScrollContainer/VBoxContainer" instance=ExtResource("1_3fwo3")]
+[node name="button_rebind6" parent="TabContainer/Controls/MarginContainer/ScrollContainer/VBoxContainer" instance=ExtResource("1_ya63h")]
 layout_mode = 2
-action_name = "space"
+action_name = "pick_up"
+
+[node name="button_rebind7" parent="TabContainer/Controls/MarginContainer/ScrollContainer/VBoxContainer" instance=ExtResource("1_ya63h")]
+layout_mode = 2
+action_name = "drop"
 
 [node name="HSeparator2" type="HSeparator" parent="TabContainer/Controls/MarginContainer/ScrollContainer/VBoxContainer"]
+visible = false
+clip_contents = true
 layout_mode = 2

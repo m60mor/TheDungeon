@@ -1,10 +1,14 @@
-[gd_scene load_steps=3 format=3 uid="uid://b0l636jjl3rw3"]
+[gd_scene load_steps=5 format=3 uid="uid://b0l636jjl3rw3"]
 
-[ext_resource type="Script" path="res://scenes/menu/button_rebind.gd" id="1_6rnqg"]
+[ext_resource type="Script" path="res://scenes/menu/options/button_rebind.gd" id="1_kh1a4"]
+[ext_resource type="Texture2D" uid="uid://ckkjg7b78qaqp" path="res://assets/Menu/button.png" id="2_ri0u7"]
 
 [sub_resource type="SystemFont" id="SystemFont_bkghk"]
 font_names = PackedStringArray("Calisto MT")
 subpixel_positioning = 0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_6auy3"]
+texture = ExtResource("2_ri0u7")
 
 [node name="button_rebind" type="Control" groups=["ButtonRebind"]]
 layout_mode = 3
@@ -13,7 +17,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_6rnqg")
+script = ExtResource("1_kh1a4")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 0
@@ -34,6 +38,8 @@ theme_override_constants/separation = 200
 [node name="Button" type="Button" parent="HBoxContainer"]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_styles/normal = SubResource("StyleBoxTexture_6auy3")
 toggle_mode = true
 text = "KEY"
 
