@@ -18,17 +18,18 @@ var selected_index : int = 0
 
 func _init():
 	SignalBus.connect("drop_item", drop_item)
+	SignalBus.connect("heal_player", heal)
 	SignalBus.connect("update_selected_index", update_selected_index)
 	
 func _ready():
 	update_selected_index(selected_index)
 
 func update_selected_index(index):
-	timer.stop()
-	timer.start(0.5)
 	selected_index = index
 	fire_rate = inventory.items[selected_index].fire_rate
 	bullet_resource = inventory.items[selected_index].bullet_resource
+	timer.stop()
+	timer.start(0.1)
 
 func pick_up_item():
 	if (can_pick_up):
@@ -75,11 +76,17 @@ func _physics_process(_delta):
 	
 func do_damage(dmg, slow_mul = 1, slow_time = 0):
 	hp = hp - dmg
-	SignalBus.health_bar_damage.emit(dmg)
+	SignalBus.health_bar_set.emit(hp)
 	print(hp, "__")
 	if (hp <= 0):
 		SignalBus.death_screen.emit()
 		queue_free()
+		
+func heal(heal):
+	hp = hp + heal
+	if (hp > 100):
+		hp = 100
+	SignalBus.health_bar_set.emit(hp)
 	
 func _on_timer_timeout():
 	can_fire = true

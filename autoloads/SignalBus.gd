@@ -26,9 +26,13 @@ signal drop_item(item)
 func emit_drop_item(item):
 	drop_item.emit(item)
 	
-signal health_bar_damage(dmg)
-func emit_health_bar_damage(dmg):
-	health_bar_damage.emit(dmg)
+signal health_bar_set(health)
+func emit_health_bar_set(health):
+	health_bar_set.emit(health)
+	
+signal heal_player(heal)
+func emit_heal_player(heal):
+	heal_player.emit(heal)
 	
 signal death_screen()
 func emit_death_screen():

@@ -18,7 +18,10 @@ func drop():
 		SignalBus.update_hotbar.emit()
 
 func insert(item : InventoryItem):
-	if (!items[inventory_index]):
+	if (item.id_type == "i"):
+		if (item.heal > 0):
+			SignalBus.heal_player.emit(item.heal)
+	elif (!items[inventory_index]):
 		items[inventory_index] = item
 	else:
 		drop()

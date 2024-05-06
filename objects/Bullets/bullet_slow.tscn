@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://x2qc8ag60ppc"]
+
+[ext_resource type="PackedScene" uid="uid://byfsiak4dt5b" path="res://objects/Bullets/bullet.tscn" id="1_nhyxc"]
+[ext_resource type="Script" path="res://objects/Bullets/bullet_slow.gd" id="2_1lu7x"]
+
+[node name="Bullet" instance=ExtResource("1_nhyxc")]
+script = ExtResource("2_1lu7x")
+
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]

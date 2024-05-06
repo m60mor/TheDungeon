@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://brblngtvtsbi0"
-path="res://.godot/imported/stone_tiles.png-37b34cb5e101b86620e79fbb5cea9751.ctex"
+uid="uid://cviagukgaabqw"
+path="res://.godot/imported/bullet_slow.png-b5af84ba05a361ea5193ced663f44309.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Map/stone_tiles.png"
-dest_files=["res://.godot/imported/stone_tiles.png-37b34cb5e101b86620e79fbb5cea9751.ctex"]
+source_file="res://assets/Bullets/bullet_slow.png"
+dest_files=["res://.godot/imported/bullet_slow.png-b5af84ba05a361ea5193ced663f44309.ctex"]
 
 [params]
 

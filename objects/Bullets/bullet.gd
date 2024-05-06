@@ -20,7 +20,7 @@ func bullet_move(delta : float):
 	#move_and_collide(speed * direction * delta)
 
 func _on_screen_exited():
-	timer.start(1)
+	timer.start(5)
 
 func _on_timer_timeout():
 	queue_free()
@@ -29,6 +29,4 @@ func bullet():
 	pass
 
 func _on_body_entered(body):
-	if (body.has_method("enemy") || body.has_method("player")):
-		body.do_damage(damage, slow_multiplier, slow_time)
-	queue_free()
+	pass

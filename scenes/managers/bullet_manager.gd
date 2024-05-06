@@ -1,13 +1,18 @@
 class_name  BulletManager
 extends Node2D
 
-@onready var base_bullet_scene: PackedScene = preload("res://objects/Bullets/bullet.tscn")
+@onready var bullet_basic_scene: PackedScene = preload("res://objects/Bullets/bullet_basic.tscn")
+@onready var bullet_slow_scene: PackedScene = preload("res://objects/Bullets/bullet_slow.tscn")
 
 func _ready():
 	SignalBus.connect("shoot", build_bullet)
 
 func build_bullet(resource : BulletBaseResource, location : Vector2, direction : Vector2, collision : int) -> void:
-	var new_bullet = base_bullet_scene.instantiate() as Bullet
+	var new_bullet
+	if (resource.slow_time > 0): 
+		new_bullet = bullet_slow_scene.instantiate() as Bullet
+	else:
+		new_bullet = bullet_basic_scene.instantiate() as Bullet
 	new_bullet.position = location
 	new_bullet.direction = (direction - global_position).normalized()
 	new_bullet.rotation = new_bullet.direction.angle()

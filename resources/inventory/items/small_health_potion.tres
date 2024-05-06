@@ -11,3 +11,4 @@ name = "Small_health_potion"
 texture = ExtResource("2_uiaf7")
 drop_chance = 50.0
 fire_rate = 0.0
+heal = 15.0
