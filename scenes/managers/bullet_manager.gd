@@ -22,7 +22,6 @@ func build_bullet(resource : BulletBaseResource, location : Vector2, direction :
 	new_bullet.damage = resource.damage
 	new_bullet.set_collision_layer_value(4, true)
 	new_bullet.set_collision_mask_value(collision, true)
-	#new_bullet.set_collision_mask_value(1, true)
 	spawn_bullet(new_bullet)
 	new_bullet.sprite.texture = resource.sprite
 	new_bullet.collision_shape.shape = resource.shape

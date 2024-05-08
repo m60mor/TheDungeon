@@ -12,4 +12,5 @@ name = "blue_crystal"
 texture = ExtResource("2_88n6n")
 drop_chance = 1.0
 bullet_resource = ExtResource("1_mkqp7")
-fire_rate = 10.0
+fire_rate = 2.0
+heal = 0.0

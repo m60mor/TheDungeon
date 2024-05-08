@@ -1,0 +1,7 @@
+[gd_scene load_steps=3 format=3 uid="uid://d1fqtlib732nw"]
+
+[ext_resource type="PackedScene" uid="uid://cmbtitxqsnfag" path="res://objects/MapObjects/Collectibles/collectable.tscn" id="1_ijerl"]
+[ext_resource type="Script" path="res://objects/MapObjects/Collectibles/weapons/collectable_weapon.gd" id="2_62ykx"]
+
+[node name="CollectableWeapon" instance=ExtResource("1_ijerl")]
+script = ExtResource("2_62ykx")

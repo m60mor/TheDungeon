@@ -26,7 +26,6 @@ func drop_collectable():
 	for i in collectables_list:
 		if n < i[0]:
 			x.append(i[1])
-			print(i[1])
 	return x
 
 func select_enemy():

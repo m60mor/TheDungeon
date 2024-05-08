@@ -6,4 +6,5 @@ func _on_body_entered(body):
 	super(body)
 
 func _on_body_exited(body):
+	print(body)
 	queue_free()

@@ -46,7 +46,6 @@ func _on_player_detection_body_exited(body):
 		player_chase = false
 
 func do_damage(dmg, slow_mul, slow_time):
-	print(ItemDrops.collectables_list)
 	hp = hp - dmg
 	move_speed_multiplier = slow_mul
 	slow_timer.start(slow_time)

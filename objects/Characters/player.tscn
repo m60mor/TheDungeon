@@ -5,11 +5,11 @@
 [ext_resource type="Texture2D" uid="uid://dnqx482ckiavu" path="res://assets/Characters/player.png" id="3_8t2gf"]
 [ext_resource type="Resource" uid="uid://bopmek3c3jomp" path="res://resources/inventory/player_inventory.tres" id="3_yjrwj"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_ctqkc"]
-radius = 16.0312
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_obnny"]
 size = Vector2(13, 30)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ctqkc"]
+radius = 16.0312
 
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
 position = Vector2(161, 76)
@@ -22,8 +22,9 @@ inventory = ExtResource("3_yjrwj")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("3_8t2gf")
 
-[node name="Timer" type="Timer" parent="."]
-one_shot = true
+[node name="Hitbox" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, 0)
+shape = SubResource("RectangleShape2D_obnny")
 
 [node name="CollectiblesDetection" type="Area2D" parent="."]
 collision_layer = 16
@@ -32,12 +33,19 @@ collision_mask = 16
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CollectiblesDetection"]
 shape = SubResource("CircleShape2D_ctqkc")
 
-[node name="Hitbox" type="CollisionShape2D" parent="."]
-position = Vector2(-0.5, 0)
-shape = SubResource("RectangleShape2D_obnny")
-
 [node name="PickUpTimer" type="Timer" parent="."]
 one_shot = true
 
-[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[node name="hotbarTimer0" type="Timer" parent="."]
+one_shot = true
+
+[node name="hotbarTimer1" type="Timer" parent="."]
+one_shot = true
+
+[node name="hotbarTimer2" type="Timer" parent="."]
+one_shot = true
+
 [connection signal="timeout" from="PickUpTimer" to="." method="_on_pick_up_timer_timeout"]
+[connection signal="timeout" from="hotbarTimer0" to="." method="_on_hotbar_timer0_timeout"]
+[connection signal="timeout" from="hotbarTimer1" to="." method="_on_hotbar_timer1_timeout"]
+[connection signal="timeout" from="hotbarTimer2" to="." method="_on_hotbar_timer2_timeout"]
