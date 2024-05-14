@@ -11,8 +11,8 @@ func change_room_camera(pos, size):
 	var top = floori(size.y / 2) * 32
 	var bottom = ceili(size.y / 2) * 32
 	
-	limit_left = pos.x - left
-	limit_right = pos.x + right
-	limit_top = pos.y - top
-	limit_bottom = pos.y + bottom
-	global_position = pos
+	#limit_left = pos.x - left
+	#limit_right = pos.x + right
+	#limit_top = pos.y - top
+	#limit_bottom = pos.y + bottom
+	#global_position = pos

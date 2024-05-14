@@ -22,6 +22,6 @@ func _on_attack_timer_timeout():
 	SignalBus.emit_shoot(bullet_resource, global_position, (player.global_position - global_position).normalized(), 4)
 	can_fire = true
 
-func do_damage(dmg, slow_mul, slow_time):
+func do_damage(dmg, slow_mul = 1, slow_time = 0):
 	ItemDrops.collectables_list = [[100, ItemDrops.wid1]]
 	super(dmg, slow_mul, slow_time)

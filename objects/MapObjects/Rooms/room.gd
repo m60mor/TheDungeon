@@ -5,6 +5,7 @@ class_name Room
 @onready var collision_shape = $CollisionShape2D
 @onready var enemy_container = $EnemyContainer
 @onready var collectable_container = $CollectableContainer
+const tile_fire = preload("res://objects/MapObjects/Rooms/tile_fire.tscn")
 
 var borders = Rect2(-500, -500, 1000, 1000)
 var size : Vector2 = Vector2(7, 7);
@@ -25,25 +26,20 @@ func create_room(pos, siz, room_typ):
 	collision_shape.shape = rect_shape
 	
 	create_tiles(position, size)
+	if (randi() % 10 < 100):
+		create_special_tiles((- size/2).ceil(), size)
 	if (room_type == "loot"):
-		tile_map.set_cell(0, Vector2(0, 0), 1, Vector2(4, 2))
-		var collectable = ItemDrops.weapon_list[randi() % ItemDrops.weapon_list.size()][1].instantiate()
-		collectable.position = Vector2(0, 0)
-		collectable_container.add_child(collectable)
-	else:
-		if (randi() % 10 < 2):
-			var wall_cells = []
-			for i in range(4, size.x - 3, 3):
-				for j in range(3, size.y - 3):
-					wall_cells.append(Vector2(ceili(-size.x / 2) + i, ceili(-size.y / 2) + j))
-			tile_map.set_cells_terrain_connect(0, wall_cells, 1, 1)
-			for i in range(4, size.x - 3, 3):
-				for j in range(3, size.y - 3):
-					wall_cells.append(Vector2(ceili(-size.x / 2) + i, ceili(-size.y / 2) + j))
-					if (randi() % 10 < 1):
-						tile_map.set_cell(0, Vector2(ceili(-size.x / 2) + i, ceili(-size.y / 2) + j), 1, Vector2(1, 1))
-		elif (randi() % 10 < 3):
-			create_hole((- size/2).ceil(), size)
+		create_loot()
+	elif (room_type == "walled"):
+		create_walled()
+	elif (room_type == "hole"):
+		create_hole((- size/2).ceil(), size)
+
+func create_loot():
+	tile_map.set_cell(0, Vector2(0, 0), 1, Vector2(4, 2))
+	var collectable = ItemDrops.weapon_list[randi() % ItemDrops.weapon_list.size()][1].instantiate()
+	collectable.position = Vector2(0, 0)
+	collectable_container.add_child(collectable)
 	
 func create_tiles(pos, size):
 	var top_left = (- size/2).ceil()
@@ -54,6 +50,27 @@ func create_tiles(pos, size):
 			if borders.has_point(room_cell_position):
 				cells.append(room_cell_position)
 	tile_map.set_cells_terrain_connect(0, cells, 1, 0)
+
+func create_special_tiles(top_left, size):
+	for y in range(1, size.y - 1):
+		for x in range(1, size.x - 1):
+			var room_cell_position = top_left + Vector2(x, y)
+			if (randi() % 100 < 1):
+				var new_tile = tile_fire.instantiate()
+				new_tile.position = room_cell_position * 32
+				collectable_container.add_child(new_tile)
+	
+func create_walled():
+	var wall_cells = []
+	for i in range(4, size.x - 3, 3):
+		for j in range(3, size.y - 3):
+			wall_cells.append(Vector2(ceili(-size.x / 2) + i, ceili(-size.y / 2) + j))
+	tile_map.set_cells_terrain_connect(0, wall_cells, 1, 1)
+	for i in range(4, size.x - 3, 3):
+		for j in range(3, size.y - 3):
+			wall_cells.append(Vector2(ceili(-size.x / 2) + i, ceili(-size.y / 2) + j))
+			if (randi() % 10 < 1):
+				tile_map.set_cell(0, Vector2(ceili(-size.x / 2) + i, ceili(-size.y / 2) + j), 1, Vector2(1, 1))
 
 func create_hole(top_left, size):
 	var cells = []
@@ -93,6 +110,8 @@ func _on_body_entered(body):
 			explored = true
 
 
-func _on_body_exited(body):
-	#print(body)
-	pass # Replace with function body.
+#func _on_body_exited(body):
+	#pass # Replace with function body.
+
+func room():
+	pass

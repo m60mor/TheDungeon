@@ -41,34 +41,46 @@ func walk(steps):
 			n = 23
 			
 		if step(n):
-			create_room(position, "normal")
+			var room_type = "normal"
+			if (randi() % 10 < 2):
+				room_type = "walled"
+			elif (randi() % 10 < 3):
+				room_type = "hole"
+			create_room(position, room_type)
 			prev_room_size = room_size
 			room_positions.append(position)
 			room_sizes.append(room_size)
 		else:
-			change_direction()
-			#step_count -= 1
+			if(!change_direction()) :
+				var positive_farthest : Vector2 = room_positions.max()
+				var negative_farthest : Vector2 = room_positions.min()
+				var farthest = positive_farthest if positive_farthest.abs() > negative_farthest.abs() else negative_farthest
+				position = farthest
+			step_count -= 1
 		step_count += 1
 	
-	add_loot_rooms(floori(steps / 10))
+	add_loot_rooms(steps, 10)
 	return room_positions
 	
-func add_loot_rooms(number):
+func add_loot_rooms(steps, repeat):
 	#fix infinite loop
 	var i = 0
 	var room_number = room_sizes.size()
-	while i < number:
-		var select = randi() % (room_number - 2) + 1
-		prev_room_size = room_sizes[select]
-		position = room_positions[select]
-		for j in range(4):
-			change_direction()
-			if step(7):
-				room_sizes.append(Vector2(7, 7))
-				room_positions.append(position)
-				create_room(position, "loot")
-				i += 1
-				break
+	var loots = []
+	var number = floori(steps / repeat)
+	for x in range(number - 1):
+		loots.append(repeat + (randi() % 1 + x * repeat) - 1)
+	while i < number - 1:
+		prev_room_size = room_sizes[loots[i]]
+		position = room_positions[loots[i]]
+		if(!change_direction()):
+			loots[i] += 1
+			continue
+		if step(7):
+			room_sizes.append(Vector2(7, 7))
+			room_positions.append(position)
+			create_room(position, "loot")
+			i += 1
 	
 func step(set_room_size : int = 0):
 	var new_room_size = base_room_size[randi() % 9]
@@ -88,8 +100,11 @@ func change_direction():
 	directions.erase(direction)
 	directions.shuffle()
 	direction = directions.pop_front()
-	while not borders.has_point(position + direction):
+	while borders.has_point(position + direction * 30) and is_not_room_at_position(position + direction * 30) == false:
+		if (directions.is_empty()):
+			return null
 		direction = directions.pop_front()
+	return 1
 		
 func create_room(pos, room_type):
 	var size = room_size

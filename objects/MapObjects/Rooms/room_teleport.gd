@@ -16,18 +16,18 @@ func set_teleport_positions(pos, teleport_pos, direction):
 	self.rotate(direction.angle())
 
 func _on_body_entered(body):
-	if (body.has_method("player") and body.can_teleport == true):
-		player = body
-		saved_speed = body.player_speed 
-		body.player_speed = 0
-		timer.start(0.3)
-		body.position = teleport_to
-		body.can_teleport = false
-
-#func _on_body_exited(body):
-	#if (body.has_method("player")):
-		#body.can_teleport = true
-
+	if (body.has_method("player")):
+		if (body.can_teleport == true):
+			player = body
+			var areas = self.get_overlapping_areas()
+			for i in areas:
+				if (i.has_method("room")):
+					if (i.get_node("EnemyContainer").get_child_count() < 1):
+						body.can_teleport = false
+						body.position = teleport_to
+						saved_speed = body.player_speed 
+						body.player_speed = 0
+						timer.start(0.3)
 
 func _on_timer_timeout():
 	player.player_speed = saved_speed

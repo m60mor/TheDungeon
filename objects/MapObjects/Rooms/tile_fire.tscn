@@ -1,0 +1,42 @@
+[gd_scene load_steps=6 format=3 uid="uid://bxw7jk6pj32ix"]
+
+[ext_resource type="Script" path="res://objects/MapObjects/Rooms/tile_fire.gd" id="1_1jw1o"]
+[ext_resource type="Texture2D" uid="uid://bqhyttegcokso" path="res://assets/Map/special_tiles/tile_fire_deactivated.png" id="1_hdgk8"]
+[ext_resource type="Texture2D" uid="uid://cs74kl3kxxdj6" path="res://assets/Map/special_tiles/tile_fire_activated.png" id="2_ioqi3"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_hr2mf"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_hdgk8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_ioqi3")
+}],
+"loop": true,
+"name": &"activate",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gvp4v"]
+size = Vector2(32, 32)
+
+[node name="TileFire" type="Area2D"]
+z_index = -1
+script = ExtResource("1_1jw1o")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(16, 16)
+sprite_frames = SubResource("SpriteFrames_hr2mf")
+animation = &"activate"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(16, 16)
+shape = SubResource("RectangleShape2D_gvp4v")
+
+[node name="DamageTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]
+[connection signal="timeout" from="DamageTimer" to="." method="_on_damage_timer_timeout"]

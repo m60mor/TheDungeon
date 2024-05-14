@@ -5,8 +5,8 @@
 [ext_resource type="Script" path="res://objects/Enemies/enemy_fly.gd" id="2_k1vvr"]
 [ext_resource type="Texture2D" uid="uid://ckfgp4e8f7uxd" path="res://assets/Enemies/Fly/Fly2.png" id="3_825ex"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_aorvh"]
-radius = 8.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pf6i1"]
+resource_local_to_scene = true
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_jaj02"]
 animations = [{
@@ -26,10 +26,11 @@ animations = [{
 radius = 111.113
 
 [node name="Enemy" instance=ExtResource("1_5v106")]
+z_index = 1
 script = ExtResource("2_k1vvr")
 
-[node name="CollisionShape2D" parent="." index="0"]
-shape = SubResource("CircleShape2D_aorvh")
+[node name="Hitbox" parent="." index="0"]
+shape = SubResource("RectangleShape2D_pf6i1")
 
 [node name="AnimatedSprite2D" parent="." index="1"]
 sprite_frames = SubResource("SpriteFrames_jaj02")

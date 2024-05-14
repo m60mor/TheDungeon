@@ -303,6 +303,7 @@ sources/0 = SubResource("TileSetAtlasSource_l2oco")
 sources/1 = SubResource("TileSetAtlasSource_pgiii")
 
 [node name="Area2D" type="Area2D"]
+z_index = -1
 collision_layer = 29
 collision_mask = 29
 script = ExtResource("1_vy01r")
@@ -324,4 +325,3 @@ layer_0/name = "floor"
 [node name="CollectableContainer" type="Node2D" parent="."]
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
-[connection signal="body_exited" from="." to="." method="_on_body_exited"]

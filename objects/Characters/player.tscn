@@ -12,10 +12,11 @@ size = Vector2(13, 30)
 radius = 16.0312
 
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
+z_index = -1
 position = Vector2(161, 76)
-collision_layer = 11
-collision_mask = 3
+collision_layer = 9
 script = ExtResource("1_22vqr")
+player_speed = 200.0
 bullet_resource = ExtResource("2_rp7i4")
 inventory = ExtResource("3_yjrwj")
 

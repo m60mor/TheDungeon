@@ -6,4 +6,8 @@
 [node name="Bullet" instance=ExtResource("1_nhyxc")]
 script = ExtResource("2_1lu7x")
 
+[node name="CollisionShape2D" parent="." index="3"]
+light_mask = 29
+visibility_layer = 29
+
 [connection signal="body_exited" from="." to="." method="_on_body_exited"]

@@ -30,3 +30,7 @@ func bullet():
 
 func _on_body_entered(body):
 	pass
+
+func _on_area_exited(area):
+	if (area.has_method("room")):
+		queue_free()

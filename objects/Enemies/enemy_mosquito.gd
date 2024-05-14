@@ -1,6 +1,7 @@
 extends Enemy
 
 @onready var attack_timer = $AttackTimer
+@export var damage : float = 10
 
 func pick_direction():
 	if (player_chase == true):
@@ -32,6 +33,6 @@ func _on_attack_detection_body_exited(body):
 func _on_attack_timer_timeout():
 	player.do_damage(damage)
 	
-func do_damage(dmg, slow_mul, slow_time):
+func do_damage(dmg, slow_mul = 1, slow_time = 0):
 	ItemDrops.collectables_list = [[100, ItemDrops.wid2]]
 	super(dmg, slow_mul, slow_time)

@@ -7,9 +7,10 @@ extends CharacterBody2D
 var hotbar_timer_list : Array[Timer] = []
 @onready var pick_up_timer = $PickUpTimer
 @onready var collectibles_detection = $CollectiblesDetection
+@onready var hitbox = $Hitbox
 
 @export var fire_rate: float = 0
-@export var player_speed : float = 200
+@export var player_speed : float = 1000
 @export var bullet_resource : BulletBaseResource = null
 @export var inventory : Inventory
 

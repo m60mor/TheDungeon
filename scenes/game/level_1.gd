@@ -7,6 +7,6 @@ func _ready():
 	
 	
 func generate_level():
-	var steps = 20
+	var steps = 30
 	var walker = MapGenerator.new(Vector2(100, 100), borders, steps)
 	walker.queue_free()

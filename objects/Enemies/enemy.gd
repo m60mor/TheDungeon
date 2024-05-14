@@ -4,9 +4,9 @@ class_name Enemy
 @onready var animated_sprite = $AnimatedSprite2D
 @onready var animation_timer = $AnimationTimer
 @onready var slow_timer = $SlowTimer
+@onready var hitbox = $Hitbox
 @export var move_speed : float = 80
 @export var move_speed_multiplier : float = 1.0
-@export var damage : float = 10
 @export var hp : float = 40
 
 var player_chase = false
@@ -45,7 +45,7 @@ func _on_player_detection_body_exited(body):
 		animated_sprite.speed_scale = 1.0
 		player_chase = false
 
-func do_damage(dmg, slow_mul, slow_time):
+func do_damage(dmg, slow_mul = 1, slow_time = 0):
 	hp = hp - dmg
 	move_speed_multiplier = slow_mul
 	slow_timer.start(slow_time)
