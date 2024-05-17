@@ -23,6 +23,7 @@ size = Vector2(32, 32)
 
 [node name="TileFire" type="Area2D"]
 z_index = -1
+collision_mask = 19
 script = ExtResource("1_1jw1o")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

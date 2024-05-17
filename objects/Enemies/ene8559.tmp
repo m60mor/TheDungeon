@@ -7,15 +7,10 @@ resource_local_to_scene = true
 
 [node name="Enemy" type="CharacterBody2D"]
 collision_layer = 5
-collision_mask = 8
+collision_mask = 9
 motion_mode = 1
 floor_snap_length = 0.0
 script = ExtResource("1_xgneh")
-
-[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
-path_max_distance = 20.0
-navigation_layers = 17
-debug_enabled = true
 
 [node name="Hitbox" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_f8fe6")
@@ -29,7 +24,6 @@ collision_mask = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetection"]
 
 [node name="AnimationTimer" type="Timer" parent="."]
-one_shot = true
 
 [node name="SlowTimer" type="Timer" parent="."]
 
@@ -38,41 +32,19 @@ one_shot = true
 [node name="RayCastLeft" type="RayCast2D" parent="Node2D"]
 target_position = Vector2(-16, 0)
 collision_mask = 16
-collide_with_areas = true
 
 [node name="RayCastRight" type="RayCast2D" parent="Node2D"]
 target_position = Vector2(16, 0)
 collision_mask = 16
-collide_with_areas = true
 
 [node name="RayCastUp" type="RayCast2D" parent="Node2D"]
 target_position = Vector2(0, -16)
 collision_mask = 16
-collide_with_areas = true
 
 [node name="RayCastDown" type="RayCast2D" parent="Node2D"]
 target_position = Vector2(0, 16)
 collision_mask = 16
-collide_with_areas = true
 
-[node name="RayCastLU" type="RayCast2D" parent="Node2D"]
-target_position = Vector2(-10, -10)
-collision_mask = 16
-
-[node name="RayCastLD" type="RayCast2D" parent="Node2D"]
-target_position = Vector2(-10, 10)
-collision_mask = 16
-
-[node name="RayCastRU" type="RayCast2D" parent="Node2D"]
-target_position = Vector2(10, -10)
-collision_mask = 16
-
-[node name="RayCastRD" type="RayCast2D" parent="Node2D"]
-target_position = Vector2(10, 10)
-collision_mask = 16
-
-[connection signal="navigation_finished" from="NavigationAgent2D" to="." method="_on_navigation_agent_2d_navigation_finished"]
-[connection signal="target_reached" from="NavigationAgent2D" to="." method="_on_navigation_agent_2d_target_reached"]
 [connection signal="body_entered" from="PlayerDetection" to="." method="_on_player_detection_body_entered"]
 [connection signal="body_exited" from="PlayerDetection" to="." method="_on_player_detection_body_exited"]
 [connection signal="timeout" from="AnimationTimer" to="." method="_on_animation_timer_timeout"]

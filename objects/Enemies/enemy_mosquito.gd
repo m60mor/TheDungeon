@@ -3,15 +3,18 @@ extends Enemy
 @onready var attack_timer = $AttackTimer
 @export var damage : float = 10
 
+func pick_idle_target():
+	var select_max_x = room_position.x + room_size.x - 16
+	var select_max_y = room_position.y + room_size.y - 16
+	nav.target_position = Vector2(randi_range(room_position.x + 16, select_max_x - 16), randi_range(room_position.y + 16, select_max_y - 16))
+	super()
+
 func pick_direction():
 	if (player_chase == true):
-		var direction = player.global_position - global_position 
-		move_direction = Vector2(player.global_position - global_position).normalized()
-		if (abs(direction.x) + abs(direction.y) < 40):
-			move_direction.x = 0
-			move_direction.y = 0
+		nav.target_position = player.global_position
+		selected_direction = (nav.get_next_path_position() - global_position).normalized()
 	else:
-		move_direction = Vector2(randf_range(-1, 1), randf_range(-1, 1))
+		selected_direction = (nav.get_next_path_position() - global_position).normalized()
 	super()
 
 func _on_player_detection_body_entered(body):

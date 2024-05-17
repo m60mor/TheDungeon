@@ -29,10 +29,10 @@ radius = 111.113
 z_index = 1
 script = ExtResource("2_k1vvr")
 
-[node name="Hitbox" parent="." index="0"]
+[node name="Hitbox" parent="." index="1"]
 shape = SubResource("RectangleShape2D_pf6i1")
 
-[node name="AnimatedSprite2D" parent="." index="1"]
+[node name="AnimatedSprite2D" parent="." index="2"]
 sprite_frames = SubResource("SpriteFrames_jaj02")
 animation = &"idle"
 autoplay = "idle"
@@ -40,3 +40,27 @@ frame_progress = 0.623865
 
 [node name="CollisionShape2D" parent="PlayerDetection" index="0"]
 shape = SubResource("CircleShape2D_8u36r")
+
+[node name="RayCastLeft" parent="Node2D" index="0"]
+target_position = Vector2(-18, 0)
+
+[node name="RayCastRight" parent="Node2D" index="1"]
+target_position = Vector2(18, 0)
+
+[node name="RayCastUp" parent="Node2D" index="2"]
+target_position = Vector2(0, -18)
+
+[node name="RayCastDown" parent="Node2D" index="3"]
+target_position = Vector2(0, 18)
+
+[node name="RayCastLU" parent="Node2D" index="4"]
+target_position = Vector2(-14, -14)
+
+[node name="RayCastLD" parent="Node2D" index="5"]
+target_position = Vector2(-14, 14)
+
+[node name="RayCastRU" parent="Node2D" index="6"]
+target_position = Vector2(14, -14)
+
+[node name="RayCastRD" parent="Node2D" index="7"]
+target_position = Vector2(14, 14)

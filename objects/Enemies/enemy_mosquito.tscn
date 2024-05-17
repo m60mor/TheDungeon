@@ -5,9 +5,8 @@
 [ext_resource type="Texture2D" uid="uid://b0hsrccbkca1u" path="res://assets/Enemies/Mosquito/Mosquito1.png" id="3_wpuk7"]
 [ext_resource type="Texture2D" uid="uid://dvqqx8l7kv7wn" path="res://assets/Enemies/Mosquito/Mosquito2.png" id="4_cldah"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_aehg1"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xd0x4"]
 resource_local_to_scene = true
-size = Vector2(20, 15)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_nxwew"]
 animations = [{
@@ -31,12 +30,12 @@ radius = 23.0868
 
 [node name="Enemy" instance=ExtResource("1_suth8")]
 script = ExtResource("2_bep41")
+damage = 10.0
 
-[node name="CollisionShape2D" parent="." index="0"]
-position = Vector2(1, -2.5)
-shape = SubResource("RectangleShape2D_aehg1")
+[node name="Hitbox" parent="." index="1"]
+shape = SubResource("RectangleShape2D_xd0x4")
 
-[node name="AnimatedSprite2D" parent="." index="1"]
+[node name="AnimatedSprite2D" parent="." index="2"]
 sprite_frames = SubResource("SpriteFrames_nxwew")
 autoplay = "default"
 
@@ -50,6 +49,30 @@ position = Vector2(1, -2)
 shape = SubResource("CircleShape2D_brnrw")
 
 [node name="AttackTimer" type="Timer" parent="." index="6"]
+
+[node name="RayCastLeft" parent="Node2D" index="0"]
+target_position = Vector2(-18, 0)
+
+[node name="RayCastRight" parent="Node2D" index="1"]
+target_position = Vector2(18, 0)
+
+[node name="RayCastUp" parent="Node2D" index="2"]
+target_position = Vector2(0, -18)
+
+[node name="RayCastDown" parent="Node2D" index="3"]
+target_position = Vector2(0, 18)
+
+[node name="RayCastLU" parent="Node2D" index="4"]
+target_position = Vector2(-14, -14)
+
+[node name="RayCastLD" parent="Node2D" index="5"]
+target_position = Vector2(-14, 14)
+
+[node name="RayCastRU" parent="Node2D" index="6"]
+target_position = Vector2(14, -14)
+
+[node name="RayCastRD" parent="Node2D" index="7"]
+target_position = Vector2(14, 14)
 
 [connection signal="body_entered" from="AttackDetection" to="." method="_on_attack_detection_body_entered"]
 [connection signal="body_exited" from="AttackDetection" to="." method="_on_attack_detection_body_exited"]

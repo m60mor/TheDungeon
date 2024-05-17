@@ -42,7 +42,7 @@ func walk(steps):
 			
 		if step(n):
 			var room_type = "normal"
-			if (randi() % 10 < 2):
+			if (randi() % 10 < 11):
 				room_type = "walled"
 			elif (randi() % 10 < 3):
 				room_type = "hole"

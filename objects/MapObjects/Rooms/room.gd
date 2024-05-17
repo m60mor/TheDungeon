@@ -1,10 +1,11 @@
 extends Area2D
 class_name Room
 
-@onready var tile_map = $TileMap
+@onready var tile_map = $NavigationRegion2D/TileMap
 @onready var collision_shape = $CollisionShape2D
 @onready var enemy_container = $EnemyContainer
 @onready var collectable_container = $CollectableContainer
+@onready var navigation_region = $NavigationRegion2D
 const tile_fire = preload("res://objects/MapObjects/Rooms/tile_fire.tscn")
 
 var borders = Rect2(-500, -500, 1000, 1000)
@@ -16,10 +17,11 @@ func create_room(pos, siz, room_typ):
 	position = pos
 	size = siz
 	room_type = room_typ
-	tile_map = $TileMap
+	tile_map = $NavigationRegion2D/TileMap
 	collision_shape = $CollisionShape2D
 	enemy_container = $EnemyContainer
 	collectable_container = $CollectableContainer
+	navigation_region = $NavigationRegion2D
 	
 	var rect_shape = RectangleShape2D.new()
 	rect_shape.extents = size * 16
@@ -84,7 +86,7 @@ func create_hole(top_left, size):
 	tile_map.set_cells_terrain_connect(0, cells, 2, 0)
 
 func spawn_enemies():
-	if (room_type == "normal"):
+	if (room_type != "loot" and room_type != "first"):
 		var temp = int(size.x * size.y / 100) * 2
 		var more = temp * randi() % (temp + 1)
 		var enemy_num = 1 + more
@@ -97,6 +99,8 @@ func spawn_enemies():
 				var select_enemy_from_list = randi() % ItemDrops.enemy_list.size()
 				var new_enemy = ItemDrops.enemy_list[select_enemy_from_list][1].instantiate()
 				new_enemy.position = Vector2(spawn_pos_x, spawn_pos_y) * 32 + Vector2(16, 16)
+				new_enemy.room_position = position - Vector2(floor((size.x - 2)/2), floor((size.y - 2)/2)) * 32
+				new_enemy.room_size = (size - Vector2(2, 2)) * 32
 				enemy_container.call_deferred("add_child", new_enemy)
 				spawn_positions.append(Vector2(spawn_pos_x, spawn_pos_y))
 			else:
@@ -106,6 +110,7 @@ func _on_body_entered(body):
 	if (body.has_method("player")):
 		SignalBus.emit_change_room_camera(position, size)
 		if (!explored):
+			navigation_region.bake_navigation_polygon()
 			spawn_enemies()
 			explored = true
 

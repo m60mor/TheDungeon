@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://ccioaoyqgrnmw"]
+[gd_scene load_steps=11 format=3 uid="uid://ccioaoyqgrnmw"]
 
 [ext_resource type="Script" path="res://objects/MapObjects/Rooms/room.gd" id="1_vy01r"]
 [ext_resource type="Texture2D" uid="uid://ccls6yhw0eba6" path="res://assets/Map/grassTiles.png" id="2_x4pgj"]
@@ -6,6 +6,13 @@
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ai2ky"]
 size = Vector2(32, 32)
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_brjiq"]
+vertices = PackedVector2Array(2620, -905, 2565, 1560, -1137, 1442, -1224, -995)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(2631, -915, -1235, -1006, -1147, 1452, 2575, 1571)])
+source_geometry_group_name = &"navigation_polygon_source_group"
+cell_size = 32.0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_l2oco"]
 texture = ExtResource("2_x4pgj")
@@ -34,6 +41,20 @@ texture_region_size = Vector2i(32, 32)
 3:1/0 = 0
 3:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 3:1/0/physics_layer_0/angular_velocity = 0.0
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_l1gs8"]
+vertices = PackedVector2Array(16, 16, -16, 16, -16, -16, 16, -16)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)])
+source_geometry_group_name = &"navigation_polygon_source_group"
+agent_radius = 0.0
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_i5g35"]
+vertices = PackedVector2Array(16, 16, -16, 16, -16, -16, 16, -16)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)])
+source_geometry_group_name = &"navigation_polygon_source_group"
+agent_radius = 0.0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_pgiii"]
 texture = ExtResource("3_jvts2")
@@ -109,6 +130,7 @@ texture_region_size = Vector2i(32, 32)
 1:1/0/terrains_peering_bit/top_left_corner = 0
 1:1/0/terrains_peering_bit/top_side = 0
 1:1/0/terrains_peering_bit/top_right_corner = 0
+1:1/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_l1gs8")
 2:1/0 = 0
 2:1/0/terrain_set = 1
 2:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
@@ -190,6 +212,7 @@ texture_region_size = Vector2i(32, 32)
 3:2/0/terrains_peering_bit/top_left_corner = 0
 3:2/0/terrains_peering_bit/top_side = 0
 3:2/0/terrains_peering_bit/top_right_corner = 0
+3:2/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_i5g35")
 4:2/0 = 0
 4:2/0/z_index = -1
 4:2/0/terrain_set = 1
@@ -286,7 +309,7 @@ texture_region_size = Vector2i(32, 32)
 
 [sub_resource type="TileSet" id="TileSet_tgv1f"]
 tile_size = Vector2i(32, 32)
-physics_layer_0/collision_layer = 13
+physics_layer_0/collision_layer = 29
 physics_layer_0/collision_mask = 13
 terrain_set_0/mode = 0
 terrain_set_0/terrain_0/name = "TerrainGrass"
@@ -299,6 +322,7 @@ terrain_set_1/terrain_1/color = Color(0.5, 0.4375, 0.25, 1)
 terrain_set_2/mode = 0
 terrain_set_2/terrain_0/name = "TerrainHoles"
 terrain_set_2/terrain_0/color = Color(0.5, 0.34375, 0.25, 1)
+navigation_layer_0/layers = 1
 sources/0 = SubResource("TileSetAtlasSource_l2oco")
 sources/1 = SubResource("TileSetAtlasSource_pgiii")
 
@@ -315,13 +339,17 @@ shape = SubResource("RectangleShape2D_ai2ky")
 [node name="EnemyContainer" type="Node2D" parent="."]
 position = Vector2(4, 4)
 
-[node name="TileMap" type="TileMap" parent="."]
+[node name="CollectableContainer" type="Node2D" parent="."]
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+navigation_polygon = SubResource("NavigationPolygon_brjiq")
+navigation_layers = 17
+
+[node name="TileMap" type="TileMap" parent="NavigationRegion2D"]
 z_index = -1
 tile_set = SubResource("TileSet_tgv1f")
 rendering_quadrant_size = 32
 format = 2
 layer_0/name = "floor"
-
-[node name="CollectableContainer" type="Node2D" parent="."]
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
