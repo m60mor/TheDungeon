@@ -60,11 +60,22 @@ func pick_direction():
 	var desirable_move = desirable_moves.max()
 	var best_move_index = desirable_moves.find(desirable_move, 0)
 	move_direction = ray_cast_moves[best_move_index]
-	if (absf(desirable_move) > 1.05):
-		if (move_direction.x < 0):
-			animated_sprite.flip_h = true
-		elif (move_direction.x > 0):
-			animated_sprite.flip_h = false
+	#if (absf(desirable_move) > 1.05):
+		#if (move_direction.x < 0):
+			#animated_sprite.flip_h = true
+		#elif (move_direction.x > 0):
+			#animated_sprite.flip_h = false
+			
+	if (move_direction !=Vector2.ZERO):
+		if (absf(desirable_move) > 1.05):
+			if (move_direction.x > 0):
+				animated_sprite.play("move")
+				animated_sprite.flip_h = false
+			elif (move_direction.x < 0):
+				animated_sprite.play("move")
+				animated_sprite.flip_h = true
+	else:
+		animated_sprite.play("idle")
 
 func _on_animation_timer_timeout():
 	player_chase = false
@@ -72,12 +83,10 @@ func _on_animation_timer_timeout():
 func _on_player_detection_body_entered(body):
 	player_chase = true
 	player = body
-	animated_sprite.speed_scale = 1.3
 	
 func _on_player_detection_body_exited(body):
 	if (body.has_method("player")):
 		animation_timer.start(1)
-		animated_sprite.speed_scale = 1.0
 
 func _on_navigation_agent_2d_target_reached():
 	if (player_chase == false):

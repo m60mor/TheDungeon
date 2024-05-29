@@ -8,9 +8,15 @@ var spawn_position : Vector2 = Vector2.ZERO
 var teleport_to : Vector2 = Vector2.ZERO
 var player = null
 var saved_speed : int = 0
-	
+
+func _ready():
+	if (self.get_rotation_degrees() == 90):
+		sprite.scale.x = 0.5
+
 func set_teleport_positions(pos, teleport_pos, direction):
 	spawn_position = pos
+	if (direction.y > 0):
+		spawn_position -= Vector2(0, 8)
 	position = spawn_position 
 	teleport_to = teleport_pos + Vector2(32, 32) * direction
 	self.rotate(direction.angle())

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ceokitw0j8ypc"
-path="res://.godot/imported/StoneDoor.png-23970cf59a73fd4411383f111efb9b2a.ctex"
+uid="uid://bn0idt4urh580"
+path="res://.godot/imported/goblin1_3.png-52e91c46ce3a89b5e2f9da4d580975c5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Map/StoneDoor.png"
-dest_files=["res://.godot/imported/StoneDoor.png-23970cf59a73fd4411383f111efb9b2a.ctex"]
+source_file="res://assets/Enemies/Goblin/goblin1_3.png"
+dest_files=["res://.godot/imported/goblin1_3.png-52e91c46ce3a89b5e2f9da4d580975c5.ctex"]
 
 [params]
 

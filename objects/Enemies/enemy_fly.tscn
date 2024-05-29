@@ -20,6 +20,17 @@ animations = [{
 "loop": true,
 "name": &"idle",
 "speed": 15.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_gw1qi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_825ex")
+}],
+"loop": true,
+"name": &"move",
+"speed": 10.0
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8u36r"]
@@ -34,9 +45,8 @@ shape = SubResource("RectangleShape2D_pf6i1")
 
 [node name="AnimatedSprite2D" parent="." index="2"]
 sprite_frames = SubResource("SpriteFrames_jaj02")
-animation = &"idle"
+animation = &"move"
 autoplay = "idle"
-frame_progress = 0.623865
 
 [node name="CollisionShape2D" parent="PlayerDetection" index="0"]
 shape = SubResource("CircleShape2D_8u36r")

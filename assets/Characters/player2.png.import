@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ceokitw0j8ypc"
-path="res://.godot/imported/StoneDoor.png-23970cf59a73fd4411383f111efb9b2a.ctex"
+uid="uid://bni0tqjgixv77"
+path="res://.godot/imported/player2.png-87930460cd6b07cf77d37bc2c64d361d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Map/StoneDoor.png"
-dest_files=["res://.godot/imported/StoneDoor.png-23970cf59a73fd4411383f111efb9b2a.ctex"]
+source_file="res://assets/Characters/player2.png"
+dest_files=["res://.godot/imported/player2.png-87930460cd6b07cf77d37bc2c64d361d.ctex"]
 
 [params]
 

@@ -8,6 +8,8 @@ var hotbar_timer_list : Array[Timer] = []
 @onready var pick_up_timer = $PickUpTimer
 @onready var collectibles_detection = $CollectiblesDetection
 @onready var hitbox = $Hitbox
+@onready var sprite = $AnimatedSprite2D
+@onready var sprite_weapon = $SpriteWeapon
 
 @export var fire_rate: float = 0
 @export var player_speed : float = 1000
@@ -37,6 +39,7 @@ func update_selected_index(index):
 	selected_index = index
 	fire_rate = inventory.items[selected_index].fire_rate
 	bullet_resource = inventory.items[selected_index].bullet_resource
+	sprite_weapon.texture = inventory.items[selected_index].texture
 
 func pick_up_item():
 	if (can_pick_up):
@@ -68,6 +71,15 @@ func move():
 	Input.get_action_strength("right") - Input.get_action_strength("left"),
 	Input.get_action_strength("down") - Input.get_action_strength("up")
 	)
+	if (input_direction !=Vector2.ZERO):
+		if (input_direction.x > 0):
+			sprite.play("walk")
+			sprite.flip_h = false
+		elif (input_direction.x < 0):
+			sprite.play("walk")
+			sprite.flip_h = true
+	else:
+		sprite.play("idle")
 	velocity = input_direction * player_speed
 	move_and_slide()
 

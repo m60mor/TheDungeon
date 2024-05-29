@@ -16,7 +16,15 @@ animations = [{
 "texture": ExtResource("2_rvwsu")
 }],
 "loop": true,
-"name": &"default",
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_rvwsu")
+}],
+"loop": true,
+"name": &"move",
 "speed": 5.0
 }]
 
@@ -35,6 +43,7 @@ shape = SubResource("RectangleShape2D_bn01s")
 
 [node name="AnimatedSprite2D" parent="." index="2"]
 sprite_frames = SubResource("SpriteFrames_xaf42")
+animation = &"move"
 
 [node name="CollisionShape2D" parent="PlayerDetection" index="0"]
 position = Vector2(-2, 3)

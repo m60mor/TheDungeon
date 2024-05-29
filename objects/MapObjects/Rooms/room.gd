@@ -95,10 +95,11 @@ func spawn_enemies():
 		for i in range(enemy_num):
 			var spawn_pos_x = (randi() % int(size.x - 2)) - floor((size.x - 2)/2)
 			var spawn_pos_y = (randi() % int(size.y - 2)) - floor((size.y - 2)/2)
+			print(spawn_pos_x, " ", spawn_pos_y)
 			if (!spawn_positions.has(Vector2(spawn_pos_x, spawn_pos_y))):
 				var select_enemy_from_list = randi() % ItemDrops.enemy_list.size()
 				var new_enemy = ItemDrops.enemy_list[select_enemy_from_list][1].instantiate()
-				new_enemy.position = Vector2(spawn_pos_x, spawn_pos_y) * 32 + Vector2(16, 16)
+				new_enemy.position = Vector2(spawn_pos_x, spawn_pos_y) * 32 + Vector2(12, 12)
 				new_enemy.room_position = position - Vector2(floor((size.x - 2)/2), floor((size.y - 2)/2)) * 32
 				new_enemy.room_size = (size - Vector2(2, 2)) * 32
 				enemy_container.call_deferred("add_child", new_enemy)
