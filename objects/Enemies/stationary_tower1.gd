@@ -24,10 +24,9 @@ func _on_attack_timer_timeout():
 	can_fire = true
 	
 func _on_player_detection_body_entered(body):
-	if (body.has_method("player")):
-		player_chase = true
-		player = body
-		attack_timer.start(0.3)
+	player_chase = true
+	player = body
+	attack_timer.start(0.3)
 	super(body)
 
 func do_damage(dmg, slow_mul = 1, slow_time = 0):

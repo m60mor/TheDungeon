@@ -45,6 +45,7 @@ radius = 319.626
 [node name="Enemy" instance=ExtResource("1_ah1t0")]
 script = ExtResource("2_kqecn")
 bullet_resource = ExtResource("3_lemyh")
+move_speed = 50.0
 
 [node name="Hitbox" parent="." index="1"]
 shape = SubResource("RectangleShape2D_t4wq0")

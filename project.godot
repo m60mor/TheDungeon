@@ -19,6 +19,7 @@ config/features=PackedStringArray("4.2", "Mobile")
 SignalBus="*res://autoloads/SignalBus.gd"
 NodeExtensions="*res://autoloads/NodeExtensions.gd"
 ItemDrops="*res://autoloads/ItemDrops.gd"
+EnemySpawn="*res://autoloads/EnemySpawn.gd"
 
 [display]
 

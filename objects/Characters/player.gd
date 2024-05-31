@@ -46,13 +46,12 @@ func pick_up_item():
 		can_pick_up = false
 		var overlapping_areas = collectibles_detection.get_overlapping_areas()
 		for i in overlapping_areas:
-			if i.has_method("collectable"):
-				i.collect(inventory)
-				if (i.has_method("weapon")):
-					can_fire_list[selected_index] = false
-					hotbar_timer_list[selected_index].start(i.cooldown)
-				update_selected_index(selected_index)
-				break
+			i.collect(inventory)
+			if (i.has_method("weapon")):
+				can_fire_list[selected_index] = false
+				hotbar_timer_list[selected_index].start(i.cooldown)
+			update_selected_index(selected_index)
+			break
 		pick_up_timer.start(0.3)
 	
 func drop_item(item : InventoryItem):
@@ -70,13 +69,12 @@ func move():
 	var input_direction = Vector2(
 	Input.get_action_strength("right") - Input.get_action_strength("left"),
 	Input.get_action_strength("down") - Input.get_action_strength("up")
-	)
+	).normalized()
 	if (input_direction !=Vector2.ZERO):
+		sprite.play("walk")
 		if (input_direction.x > 0):
-			sprite.play("walk")
 			sprite.flip_h = false
 		elif (input_direction.x < 0):
-			sprite.play("walk")
 			sprite.flip_h = true
 	else:
 		sprite.play("idle")

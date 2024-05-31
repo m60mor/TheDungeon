@@ -1,8 +1,15 @@
 extends Enemy
 
-func pick_idle_target():
-	nav.target_position = global_position + Vector2(randi_range(1, 1), randi_range(-1, 1)).normalized() * 64
+@onready var idle_timer = $IdleTimer
+
+func _ready():
+	idle_timer.start(1)
 	super()
+
+func pick_idle_target():
+	var select_max_x = room_position.x + room_size.x - 16
+	var select_max_y = room_position.y + room_size.y - 16
+	nav.target_position = Vector2(randi_range(room_position.x + 16, select_max_x - 16), randi_range(room_position.y + 16, select_max_y - 16))
 
 func pick_direction():
 	if (player_chase == true):
@@ -14,3 +21,7 @@ func pick_direction():
 func do_damage(dmg, slow_mul = 1, slow_time = 0):
 	ItemDrops.collectables_list = [[100, ItemDrops.pid0]]
 	super(dmg, slow_mul, slow_time)
+
+func _on_idle_timer_timeout():
+	pick_idle_target()
+	idle_timer.start(1)

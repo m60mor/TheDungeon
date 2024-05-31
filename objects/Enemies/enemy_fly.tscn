@@ -5,8 +5,8 @@
 [ext_resource type="Script" path="res://objects/Enemies/enemy_fly.gd" id="2_k1vvr"]
 [ext_resource type="Texture2D" uid="uid://ckfgp4e8f7uxd" path="res://assets/Enemies/Fly/Fly2.png" id="3_825ex"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_pf6i1"]
-resource_local_to_scene = true
+[sub_resource type="CircleShape2D" id="CircleShape2D_3rsiq"]
+radius = 7.0
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_jaj02"]
 animations = [{
@@ -39,9 +39,10 @@ radius = 111.113
 [node name="Enemy" instance=ExtResource("1_5v106")]
 z_index = 1
 script = ExtResource("2_k1vvr")
+move_speed = 30.0
 
 [node name="Hitbox" parent="." index="1"]
-shape = SubResource("RectangleShape2D_pf6i1")
+shape = SubResource("CircleShape2D_3rsiq")
 
 [node name="AnimatedSprite2D" parent="." index="2"]
 sprite_frames = SubResource("SpriteFrames_jaj02")
@@ -51,26 +52,7 @@ autoplay = "idle"
 [node name="CollisionShape2D" parent="PlayerDetection" index="0"]
 shape = SubResource("CircleShape2D_8u36r")
 
-[node name="RayCastLeft" parent="Node2D" index="0"]
-target_position = Vector2(-18, 0)
+[node name="IdleTimer" type="Timer" parent="." index="7"]
+one_shot = true
 
-[node name="RayCastRight" parent="Node2D" index="1"]
-target_position = Vector2(18, 0)
-
-[node name="RayCastUp" parent="Node2D" index="2"]
-target_position = Vector2(0, -18)
-
-[node name="RayCastDown" parent="Node2D" index="3"]
-target_position = Vector2(0, 18)
-
-[node name="RayCastLU" parent="Node2D" index="4"]
-target_position = Vector2(-14, -14)
-
-[node name="RayCastLD" parent="Node2D" index="5"]
-target_position = Vector2(-14, 14)
-
-[node name="RayCastRU" parent="Node2D" index="6"]
-target_position = Vector2(14, -14)
-
-[node name="RayCastRD" parent="Node2D" index="7"]
-target_position = Vector2(14, 14)
+[connection signal="timeout" from="IdleTimer" to="." method="_on_idle_timer_timeout"]

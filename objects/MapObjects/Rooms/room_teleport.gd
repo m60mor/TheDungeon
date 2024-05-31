@@ -6,6 +6,7 @@ class_name RoomTeleport
 
 var spawn_position : Vector2 = Vector2.ZERO
 var teleport_to : Vector2 = Vector2.ZERO
+var room = null
 var player = null
 var saved_speed : int = 0
 
@@ -13,7 +14,8 @@ func _ready():
 	if (self.get_rotation_degrees() == 90):
 		sprite.scale.x = 0.5
 
-func set_teleport_positions(pos, teleport_pos, direction):
+func set_teleport_positions(pos, teleport_pos, direction, rom):
+	room = rom
 	spawn_position = pos
 	if (direction.y > 0):
 		spawn_position -= Vector2(0, 8)
@@ -22,18 +24,15 @@ func set_teleport_positions(pos, teleport_pos, direction):
 	self.rotate(direction.angle())
 
 func _on_body_entered(body):
-	if (body.has_method("player")):
-		if (body.can_teleport == true):
-			player = body
-			var areas = self.get_overlapping_areas()
-			for i in areas:
-				if (i.has_method("room")):
-					if (i.get_node("EnemyContainer").get_child_count() < 1):
-						body.can_teleport = false
-						body.position = teleport_to
-						saved_speed = body.player_speed 
-						body.player_speed = 0
-						timer.start(0.3)
+	#player
+	if (body.can_teleport == true):
+		player = body
+		if (room.get_node("EnemyContainer").get_child_count() < 1):
+			body.can_teleport = false
+			body.position = teleport_to
+			saved_speed = body.player_speed 
+			body.player_speed = 0
+			timer.start(0.3)
 
 func _on_timer_timeout():
 	player.player_speed = saved_speed

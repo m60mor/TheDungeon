@@ -5,9 +5,9 @@
 [ext_resource type="Texture2D" uid="uid://cnacybaf2lx22" path="res://assets/Enemies/Cloack/Cloak.png" id="2_rvwsu"]
 [ext_resource type="Resource" uid="uid://c2ch6sq3eid07" path="res://resources/bullet/bulled_red_res.tres" id="3_n7lw1"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_bn01s"]
-resource_local_to_scene = true
-size = Vector2(18, 23)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_f272f"]
+radius = 9.53145
+height = 27.0
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_xaf42"]
 animations = [{
@@ -34,12 +34,13 @@ radius = 259.031
 [node name="EnemyCloack" instance=ExtResource("1_utmqs")]
 script = ExtResource("1_ht40x")
 bullet_resource = ExtResource("3_n7lw1")
-move_speed = 40.0
+move_speed = 20.0
 hp = 150.0
 
 [node name="Hitbox" parent="." index="1"]
-position = Vector2(-2, 2.5)
-shape = SubResource("RectangleShape2D_bn01s")
+position = Vector2(0, 1)
+scale = Vector2(0.944243, 1.01041)
+shape = SubResource("CapsuleShape2D_f272f")
 
 [node name="AnimatedSprite2D" parent="." index="2"]
 sprite_frames = SubResource("SpriteFrames_xaf42")
@@ -52,31 +53,19 @@ shape = SubResource("CircleShape2D_c3na5")
 [node name="AttackTimer" type="Timer" parent="." index="4"]
 one_shot = true
 
-[node name="Node2D" parent="." index="7"]
-position = Vector2(-2, 3)
+[node name="RayCasts" parent="." index="7"]
+position = Vector2(-2, 2)
 
-[node name="RayCastLeft" parent="Node2D" index="0"]
-target_position = Vector2(-20, 0)
+[node name="RayCastLU" parent="RayCasts" index="4"]
+target_position = Vector2(-12, -14)
 
-[node name="RayCastRight" parent="Node2D" index="1"]
-target_position = Vector2(20, 0)
+[node name="RayCastLD" parent="RayCasts" index="5"]
+target_position = Vector2(-12, 14)
 
-[node name="RayCastUp" parent="Node2D" index="2"]
-target_position = Vector2(0, -20)
+[node name="RayCastRU" parent="RayCasts" index="6"]
+target_position = Vector2(11, -14)
 
-[node name="RayCastDown" parent="Node2D" index="3"]
-target_position = Vector2(0, 20)
-
-[node name="RayCastLU" parent="Node2D" index="4"]
-target_position = Vector2(-14, -15)
-
-[node name="RayCastLD" parent="Node2D" index="5"]
-target_position = Vector2(-14, 15)
-
-[node name="RayCastRU" parent="Node2D" index="6"]
-target_position = Vector2(14, -15)
-
-[node name="RayCastRD" parent="Node2D" index="7"]
-target_position = Vector2(14, 15)
+[node name="RayCastRD" parent="RayCasts" index="7"]
+target_position = Vector2(11, 14)
 
 [connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timer_timeout"]

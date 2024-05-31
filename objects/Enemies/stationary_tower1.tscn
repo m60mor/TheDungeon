@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://c8h6wn1sre6hb" path="res://assets/Enemies/tower1/tower1.png" id="4_ba8as"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qmgao"]
-size = Vector2(32, 32)
+size = Vector2(18, 27)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_c8a6j"]
 animations = [{
@@ -20,22 +20,27 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_lu6fa"]
-radius = 195.0
+radius = 191.003
 
 [node name="Stationary" instance=ExtResource("1_t1wil")]
-collision_layer = 5
-collision_mask = 8
+collision_layer = 4
+collision_mask = 9
 script = ExtResource("2_i2nkc")
 bullet_resource = ExtResource("3_x1m4y")
 hp = 200.0
 
 [node name="Hitbox" parent="." index="0"]
+position = Vector2(0, 0.5)
 shape = SubResource("RectangleShape2D_qmgao")
 
 [node name="AnimatedSprite2D" parent="." index="1"]
 sprite_frames = SubResource("SpriteFrames_c8a6j")
 animation = &"idle"
 autoplay = "idle"
+
+[node name="PlayerDetection" parent="." index="2"]
+collision_layer = 0
+collision_mask = 32
 
 [node name="CollisionShape2D" parent="PlayerDetection" index="0"]
 position = Vector2(1, 0)

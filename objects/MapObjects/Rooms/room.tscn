@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://ccioaoyqgrnmw"]
+[gd_scene load_steps=12 format=3 uid="uid://ccioaoyqgrnmw"]
 
 [ext_resource type="Script" path="res://objects/MapObjects/Rooms/room.gd" id="1_vy01r"]
 [ext_resource type="Texture2D" uid="uid://ccls6yhw0eba6" path="res://assets/Map/grassTiles.png" id="2_x4pgj"]
@@ -326,10 +326,13 @@ navigation_layer_0/layers = 1
 sources/0 = SubResource("TileSetAtlasSource_l2oco")
 sources/1 = SubResource("TileSetAtlasSource_pgiii")
 
-[node name="Area2D" type="Area2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_er787"]
+size = Vector2(32, 32)
+
+[node name="Room" type="Area2D"]
 z_index = -1
-collision_layer = 29
-collision_mask = 29
+collision_layer = 0
+collision_mask = 32
 script = ExtResource("1_vy01r")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -351,5 +354,13 @@ tile_set = SubResource("TileSet_tgv1f")
 rendering_quadrant_size = 32
 format = 2
 layer_0/name = "floor"
+
+[node name="Detector" type="Area2D" parent="."]
+visible = false
+collision_layer = 18
+collision_mask = 18
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Detector"]
+shape = SubResource("RectangleShape2D_er787")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

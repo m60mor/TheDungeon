@@ -8,7 +8,7 @@ var direction = Vector2.RIGHT
 var borders = Rect2()
 var room_positions = []
 var room_sizes = []
-var base_room_size = [11, 11, 13, 13, 13, 15, 15, 15, 17]
+var base_room_size = [15, 15, 17, 17, 17, 19, 19, 19, 21]
 var room_size : Vector2 = Vector2(7, 7)
 var prev_room_size : Vector2 = Vector2(7, 7)
 
@@ -41,12 +41,6 @@ func walk(steps):
 			n = 23
 			
 		if step(n):
-			var room_type = "normal"
-			if (randi() % 10 < 11):
-				room_type = "walled"
-			elif (randi() % 10 < 3):
-				room_type = "hole"
-			create_room(position, room_type)
 			prev_room_size = room_size
 			room_positions.append(position)
 			room_sizes.append(room_size)
@@ -83,12 +77,19 @@ func add_loot_rooms(steps, repeat):
 			i += 1
 	
 func step(set_room_size : int = 0):
+	var room_type = "normal"
+	if (randi() % 10 < 11):
+		room_type = "walled"
+	elif (randi() % 10 < 3):
+		room_type = "hole"
 	var new_room_size = base_room_size[randi() % 9]
 	if (set_room_size != 0):
 		new_room_size = set_room_size
+		room_type = "boss"
 	room_size = Vector2(4 + new_room_size, new_room_size)
 	var target_position = position + (direction * Vector2(30, 30))
 	if borders.has_point(target_position) and is_not_room_at_position(target_position):
+		create_room(target_position, room_type)
 		create_door(position, target_position, prev_room_size, room_size)
 		position = target_position
 		return true
@@ -114,5 +115,5 @@ func create_room(pos, room_type):
 func create_door(position, target_position, prev_room_size, room_size):
 	var prev_teleport_position = (position + direction * Vector2(int(prev_room_size.x / 2), int(prev_room_size.y / 2))) * 32 + Vector2(16, 16)
 	var next_teleport_position = ((target_position - direction * Vector2(int(room_size.x / 2), int(room_size.y / 2))) * 32) + Vector2(16, 16)
-	teleport_manager.spawn_teleport(prev_teleport_position, next_teleport_position, direction)
-	teleport_manager.spawn_teleport(next_teleport_position, prev_teleport_position, -direction)
+	teleport_manager.spawn_teleport(prev_teleport_position, next_teleport_position, direction, room_manager.rooms[room_manager.rooms.size() - 2])
+	teleport_manager.spawn_teleport(next_teleport_position, prev_teleport_position, -direction, room_manager.rooms[room_manager.rooms.size() - 1])

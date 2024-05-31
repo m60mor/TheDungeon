@@ -5,14 +5,14 @@ class_name Enemy
 @onready var animation_timer = $AnimationTimer
 @onready var slow_timer = $SlowTimer
 @onready var hitbox = $Hitbox
-@onready var rc_left = $Node2D/RayCastLeft
-@onready var rc_right = $Node2D/RayCastRight
-@onready var rc_up = $Node2D/RayCastUp
-@onready var rc_down = $Node2D/RayCastDown
-@onready var rc_lu = $Node2D/RayCastLU
-@onready var rc_ld = $Node2D/RayCastLD
-@onready var rc_ru = $Node2D/RayCastRU
-@onready var rc_rd = $Node2D/RayCastRD
+@onready var rc_left = $RayCasts/RayCastLeft
+@onready var rc_right = $RayCasts/RayCastRight
+@onready var rc_up = $RayCasts/RayCastUp
+@onready var rc_down = $RayCasts/RayCastDown
+@onready var rc_lu = $RayCasts/RayCastLU
+@onready var rc_ld = $RayCasts/RayCastLD
+@onready var rc_ru = $RayCasts/RayCastRU
+@onready var rc_rd = $RayCasts/RayCastRD
 @onready var nav : NavigationAgent2D = $NavigationAgent2D
 
 @export var move_speed : float = 80
@@ -32,7 +32,6 @@ var danger_moves = []
 var possible_moves = []
 
 func _ready():
-	animation_timer.start(1)
 	pick_idle_target()
 	rc_list = [rc_up, rc_ru, rc_right, rc_rd, rc_down, rc_ld, rc_left, rc_lu]
 
@@ -85,7 +84,6 @@ func _on_player_detection_body_entered(body):
 	player = body
 	
 func _on_player_detection_body_exited(body):
-	if (body.has_method("player")):
 		animation_timer.start(1)
 
 func _on_navigation_agent_2d_target_reached():
@@ -95,6 +93,8 @@ func _on_navigation_agent_2d_target_reached():
 func _on_navigation_agent_2d_navigation_finished():
 	if (player_chase == false):
 		pick_idle_target()
+
+
 
 func do_damage(dmg, slow_mul = 1, slow_time = 0):
 	hp = hp - dmg

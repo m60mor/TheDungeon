@@ -2,6 +2,7 @@ extends Node2D
 class_name RoomManager
 
 var room_scene : PackedScene = null
+var rooms = []
 
 func _ready():
 	pass
@@ -14,3 +15,4 @@ func spawn_room(pos, size, room_type):
 	if room_container == null:
 		print("Error no room container")
 	room_container.add_child(new_room)
+	rooms.append(new_room)

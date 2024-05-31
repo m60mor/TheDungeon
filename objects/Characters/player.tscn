@@ -37,8 +37,7 @@ radius = 16.0312
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
 z_index = -1
 position = Vector2(161, 76)
-collision_layer = 11
-collision_mask = 3
+collision_layer = 32
 motion_mode = 1
 floor_snap_length = 0.0
 script = ExtResource("1_22vqr")
@@ -56,8 +55,8 @@ position = Vector2(-0.5, 0)
 shape = SubResource("RectangleShape2D_obnny")
 
 [node name="CollectiblesDetection" type="Area2D" parent="."]
-collision_layer = 16
-collision_mask = 16
+collision_layer = 64
+collision_mask = 64
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CollectiblesDetection"]
 shape = SubResource("CircleShape2D_ctqkc")
