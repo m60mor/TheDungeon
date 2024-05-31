@@ -14,6 +14,7 @@ var size : Vector2 = Vector2(7, 7);
 var room_type : String = "normal"
 var explored : bool = false
 var used_positions = []
+var door_positions = []
 	
 func create_room(pos, siz, room_typ):
 	position = pos
@@ -32,7 +33,7 @@ func create_room(pos, siz, room_typ):
 	
 	create_tiles(position, size)
 	if (room_type != "boss"):
-		if (randi() % 10 < 100):
+		if (randi() % 10 < 2):
 			create_special_tiles((-size/2).ceil() + Vector2(1, 1), size - Vector2(2, 2))
 		if (room_type == "loot"):
 			create_loot()
@@ -40,6 +41,7 @@ func create_room(pos, siz, room_typ):
 			create_walled()
 		elif (room_type == "hole"):
 			create_hole((-size/2).ceil() + Vector2(1, 1), size - Vector2(2, 2))
+	navigation_region.bake_navigation_polygon()
 
 func create_loot():
 	tile_map.set_cell(0, Vector2(0, 0), 1, Vector2(4, 2))
@@ -92,12 +94,19 @@ func create_hole(top_left, size):
 	tile_map.set_cells_terrain_connect(0, cells, 2, 0)
 
 func spawn_enemies():
+	for i in range(door_positions.size()):
+		for j in range(5):
+			for k in range(5):
+				used_positions.append(Vector2(door_positions[i] + Vector2(j - 2, k - 2)))
+			
 	if (room_type != "loot" and room_type != "first"):
 		var temp = int(size.x * size.y / 100) * 2
 		var more = temp * randi() % (temp + 1)
-		var enemy_num = 10 + more
+		var enemy_num = 5 + more
 		
-		for i in range(enemy_num):
+		var i = 0
+		var sec = 0
+		while i < enemy_num:
 			var	spawn_pos_x = (randi() % int(size.x - 2)) - floor((size.x - 2)/2)
 			var	spawn_pos_y = (randi() % int(size.y - 2)) - floor((size.y - 2)/2)
 			if (!used_positions.has(Vector2(spawn_pos_x, spawn_pos_y))):
@@ -110,6 +119,10 @@ func spawn_enemies():
 				used_positions.append(Vector2(spawn_pos_x, spawn_pos_y))
 			else:
 				i -= 1
+			i += 1
+			sec += 1
+			if sec > 100:
+				break
 				
 func spawn_boss():
 	var select_enemy_from_list = randi() % EnemySpawn.enemy_list.size()
@@ -120,9 +133,9 @@ func spawn_boss():
 	enemy_container.call_deferred("add_child", new_enemy)
 	
 func _on_body_entered(body):
+	print(room_type)
 	SignalBus.emit_change_room_camera(position, size)
-	if (!explored):
-		navigation_region.bake_navigation_polygon()
+	if (!explored && room_type != "loot"):
 		if (room_type == "boss"):
 			spawn_boss()
 		else:
@@ -130,8 +143,11 @@ func _on_body_entered(body):
 		explored = true
 
 
-#func _on_body_exited(body):
-	#pass # Replace with function body.
+func _on_body_exited(body):
+	explored = false
+	for i in enemy_container.get_children():
+		i.queue_free()
+	print("A")
 
 func room():
 	pass

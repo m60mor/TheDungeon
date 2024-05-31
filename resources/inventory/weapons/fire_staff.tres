@@ -7,8 +7,10 @@
 [resource]
 script = ExtResource("2_ahymh")
 id = 2
+id_type = "w"
 name = "Fire Staff"
 texture = ExtResource("3_v3p84")
-pick_chance = 40.0
+drop_chance = 1.0
 bullet_resource = ExtResource("1_fm4jp")
-fire_rate = 1.0
+fire_rate = 0.01
+heal = 0.0

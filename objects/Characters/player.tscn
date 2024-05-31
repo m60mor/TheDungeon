@@ -38,10 +38,11 @@ radius = 16.0312
 z_index = -1
 position = Vector2(161, 76)
 collision_layer = 32
+collision_mask = 0
 motion_mode = 1
 floor_snap_length = 0.0
 script = ExtResource("1_22vqr")
-player_speed = 200.0
+player_speed = 2000.0
 bullet_resource = ExtResource("2_rp7i4")
 inventory = ExtResource("3_yjrwj")
 
