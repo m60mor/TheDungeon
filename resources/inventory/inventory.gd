@@ -2,11 +2,18 @@ extends Resource
 class_name Inventory
 
 @export var items : Array[InventoryItem]
+const basic_staff = preload("res://resources/inventory/weapons/basic_staff.tres")
 
 var inventory_index : int = 0
 
 func _init():
 	SignalBus.connect("update_selected_index", update_index)
+	SignalBus.connect("reset_inventory", reset_inventory)
+
+func reset_inventory():
+	items[0] = basic_staff
+	items[1] = InventoryItem.new()
+	items[2] = InventoryItem.new()
 
 func update_index(index):
 	inventory_index = index

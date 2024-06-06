@@ -8,9 +8,11 @@ class_name Room
 @onready var navigation_region = $NavigationRegion2D
 @onready var detector = $Detector
 const tile_fire = preload("res://objects/MapObjects/Rooms/tile_fire.tscn")
+const destructible_crate = preload("res://objects/MapObjects/Destructibles/destructible_crate.tscn")
 
 var borders = Rect2(-500, -500, 1000, 1000)
-var size : Vector2 = Vector2(7, 7);
+var size : Vector2 = Vector2(7, 7)
+var top_left : Vector2 = Vector2(0, 0)
 var room_type : String = "normal"
 var explored : bool = false
 var used_positions = []
@@ -20,6 +22,7 @@ func create_room(pos, siz, room_typ):
 	position = pos
 	size = siz
 	room_type = room_typ
+	top_left = (-size/2).ceil()
 	tile_map = $NavigationRegion2D/TileMap
 	collision_shape = $CollisionShape2D
 	enemy_container = $EnemyContainer
@@ -33,14 +36,16 @@ func create_room(pos, siz, room_typ):
 	
 	create_tiles(position, size)
 	if (room_type != "boss"):
-		if (randi() % 10 < 2):
-			create_special_tiles((-size/2).ceil() + Vector2(1, 1), size - Vector2(2, 2))
 		if (room_type == "loot"):
 			create_loot()
 		elif (room_type == "walled"):
 			create_walled()
 		elif (room_type == "hole"):
-			create_hole((-size/2).ceil() + Vector2(1, 1), size - Vector2(2, 2))
+			create_hole(top_left + Vector2(2, 2), size - Vector2(2, 2))
+		elif (randi() % 10 < 0):
+			create_destructibles(top_left)
+		elif (randi() % 10 < 10):
+			create_special_tiles(top_left + Vector2(1, 1), size - Vector2(2, 2))
 	navigation_region.bake_navigation_polygon()
 
 func create_loot():
@@ -50,7 +55,6 @@ func create_loot():
 	collectable_container.add_child(collectable)
 	
 func create_tiles(pos, size):
-	var top_left = (- size/2).ceil()
 	var cells = []
 	for y in size.y:
 		for x in size.x:
@@ -59,15 +63,25 @@ func create_tiles(pos, size):
 				cells.append(room_cell_position)
 	tile_map.set_cells_terrain_connect(0, cells, 1, 0)
 
-func create_special_tiles(top_left, size):
+func create_special_tiles(tl, size):
 	for y in range(1, size.y - 1):
 		for x in range(1, size.x - 1):
-			var room_cell_position = top_left + Vector2(x, y)
-			if (randi() % 100 < 1):
+			var room_cell_position = tl + Vector2(x, y)
+			if (randi() % 100 < 2):
 				var new_tile = tile_fire.instantiate()
 				new_tile.position = room_cell_position * 32
 				collectable_container.add_child(new_tile)
 				used_positions.append(room_cell_position)
+				
+func create_destructibles(tl):
+	for y in range(1 + floori(size.y/3), floori(2 * size.y / 3)):
+		for x in range(1 + floori(size.x/3), floori(2 * size.x / 3)):
+			var room_dest_position = tl + Vector2(x, y)
+			if (randi() % 100 < 30):
+				var new = destructible_crate.instantiate()
+				new.position = room_dest_position * 32
+				collectable_container.add_child(new)
+				used_positions.append(room_dest_position)
 	
 func create_walled():
 	var wall_cells = []
@@ -81,14 +95,14 @@ func create_walled():
 			if (randi() % 10 < 1):
 				tile_map.set_cell(0, Vector2(ceili(-size.x / 2) + i, ceili(-size.y / 2) + j), 1, Vector2(1, 1))
 
-func create_hole(top_left, size):
+func create_hole(tl, size):
 	var cells = []
 	var hole_width = 3 + randi() % (floori(size.x/2) - 1)
 	var hole_height = 3 + randi() % (floori(size.y/2) - 1)
 	top_left += Vector2(1 + randi() % int(size.x - hole_width - 1), 1 + randi() % int(size.y - hole_height - 1))
 	for y in range(0, hole_height):
 		for x in range(0, hole_width):
-			var hole_cell_position = top_left + Vector2(x, y)
+			var hole_cell_position = tl + Vector2(x, y)
 			cells.append(hole_cell_position)
 			used_positions.append(hole_cell_position)
 	tile_map.set_cells_terrain_connect(0, cells, 2, 0)
@@ -125,15 +139,14 @@ func spawn_enemies():
 				break
 				
 func spawn_boss():
-	var select_enemy_from_list = randi() % EnemySpawn.enemy_list.size()
-	var new_enemy = EnemySpawn.enemy_list[select_enemy_from_list][1].instantiate()
+	var select_boss_from_list = randi() % EnemySpawn.boss_list.size()
+	var new_enemy = EnemySpawn.boss_list[select_boss_from_list].instantiate()
 	new_enemy.position = Vector2(0, 0) + Vector2(12, 12)
 	new_enemy.room_position = position - Vector2(floor((size.x - 2)/2), floor((size.y - 2)/2)) * 32
 	new_enemy.room_size = (size - Vector2(2, 2)) * 32
 	enemy_container.call_deferred("add_child", new_enemy)
 	
 func _on_body_entered(body):
-	print(room_type)
 	SignalBus.emit_change_room_camera(position, size)
 	if (!explored && room_type != "loot"):
 		if (room_type == "boss"):
@@ -147,7 +160,6 @@ func _on_body_exited(body):
 	explored = false
 	for i in enemy_container.get_children():
 		i.queue_free()
-	print("A")
 
 func room():
 	pass

@@ -13,14 +13,15 @@ func _physics_process(_delta):
 	super(_delta)
 
 func _on_attack_timer_timeout():
-	SignalBus.emit_shoot(bullet_resource, global_position, Vector2(0, 1), 4)
-	SignalBus.emit_shoot(bullet_resource, global_position, Vector2(0, -1), 4)
-	SignalBus.emit_shoot(bullet_resource, global_position, Vector2(1, 0), 4)
-	SignalBus.emit_shoot(bullet_resource, global_position, Vector2(-1, 0), 4)
-	SignalBus.emit_shoot(bullet_resource, global_position, Vector2(0.5, 0.5), 4)
-	SignalBus.emit_shoot(bullet_resource, global_position, Vector2(-0.5, 0.5), 4)
-	SignalBus.emit_shoot(bullet_resource, global_position, Vector2(0.5, -0.5), 4)
-	SignalBus.emit_shoot(bullet_resource, global_position, Vector2(-0.5, -0.5), 4)
+	var player_direction = (player.global_position - global_position).normalized()
+	SignalBus.emit_shoot(bullet_resource, global_position, player_direction, 4)
+	SignalBus.emit_shoot(bullet_resource, global_position, player_direction.rotated(deg_to_rad(45)), 4)
+	SignalBus.emit_shoot(bullet_resource, global_position, player_direction.rotated(deg_to_rad(90)), 4)
+	SignalBus.emit_shoot(bullet_resource, global_position, player_direction.rotated(deg_to_rad(135)), 4)
+	SignalBus.emit_shoot(bullet_resource, global_position, player_direction.rotated(deg_to_rad(180)), 4)
+	SignalBus.emit_shoot(bullet_resource, global_position, player_direction.rotated(deg_to_rad(225)), 4)
+	SignalBus.emit_shoot(bullet_resource, global_position, player_direction.rotated(deg_to_rad(270)), 4)
+	SignalBus.emit_shoot(bullet_resource, global_position, player_direction.rotated(deg_to_rad(315)), 4)
 	can_fire = true
 	
 func _on_player_detection_body_entered(body):

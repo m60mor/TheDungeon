@@ -1,15 +1,14 @@
-[gd_scene load_steps=10 format=3 uid="uid://brauww3lnrro2"]
+[gd_scene load_steps=9 format=3 uid="uid://brauww3lnrro2"]
 
 [ext_resource type="PackedScene" uid="uid://c46pylbu81y6u" path="res://objects/Enemies/enemy.tscn" id="1_ah1t0"]
 [ext_resource type="Script" path="res://objects/Enemies/enemy_goblin.gd" id="2_kqecn"]
 [ext_resource type="Texture2D" uid="uid://bn0idt4urh580" path="res://assets/Enemies/Goblin/goblin1_3.png" id="2_pymqw"]
 [ext_resource type="Resource" uid="uid://c2ch6sq3eid07" path="res://resources/bullet/bulled_red_res.tres" id="3_lemyh"]
-[ext_resource type="Texture2D" uid="uid://y40vwb0x1ool" path="res://assets/Enemies/Goblin/goblin2.png" id="3_v2dso"]
 [ext_resource type="Texture2D" uid="uid://deys24o1fjb5l" path="res://assets/Enemies/Goblin/goblin4.png" id="4_w3xl5"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_t4wq0"]
 resource_local_to_scene = true
-size = Vector2(12, 22)
+size = Vector2(16, 21)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_g44b1"]
 animations = [{
@@ -25,18 +24,12 @@ animations = [{
 "duration": 1.0,
 "texture": ExtResource("2_pymqw")
 }, {
-"duration": 0.8,
-"texture": ExtResource("3_v2dso")
-}, {
 "duration": 1.0,
-"texture": ExtResource("2_pymqw")
-}, {
-"duration": 0.5,
 "texture": ExtResource("4_w3xl5")
 }],
 "loop": true,
 "name": &"move",
-"speed": 5.0
+"speed": 8.0
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_j5o7e"]
@@ -48,16 +41,30 @@ bullet_resource = ExtResource("3_lemyh")
 move_speed = 50.0
 
 [node name="Hitbox" parent="." index="1"]
+visible = true
+position = Vector2(0, 0.5)
 shape = SubResource("RectangleShape2D_t4wq0")
 
 [node name="AnimatedSprite2D" parent="." index="2"]
-position = Vector2(0, -4)
+position = Vector2(0, -20)
 sprite_frames = SubResource("SpriteFrames_g44b1")
-animation = &"idle"
+animation = &"move"
 autoplay = "idle"
 
 [node name="CollisionShape2D" parent="PlayerDetection" index="0"]
 shape = SubResource("CircleShape2D_j5o7e")
+
+[node name="RayCastLU" parent="RayCasts" index="4"]
+target_position = Vector2(-16, -16)
+
+[node name="RayCastLD" parent="RayCasts" index="5"]
+target_position = Vector2(-16, 16)
+
+[node name="RayCastRU" parent="RayCasts" index="6"]
+target_position = Vector2(16, -16)
+
+[node name="RayCastRD" parent="RayCasts" index="7"]
+target_position = Vector2(16, 16)
 
 [node name="AttackTimer" type="Timer" parent="." index="7"]
 

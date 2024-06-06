@@ -14,13 +14,14 @@ script = ExtResource("1_xgneh")
 path_max_distance = 20.0
 navigation_layers = 19
 avoidance_mask = 3
-debug_enabled = true
 
 [node name="Hitbox" type="CollisionShape2D" parent="."]
+visible = false
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 
 [node name="PlayerDetection" type="Area2D" parent="."]
+visible = false
 collision_layer = 0
 collision_mask = 32
 

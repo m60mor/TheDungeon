@@ -35,6 +35,9 @@ func _on_player_detection_body_exited(body):
 
 func do_damage(dmg, slow_mul = 1, slow_time = 0):
 	hp = hp - dmg
+	animated_sprite.modulate = Color.RED
+	await get_tree().create_timer(0.1).timeout
+	animated_sprite.modulate = Color.WHITE
 	if (hp <= 0):
 		var select_drop : Array = ItemDrops.drop_collectable()
 		if (select_drop.size() > 0):

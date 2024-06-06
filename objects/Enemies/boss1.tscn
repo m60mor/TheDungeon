@@ -1,0 +1,102 @@
+[gd_scene load_steps=8 format=3 uid="uid://dggvjmub1617n"]
+
+[ext_resource type="Script" path="res://objects/Enemies/boss1.gd" id="1_73s4t"]
+[ext_resource type="Texture2D" uid="uid://c8h6wn1sre6hb" path="res://assets/Enemies/tower1/tower1.png" id="2_cwyol"]
+[ext_resource type="Resource" uid="uid://c2ch6sq3eid07" path="res://resources/bullet/bulled_red_res.tres" id="2_yy7cl"]
+[ext_resource type="Resource" uid="uid://bv1ug74sd6dng" path="res://resources/bullet/bullet_fire_res.tres" id="3_b5t2t"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_kcj8s"]
+radius = 23.0
+height = 90.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_jsp75"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_cwyol")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_2cosv"]
+radius = 527.371
+
+[node name="Boss1" type="CharacterBody2D"]
+collision_layer = 6
+collision_mask = 9
+motion_mode = 1
+wall_min_slide_angle = 0.818559
+floor_snap_length = 0.0
+script = ExtResource("1_73s4t")
+bullet1_resource = ExtResource("2_yy7cl")
+bullet2_resource = ExtResource("3_b5t2t")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+path_max_distance = 20.0
+navigation_layers = 19
+avoidance_mask = 3
+
+[node name="Hitbox" type="CollisionShape2D" parent="."]
+position = Vector2(0, -20)
+shape = SubResource("CapsuleShape2D_kcj8s")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(1, -37)
+scale = Vector2(2.21875, 1.85938)
+sprite_frames = SubResource("SpriteFrames_jsp75")
+
+[node name="PlayerDetection" type="Area2D" parent="."]
+visible = false
+collision_layer = 0
+collision_mask = 32
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetection"]
+shape = SubResource("CircleShape2D_2cosv")
+
+[node name="AnimationTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="SlowTimer" type="Timer" parent="."]
+
+[node name="AttackTimer" type="Timer" parent="."]
+
+[node name="RayCasts" type="Node2D" parent="."]
+position = Vector2(0, -20)
+
+[node name="RayCastLeft" type="RayCast2D" parent="RayCasts"]
+target_position = Vector2(-60, 0)
+collide_with_areas = true
+
+[node name="RayCastRight" type="RayCast2D" parent="RayCasts"]
+target_position = Vector2(60, 0)
+collide_with_areas = true
+
+[node name="RayCastUp" type="RayCast2D" parent="RayCasts"]
+target_position = Vector2(0, -60)
+collide_with_areas = true
+
+[node name="RayCastDown" type="RayCast2D" parent="RayCasts"]
+target_position = Vector2(0, 60)
+collide_with_areas = true
+
+[node name="RayCastLU" type="RayCast2D" parent="RayCasts"]
+target_position = Vector2(-40, -40)
+
+[node name="RayCastLD" type="RayCast2D" parent="RayCasts"]
+target_position = Vector2(-40, 40)
+
+[node name="RayCastRU" type="RayCast2D" parent="RayCasts"]
+target_position = Vector2(40, -40)
+
+[node name="RayCastRD" type="RayCast2D" parent="RayCasts"]
+target_position = Vector2(40, 40)
+
+[connection signal="navigation_finished" from="NavigationAgent2D" to="." method="_on_navigation_agent_2d_navigation_finished"]
+[connection signal="target_reached" from="NavigationAgent2D" to="." method="_on_navigation_agent_2d_target_reached"]
+[connection signal="body_entered" from="PlayerDetection" to="." method="_on_player_detection_body_entered"]
+[connection signal="body_exited" from="PlayerDetection" to="." method="_on_player_detection_body_exited"]
+[connection signal="timeout" from="AnimationTimer" to="." method="_on_animation_timer_timeout"]
+[connection signal="timeout" from="SlowTimer" to="." method="_on_slow_timer_timeout"]
+[connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timer_timeout"]

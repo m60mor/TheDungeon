@@ -1,20 +1,22 @@
 class_name Player
 extends CharacterBody2D
 
-@onready var hotbar_timer0 = $hotbarTimer0
-@onready var hotbar_timer1 = $hotbarTimer1
-@onready var hotbar_timer2 = $hotbarTimer2
-var hotbar_timer_list : Array[Timer] = []
 @onready var pick_up_timer = $PickUpTimer
-@onready var collectibles_detection = $CollectiblesDetection
 @onready var hitbox = $Hitbox
 @onready var sprite = $AnimatedSprite2D
 @onready var sprite_weapon = $SpriteWeapon
 
+@onready var collectibles_detection = $CollectiblesDetection
+
+@onready var hotbar_timer0 = $hotbarTimer0
+@onready var hotbar_timer1 = $hotbarTimer1
+@onready var hotbar_timer2 = $hotbarTimer2
+var hotbar_timer_list : Array[Timer] = []
+
 @export var fire_rate: float = 0
 @export var player_speed : float = 1000
 @export var bullet_resource : BulletBaseResource = null
-@export var inventory : Inventory
+@export var inventory : Inventory = preload("res://resources/inventory/player_inventory.tres")
 
 var hp : float = 100
 var can_fire0 : bool = true	
@@ -62,6 +64,7 @@ func drop_item(item : InventoryItem):
 		hotbar_timer_list[selected_index].stop()
 	elif (item.id_type == "i"):
 		new_collectable = ItemDrops.item_list[item.id][1].instantiate()
+		
 	new_collectable.position = position - Vector2(16, 16)
 	NodeExtensions.get_collectable_container().add_child(new_collectable)
 		
@@ -72,10 +75,6 @@ func move():
 	).normalized()
 	if (input_direction !=Vector2.ZERO):
 		sprite.play("walk")
-		if (input_direction.x > 0):
-			sprite.flip_h = false
-		elif (input_direction.x < 0):
-			sprite.flip_h = true
 	else:
 		sprite.play("idle")
 	velocity = input_direction * player_speed
@@ -95,6 +94,13 @@ func _physics_process(_delta):
 			SignalBus.shoot.emit(bullet_resource, position + dir * Vector2(16, 16), dir, 3)
 			can_fire_list[selected_index] = false
 			hotbar_timer_list[selected_index].start(fire_rate)
+	
+	var body_rotation = get_global_mouse_position() - global_position
+	sprite_weapon.rotation = body_rotation.angle()
+	if (body_rotation.x > 0):
+		sprite.flip_h = false
+	elif (body_rotation.x < 0):
+		sprite.flip_h = true
 	
 func do_damage(dmg, slow_mul = 1, slow_time = 0):
 	hp = hp - dmg

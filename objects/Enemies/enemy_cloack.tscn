@@ -6,8 +6,8 @@
 [ext_resource type="Resource" uid="uid://c2ch6sq3eid07" path="res://resources/bullet/bulled_red_res.tres" id="3_n7lw1"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_f272f"]
-radius = 9.53145
-height = 27.0
+radius = 13.7676
+height = 27.5353
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_xaf42"]
 animations = [{
@@ -19,10 +19,7 @@ animations = [{
 "name": &"idle",
 "speed": 5.0
 }, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("2_rvwsu")
-}],
+"frames": [],
 "loop": true,
 "name": &"move",
 "speed": 5.0
@@ -38,34 +35,51 @@ move_speed = 20.0
 hp = 150.0
 
 [node name="Hitbox" parent="." index="1"]
-position = Vector2(0, 1)
+visible = true
+position = Vector2(0, 10)
 scale = Vector2(0.944243, 1.01041)
 shape = SubResource("CapsuleShape2D_f272f")
 
 [node name="AnimatedSprite2D" parent="." index="2"]
+position = Vector2(-1, -9)
 sprite_frames = SubResource("SpriteFrames_xaf42")
-animation = &"move"
+animation = &"idle"
+
+[node name="PlayerDetection" parent="." index="3"]
+visible = true
+position = Vector2(0, 6)
 
 [node name="CollisionShape2D" parent="PlayerDetection" index="0"]
-position = Vector2(-2, 3)
 shape = SubResource("CircleShape2D_c3na5")
 
 [node name="AttackTimer" type="Timer" parent="." index="4"]
 one_shot = true
 
 [node name="RayCasts" parent="." index="7"]
-position = Vector2(-2, 2)
+position = Vector2(1, 11)
+
+[node name="RayCastLeft" parent="RayCasts" index="0"]
+target_position = Vector2(-26, 0)
+
+[node name="RayCastRight" parent="RayCasts" index="1"]
+target_position = Vector2(26, 0)
+
+[node name="RayCastUp" parent="RayCasts" index="2"]
+target_position = Vector2(0, -26)
+
+[node name="RayCastDown" parent="RayCasts" index="3"]
+target_position = Vector2(0, 26)
 
 [node name="RayCastLU" parent="RayCasts" index="4"]
-target_position = Vector2(-12, -14)
+target_position = Vector2(-18, -18)
 
 [node name="RayCastLD" parent="RayCasts" index="5"]
-target_position = Vector2(-12, 14)
+target_position = Vector2(-18, 18)
 
 [node name="RayCastRU" parent="RayCasts" index="6"]
-target_position = Vector2(11, -14)
+target_position = Vector2(18, -18)
 
 [node name="RayCastRD" parent="RayCasts" index="7"]
-target_position = Vector2(11, 14)
+target_position = Vector2(18, 18)
 
 [connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timer_timeout"]

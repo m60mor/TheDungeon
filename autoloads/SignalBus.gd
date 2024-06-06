@@ -37,3 +37,11 @@ func emit_heal_player(heal):
 signal death_screen()
 func emit_death_screen():
 	death_screen.emit()
+	
+signal win_screen()
+func emit_win_screen():
+	win_screen.emit()
+	
+signal reset_inventory()
+func emit_reset_inventory():
+	reset_inventory.emit()

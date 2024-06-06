@@ -1,0 +1,52 @@
+[gd_scene load_steps=7 format=3 uid="uid://rahfk3ahvh5a"]
+
+[ext_resource type="Script" path="res://game/game.gd" id="1_1cnmq"]
+[ext_resource type="PackedScene" uid="uid://w51x7n2m5flk" path="res://game/level_1.tscn" id="2_kmq87"]
+[ext_resource type="PackedScene" uid="uid://bamhk7sx885cb" path="res://menu/pause_menu.tscn" id="3_lnnu8"]
+[ext_resource type="PackedScene" uid="uid://djsgy5pfc34ch" path="res://menu/hotbar/hotbar.tscn" id="4_ia48k"]
+[ext_resource type="PackedScene" uid="uid://cgi04bk1w1piw" path="res://menu/healthbar/texture_progress_bar.tscn" id="5_m03qg"]
+
+[sub_resource type="SystemFont" id="SystemFont_xo2sx"]
+font_names = PackedStringArray("Calisto MT")
+
+[node name="Game" type="Node"]
+process_mode = 3
+script = ExtResource("1_1cnmq")
+
+[node name="Level1" parent="." instance=ExtResource("2_kmq87")]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="PauseMenu" parent="CanvasLayer" instance=ExtResource("3_lnnu8")]
+
+[node name="Hotbar" parent="CanvasLayer" instance=ExtResource("4_ia48k")]
+custom_minimum_size = Vector2(108, 36)
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+offset_left = -108.0
+offset_top = -88.0
+offset_bottom = -52.0
+grow_vertical = 0
+scale = Vector2(2, 2)
+
+[node name="TextureProgressBar" parent="CanvasLayer" instance=ExtResource("5_m03qg")]
+
+[node name="CountdownLabel" type="Label" parent="CanvasLayer"]
+visible = false
+z_index = 1
+offset_left = 308.0
+offset_top = 217.0
+offset_right = 852.0
+offset_bottom = 298.0
+theme_override_fonts/font = SubResource("SystemFont_xo2sx")
+theme_override_font_sizes/font_size = 30
+text = "You won, you will be transported to menu in 9 seconds"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="WinTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="WinTimer" to="." method="_on_win_timer_timeout"]
