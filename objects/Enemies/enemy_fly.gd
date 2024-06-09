@@ -12,7 +12,7 @@ func pick_idle_target():
 	nav.target_position = Vector2(randi_range(room_position.x + 16, select_max_x - 16), randi_range(room_position.y + 16, select_max_y - 16))
 
 func pick_direction():
-	if (player_chase == true):
+	if (player_chase == true and is_instance_valid(player)):
 		selected_direction = Vector2(player.global_position - global_position).normalized().rotated(1.1 * PI/2)
 	else:
 		selected_direction = (nav.get_next_path_position() - global_position).normalized()

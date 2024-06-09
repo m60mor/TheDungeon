@@ -7,10 +7,10 @@ var rooms = []
 func _ready():
 	pass
 
-func spawn_room(pos, size, room_type):
+func spawn_room(pos, size, room_type, diff):
 	room_scene = preload("res://objects/MapObjects/Rooms/room.tscn")
 	var new_room = room_scene.instantiate()
-	new_room.create_room(pos, size, room_type)
+	new_room.create_room(pos, size, room_type, diff)
 	var room_container = NodeExtensions.get_room_container()
 	if room_container == null:
 		print("Error no room container")

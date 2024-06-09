@@ -20,7 +20,7 @@ func _init(starting_position, new_borders, steps):
 	borders = new_borders
 	room_manager = RoomManager.new()
 	teleport_manager = TeleportManager.new()
-	create_room(position, "first")
+	create_room(position, "first", 0)
 	walk(steps)
 
 func is_not_room_at_position(pos):
@@ -28,24 +28,24 @@ func is_not_room_at_position(pos):
 		if pos == room_positions[i]:
 			return false
 	return true
+	
+func get_farthest_room():
+	var positive_farthest : Vector2 = room_positions.max()
+	var negative_farthest : Vector2 = room_positions.min()
+	return positive_farthest if positive_farthest.abs() > negative_farthest.abs() else negative_farthest
 
 func walk(steps):
 	var step_count = 1
-	var n = 0
 	while step_count < steps:	
-		if (step_count == steps - 1):
-			n = 23
 		if change_direction():
-			if (n == 23):
-				step(n, "boss")
+			var diff = round((float(step_count) / steps) * 5)
+			if (step_count == steps - 1):
+				step("boss", diff)
 			else:
-				step(n)
+				step("normal", diff)
 		else:
-			var positive_farthest : Vector2 = room_positions.max()
-			var negative_farthest : Vector2 = room_positions.min()
-			var farthest = positive_farthest if positive_farthest.abs() > negative_farthest.abs() else negative_farthest
-			position = farthest
-			prev_room_size = room_sizes[room_positions.find(farthest)]
+			position = get_farthest_room()
+			prev_room_size = room_sizes[room_positions.find(position)]
 			step_count -= 1
 		step_count += 1
 	
@@ -53,34 +53,29 @@ func walk(steps):
 	return room_positions
 	
 func add_loot_rooms(steps, repeat):
-	var i = 0
-	var room_number = room_sizes.size()
 	var loots = []
 	var number = floori(steps / repeat)
 	for x in range(number - 1):
 		loots.append(repeat + (randi() % 1 + x * repeat) - 1)
+	var i = 0
 	while i < number - 1:
 		prev_room_size = room_sizes[loots[i]]
 		position = room_positions[loots[i]]
 		if change_direction():
-			step(7, "loot")
+			step("loot")
 			i += 1
 		else:
 			loots[i] += 1
 	
-func step(set_room_size : int = 0, room_type : String = "normal"):
-	if (room_type == "normal"):
-		if (randi() % 10 < 2):
-			room_type = "walled"
-		elif (randi() % 10 < 1):
-			room_type = "hole"
-	
+func step(room_type : String = "normal", difficulty : int = 0):	
 	var new_room_size = base_room_size[randi() % 9]
-	if (set_room_size != 0):
-		new_room_size = set_room_size
+	if (room_type == "loot"):
+		new_room_size = 7
+	if (room_type == "boss"):
+		new_room_size = 23
 	room_size = Vector2(4 + new_room_size, new_room_size)
 	var target_position = position + (direction * Vector2(30, 30))
-	create_room(target_position, room_type)
+	create_room(target_position, room_type, difficulty)
 	create_door(position, target_position, prev_room_size, room_size)
 	prev_room_size = room_size
 	position = target_position
@@ -96,12 +91,12 @@ func change_direction():
 		direction = directions.pop_front()
 	return true
 		
-func create_room(pos, room_type):
+func create_room(pos, room_type, difficulty):
 	room_positions.append(pos)
 	room_sizes.append(room_size)
 	var size = room_size
 	var top_left = (pos - size/2).ceil()
-	room_manager.spawn_room(pos * 32, size, room_type)
+	room_manager.spawn_room(pos * 32, size, room_type, difficulty)
 	
 func create_door(position, target_position, prev_room_size, room_size):
 	var prev_teleport_position = (position + direction * Vector2(int(prev_room_size.x / 2), int(prev_room_size.y / 2))) * 32 + Vector2(16, 16)

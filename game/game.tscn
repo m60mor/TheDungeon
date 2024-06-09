@@ -46,7 +46,7 @@ text = "You won, you will be transported to menu in 9 seconds"
 horizontal_alignment = 1
 autowrap_mode = 2
 
-[node name="WinTimer" type="Timer" parent="."]
+[node name="PauseTimer" type="Timer" parent="."]
 one_shot = true
 
-[connection signal="timeout" from="WinTimer" to="." method="_on_win_timer_timeout"]
+[connection signal="timeout" from="PauseTimer" to="." method="_on_pause_timer_timeout"]

@@ -10,7 +10,7 @@ func pick_idle_target():
 	super()
 
 func pick_direction():
-	if (player_chase == true):
+	if (player_chase and is_instance_valid(player)):
 		nav.target_position = player.global_position
 		selected_direction = (nav.get_next_path_position() - global_position).normalized()
 	else:
@@ -27,14 +27,16 @@ func _on_player_detection_body_exited(body):
 
 func _on_attack_detection_body_entered(body):
 	if (body.has_method("player")):
-		attack_timer.start(1)
+		attack_timer.start(0.3)
 
 func _on_attack_detection_body_exited(body):
 	if (body.has_method("player")):
 		attack_timer.stop()
 		
 func _on_attack_timer_timeout():
-	player.do_damage(damage)
+	if (is_instance_valid(player)):
+		player.do_damage(damage)
+		attack_timer.start(1)
 	
 func do_damage(dmg, slow_mul = 1, slow_time = 0):
 	ItemDrops.collectables_list = [[100, ItemDrops.wid2]]

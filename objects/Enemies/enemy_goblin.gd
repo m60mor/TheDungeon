@@ -19,7 +19,7 @@ func pick_idle_target():
 	super()
 
 func pick_direction():
-	if (player_chase == true):
+	if (player_chase == true and is_instance_valid(player)):
 		nav.target_position = player.global_position
 		selected_direction = (nav.get_next_path_position() - global_position).normalized()
 	else:
@@ -27,10 +27,11 @@ func pick_direction():
 	super()
 
 func _on_attack_timer_timeout():
-	SignalBus.emit_shoot(bullet_resource, global_position, (player.global_position - global_position).normalized(), 4)
-	SignalBus.emit_shoot(bullet_resource, global_position, (player.global_position - Vector2(32, 32) - global_position).normalized(), 4)
-	SignalBus.emit_shoot(bullet_resource, global_position, (player.global_position + Vector2(32, 32) - global_position).normalized(), 4)
-	can_fire = true
+	if (is_instance_valid(player)):
+		SignalBus.emit_shoot(bullet_resource, global_position, (player.global_position - global_position).normalized(), 4)
+		SignalBus.emit_shoot(bullet_resource, global_position, (player.global_position - Vector2(32, 32) - global_position).normalized(), 4)
+		SignalBus.emit_shoot(bullet_resource, global_position, (player.global_position + Vector2(32, 32) - global_position).normalized(), 4)
+		can_fire = true
 
 func do_damage(dmg, slow_mul = 1, slow_time = 0):
 	ItemDrops.collectables_list = [[100, ItemDrops.wid1]]

@@ -61,12 +61,15 @@ shape = SubResource("CircleShape2D_ca4xu")
 
 [node name="AttackDetection" type="Area2D" parent="." index="5"]
 visible = false
+collision_layer = 0
+collision_mask = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackDetection" index="0"]
 position = Vector2(1, -2)
 shape = SubResource("CircleShape2D_brnrw")
 
 [node name="AttackTimer" type="Timer" parent="." index="6"]
+one_shot = true
 
 [node name="RayCastLU" parent="RayCasts" index="4"]
 target_position = Vector2(-16, -16)

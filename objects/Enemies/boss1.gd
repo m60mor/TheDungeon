@@ -58,9 +58,17 @@ func pick_idle_target():
 	nav.target_position = Vector2(randi_range(room_position.x + 80, select_max_x - 80), randi_range(room_position.y + 80, select_max_y - 80))
 			
 func pick_direction():
-	if (player_chase == true):
+	if (player_chase == true and is_instance_valid(player)):
 		nav.target_position = player.global_position
 		selected_direction = (nav.get_next_path_position() - global_position).normalized()
+		if (global_position.distance_to(player.global_position) < 200):
+			danger_moves[ray_cast_moves.find(round(selected_direction))] = 2
+			danger_moves[ray_cast_moves.find(round(selected_direction)) - 1] = 2
+			danger_moves[(ray_cast_moves.find(round(selected_direction)) + 1) % 8] = 2
+			
+			danger_moves[(ray_cast_moves.find(round(selected_direction)) + 4) % 8] = -2
+			danger_moves[(ray_cast_moves.find(round(selected_direction)) + 2) % 8] = -2
+			danger_moves[(ray_cast_moves.find(round(selected_direction)) + 6) % 8] = 2
 	else:
 		selected_direction = (nav.get_next_path_position() - global_position).normalized()
 	
@@ -68,15 +76,6 @@ func pick_direction():
 	danger_moves = [0, 0, 0, 0, 0, 0, 0, 0]
 	for i in ray_cast_moves:
 		desirable_moves.push_back(selected_direction.dot(i))
-		
-	if (global_position.distance_to(player.global_position) < 200):
-		danger_moves[ray_cast_moves.find(round(selected_direction))] = 2
-		danger_moves[ray_cast_moves.find(round(selected_direction)) - 1] = 2
-		danger_moves[(ray_cast_moves.find(round(selected_direction)) + 1) % 8] = 2
-		
-		danger_moves[(ray_cast_moves.find(round(selected_direction)) + 4) % 8] = -2
-		danger_moves[(ray_cast_moves.find(round(selected_direction)) + 2) % 8] = -2
-		danger_moves[(ray_cast_moves.find(round(selected_direction)) + 6) % 8] = 2
 		
 	for i in range(rc_list.size()):
 		if (rc_list[i].is_colliding()):
@@ -144,26 +143,27 @@ func do_damage(dmg, slow_mul = 1, slow_time = 0):
 		queue_free()
 
 func _on_attack_timer_timeout():
-	var player_direction = (player.global_position - global_position).normalized()
-	SignalBus.emit_shoot(bullet1_resource, global_position, player_direction, 4)
-	SignalBus.emit_shoot(bullet1_resource, global_position, player_direction.rotated(deg_to_rad(45)), 4)
-	SignalBus.emit_shoot(bullet1_resource, global_position, player_direction.rotated(deg_to_rad(90)), 4)
-	SignalBus.emit_shoot(bullet1_resource, global_position, player_direction.rotated(deg_to_rad(135)), 4)
-	SignalBus.emit_shoot(bullet1_resource, global_position, player_direction.rotated(deg_to_rad(180)), 4)
-	SignalBus.emit_shoot(bullet1_resource, global_position, player_direction.rotated(deg_to_rad(225)), 4)
-	SignalBus.emit_shoot(bullet1_resource, global_position, player_direction.rotated(deg_to_rad(270)), 4)
-	SignalBus.emit_shoot(bullet1_resource, global_position, player_direction.rotated(deg_to_rad(315)), 4)
-	
-	if (attack_pattern == 0):
-		SignalBus.emit_shoot(bullet2_resource, global_position, player_direction, 4)
-		SignalBus.emit_shoot(bullet2_resource, global_position, player_direction.rotated(deg_to_rad(15)), 4)
-		SignalBus.emit_shoot(bullet2_resource, global_position, player_direction.rotated(deg_to_rad(-15)), 4)
-	elif (attack_pattern == 1):
-		SignalBus.emit_shoot(bullet2_resource, global_position, player_direction.rotated(deg_to_rad(15)), 4)
-		SignalBus.emit_shoot(bullet2_resource, global_position, player_direction.rotated(deg_to_rad(-15)), 4)
-	elif (attack_pattern > 2):
-		attack_pattern = -1
-	attack_pattern += 1
+	if (is_instance_valid(player)):
+		var player_direction = (player.global_position - global_position).normalized()
+		SignalBus.emit_shoot(bullet1_resource, global_position, player_direction, 4)
+		SignalBus.emit_shoot(bullet1_resource, global_position, player_direction.rotated(deg_to_rad(45)), 4)
+		SignalBus.emit_shoot(bullet1_resource, global_position, player_direction.rotated(deg_to_rad(90)), 4)
+		SignalBus.emit_shoot(bullet1_resource, global_position, player_direction.rotated(deg_to_rad(135)), 4)
+		SignalBus.emit_shoot(bullet1_resource, global_position, player_direction.rotated(deg_to_rad(180)), 4)
+		SignalBus.emit_shoot(bullet1_resource, global_position, player_direction.rotated(deg_to_rad(225)), 4)
+		SignalBus.emit_shoot(bullet1_resource, global_position, player_direction.rotated(deg_to_rad(270)), 4)
+		SignalBus.emit_shoot(bullet1_resource, global_position, player_direction.rotated(deg_to_rad(315)), 4)
+		
+		if (attack_pattern == 0):
+			SignalBus.emit_shoot(bullet2_resource, global_position, player_direction, 4)
+			SignalBus.emit_shoot(bullet2_resource, global_position, player_direction.rotated(deg_to_rad(15)), 4)
+			SignalBus.emit_shoot(bullet2_resource, global_position, player_direction.rotated(deg_to_rad(-15)), 4)
+		elif (attack_pattern == 1):
+			SignalBus.emit_shoot(bullet2_resource, global_position, player_direction.rotated(deg_to_rad(15)), 4)
+			SignalBus.emit_shoot(bullet2_resource, global_position, player_direction.rotated(deg_to_rad(-15)), 4)
+		elif (attack_pattern > 2):
+			attack_pattern = -1
+		attack_pattern += 1
 	can_fire = true
 
 func _on_slow_timer_timeout():

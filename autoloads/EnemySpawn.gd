@@ -8,10 +8,17 @@ const tower1_scene = preload("res://objects/Enemies/stationary_tower1.tscn")
 
 const boss1_scene = preload("res://objects/Enemies/boss1.tscn")
 
-@export var enemy_list = [[30, mosquito_scene], [60, fly_scene], [10, cloack_scene], [10, goblin_scene], [10, tower1_scene]]
+@export var enemy_list = [[1, mosquito_scene], [1, fly_scene], [2, cloack_scene], [2, goblin_scene], [3, tower1_scene]]
 #@export var enemy_list = [[10, tower1_scene]]
 
 @export var boss_list = [boss1_scene]
 
-func select_enemy():
-	pass
+func select_enemy(difficulty):
+	var i = 0
+	while i < 50:
+		var selected = randi() % enemy_list.size()
+		if (enemy_list[selected][0] <= difficulty):
+			return enemy_list[selected][1]
+		i += 1
+	return enemy_list[1][1]
+		
