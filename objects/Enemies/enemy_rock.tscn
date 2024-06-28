@@ -1,0 +1,100 @@
+[gd_scene load_steps=11 format=3 uid="uid://bfd1ubsuswptk"]
+
+[ext_resource type="PackedScene" uid="uid://c46pylbu81y6u" path="res://objects/Enemies/enemy.tscn" id="1_preeo"]
+[ext_resource type="Texture2D" uid="uid://dgwkt5babps8" path="res://assets/Enemies/rock/enemy_rockI.png" id="2_fw57o"]
+[ext_resource type="Script" path="res://objects/Enemies/enemy_rock.gd" id="2_snwq3"]
+[ext_resource type="Texture2D" uid="uid://d2xcpl6gk0maf" path="res://assets/Enemies/rock/enemy_rock1_3.png" id="3_tup7l"]
+[ext_resource type="Texture2D" uid="uid://2er2mmroojnv" path="res://assets/Enemies/rock/enemy_rock2.png" id="4_wmg4g"]
+[ext_resource type="Texture2D" uid="uid://75jdpvecpg2i" path="res://assets/Enemies/rock/enemy_rock4.png" id="5_fcorj"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1fri0"]
+radius = 15.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_wshc2"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_fw57o")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_tup7l")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_wmg4g")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_tup7l")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_fcorj")
+}],
+"loop": true,
+"name": &"move",
+"speed": 7.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_sfu6b"]
+radius = 84.006
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_846yc"]
+radius = 30.0
+
+[node name="Enemy" instance=ExtResource("1_preeo")]
+script = ExtResource("2_snwq3")
+damage = 10.0
+move_speed = 30.0
+
+[node name="Hitbox" parent="." index="1"]
+visible = true
+shape = SubResource("CircleShape2D_1fri0")
+
+[node name="AnimatedSprite2D" parent="." index="2"]
+position = Vector2(-1, -16)
+sprite_frames = SubResource("SpriteFrames_wshc2")
+animation = &"move"
+
+[node name="CollisionShape2D" parent="PlayerDetection" index="0"]
+shape = SubResource("CircleShape2D_sfu6b")
+
+[node name="AttackDetection" type="Area2D" parent="." index="4"]
+visible = false
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackDetection" index="0"]
+shape = SubResource("CircleShape2D_846yc")
+
+[node name="AttackTimer" type="Timer" parent="." index="5"]
+
+[node name="RayCastLeft" parent="RayCasts" index="0"]
+target_position = Vector2(-30, 0)
+
+[node name="RayCastRight" parent="RayCasts" index="1"]
+target_position = Vector2(30, 0)
+
+[node name="RayCastUp" parent="RayCasts" index="2"]
+target_position = Vector2(0, -30)
+
+[node name="RayCastDown" parent="RayCasts" index="3"]
+target_position = Vector2(0, 30)
+
+[node name="RayCastLU" parent="RayCasts" index="4"]
+target_position = Vector2(-18, -18)
+
+[node name="RayCastLD" parent="RayCasts" index="5"]
+target_position = Vector2(-18, 18)
+
+[node name="RayCastRU" parent="RayCasts" index="6"]
+target_position = Vector2(18, -18)
+
+[node name="RayCastRD" parent="RayCasts" index="7"]
+target_position = Vector2(18, 18)
+
+[connection signal="body_entered" from="AttackDetection" to="." method="_on_attack_detection_body_entered"]
+[connection signal="body_exited" from="AttackDetection" to="." method="_on_attack_detection_body_exited"]
+[connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timer_timeout"]

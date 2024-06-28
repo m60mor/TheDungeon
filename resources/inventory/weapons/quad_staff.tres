@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="InventoryItem" load_steps=4 format=3 uid="uid://n776mhbarl37"]
+
+[ext_resource type="Script" path="res://resources/inventory/inventory_item.gd" id="1_djthn"]
+[ext_resource type="Resource" uid="uid://dgda4q47se6c6" path="res://resources/bullet/bullet_fast3.tres" id="1_tglse"]
+[ext_resource type="Texture2D" uid="uid://lss6g7p22chk" path="res://assets/Weapons/quad_staff.png" id="3_1c5kf"]
+
+[resource]
+script = ExtResource("1_djthn")
+id = 4
+id_type = "w"
+name = "Quad Staff"
+texture = ExtResource("3_1c5kf")
+drop_chance = 1.0
+bullet_resource = ExtResource("1_tglse")
+fire_rate = 0.2
+shoot_mode = 2
+heal = 0.0

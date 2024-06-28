@@ -1,0 +1,124 @@
+[gd_scene load_steps=14 format=3 uid="uid://bamhk7sx885cb"]
+
+[ext_resource type="Script" path="res://menu/pause_menu.gd" id="1_1cxmy"]
+[ext_resource type="Texture2D" uid="uid://cjcs3f3kg73d2" path="res://assets/Menu/button_select.png" id="2_m6raq"]
+[ext_resource type="Script" path="res://menu/options/options_menu.gd" id="3_8mmoh"]
+
+[sub_resource type="SystemFont" id="SystemFont_midou"]
+font_names = PackedStringArray("Calisto MT")
+subpixel_positioning = 0
+
+[sub_resource type="SystemFont" id="SystemFont_e28ol"]
+font_names = PackedStringArray("Calisto MT")
+subpixel_positioning = 0
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_gt6ic"]
+load_path = "res://.godot/imported/button.png-3052df02ebba694e20dfefcaecc69725.ctex"
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_y8jph"]
+texture = SubResource("CompressedTexture2D_gt6ic")
+modulate_color = Color(1, 1, 1, 0.862745)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_bfv66"]
+texture = ExtResource("2_m6raq")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_d04pb"]
+texture = ExtResource("2_m6raq")
+
+[sub_resource type="SystemFont" id="SystemFont_ikagp"]
+font_names = PackedStringArray("Calisto MT")
+subpixel_positioning = 0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qms7p"]
+texture = SubResource("CompressedTexture2D_gt6ic")
+modulate_color = Color(1, 1, 1, 0.866667)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_vcbub"]
+texture = ExtResource("2_m6raq")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_lpw11"]
+texture = ExtResource("2_m6raq")
+
+[node name="PauseMenu" type="Control"]
+process_mode = 2
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_1cxmy")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 60
+
+[node name="Separator" type="Control" parent="Panel/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = SubResource("SystemFont_midou")
+theme_override_font_sizes/font_size = 40
+text = "Pause"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Separator2" type="Control" parent="Panel/VBoxContainer"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 100
+
+[node name="ResumeButton" type="Button" parent="Panel/VBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(220, 60)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.203922, 0, 0, 1)
+theme_override_fonts/font = SubResource("SystemFont_e28ol")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxTexture_y8jph")
+theme_override_styles/hover = SubResource("StyleBoxTexture_bfv66")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_d04pb")
+text = "Resume"
+
+[node name="OptionsButton" type="Button" parent="Panel/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="ExitButton" type="Button" parent="Panel/VBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(220, 60)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.196078, 0, 0, 1)
+theme_override_fonts/font = SubResource("SystemFont_ikagp")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxTexture_qms7p")
+theme_override_styles/hover = SubResource("StyleBoxTexture_vcbub")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_lpw11")
+text = "Exit
+"
+
+[node name="OptionsMenu" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("3_8mmoh")
+
+[connection signal="pressed" from="Panel/VBoxContainer/VBoxContainer/ResumeButton" to="." method="_on_resume_button_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/VBoxContainer/OptionsButton" to="." method="_on_options_button_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/VBoxContainer/ExitButton" to="." method="_on_exit_button_pressed"]

@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="BulletBaseResource" load_steps=4 format=3 uid="uid://kio3nfbhh5dl"]
+
+[ext_resource type="Script" path="res://resources/bullet/bullet_base-resource.gd" id="1_2pxki"]
+[ext_resource type="Texture2D" uid="uid://dleer07q1a6qj" path="res://assets/Bullets/bullet_loop.png" id="2_hhfv8"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_katej"]
+size = Vector2(5, 5)
+
+[resource]
+script = ExtResource("1_2pxki")
+sprite = ExtResource("2_hhfv8")
+shape = SubResource("RectangleShape2D_katej")
+speed = 70.0
+damage = 15.0
+slow_multiplier = 1.0
+slow_time = 0.0
+cluster_number = 1
+loop = true

@@ -14,3 +14,5 @@ speed = 100.0
 damage = 0.0
 slow_multiplier = 0.3
 slow_time = 5.0
+cluster_number = 1
+loop = false

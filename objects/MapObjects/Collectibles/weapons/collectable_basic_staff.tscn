@@ -2,11 +2,11 @@
 
 [ext_resource type="PackedScene" uid="uid://d1fqtlib732nw" path="res://objects/MapObjects/Collectibles/weapons/collectable_weapon.tscn" id="1_rdvhb"]
 [ext_resource type="Resource" uid="uid://pv601aurd8o8" path="res://resources/inventory/weapons/basic_staff.tres" id="2_mso82"]
-[ext_resource type="Texture2D" uid="uid://pnnljo28nbub" path="res://assets/Weapons/staff.png" id="3_sgv1g"]
+[ext_resource type="Texture2D" uid="uid://s5idc31fb2pc" path="res://assets/Weapons/basic_staff.png" id="3_nkar1"]
 
 [node name="Collectable" instance=ExtResource("1_rdvhb")]
 item_res = ExtResource("2_mso82")
 
 [node name="Sprite2D" parent="." index="0"]
 position = Vector2(16, 16)
-texture = ExtResource("3_sgv1g")
+texture = ExtResource("3_nkar1")

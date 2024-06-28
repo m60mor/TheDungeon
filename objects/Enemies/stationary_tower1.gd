@@ -32,5 +32,5 @@ func _on_player_detection_body_entered(body):
 	super(body)
 
 func do_damage(dmg, slow_mul = 1, slow_time = 0):
-	ItemDrops.collectables_list = [[100, ItemDrops.wid1]]
+	ItemDrops.collectables_list = [[10, ItemDrops.wid4]]
 	super(dmg, slow_mul, slow_time)

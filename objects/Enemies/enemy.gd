@@ -14,10 +14,12 @@ class_name Enemy
 @onready var rc_ru = $RayCasts/RayCastRU
 @onready var rc_rd = $RayCasts/RayCastRD
 @onready var nav : NavigationAgent2D = $NavigationAgent2D
+const sound_death = preload("res://assets/Enemies/enemy_death.mp3")
 
 @export var move_speed : float = 80
 @export var move_speed_multiplier : float = 1.0
 @export var hp : float = 40
+@export var fire_rate : float = 0.2
 
 var room_position = null
 var room_size = null
@@ -28,14 +30,15 @@ var move_direction : Vector2 = Vector2(0, 0)
 var ray_cast_moves = [Vector2(0, -1), Vector2(1, -1), Vector2(1, 0), Vector2(1, 1), Vector2(0, 1), Vector2(-1, 1), Vector2(-1, 0), Vector2(-1, -1)]
 var desirable_moves = []
 var rc_list = []
-var danger_moves = []
 var possible_moves = []
+var danger_moves = [0, 0, 0, 0, 0, 0, 0, 0]
 
 func _ready():
 	pick_idle_target()
 	rc_list = [rc_up, rc_ru, rc_right, rc_rd, rc_down, rc_ld, rc_left, rc_lu]
 
 func _physics_process(_delta):
+	danger_moves = [0, 0, 0, 0, 0, 0, 0, 0]
 	pick_direction()
 	velocity = velocity.lerp(move_direction * move_speed * move_speed_multiplier, 1 * _delta)
 	move_and_slide()
@@ -45,7 +48,6 @@ func pick_idle_target():
 			
 func pick_direction():
 	desirable_moves = []
-	danger_moves = [0, 0, 0, 0, 0, 0, 0, 0]
 	for i in ray_cast_moves:
 		desirable_moves.push_back(selected_direction.dot(i))
 	for i in range(rc_list.size()):
@@ -64,7 +66,7 @@ func pick_direction():
 			#animated_sprite.flip_h = true
 		#elif (move_direction.x > 0):
 			#animated_sprite.flip_h = false
-			
+
 	if (move_direction !=Vector2.ZERO):
 		if (absf(desirable_move) > 1.05):
 			if (move_direction.x > 0):
@@ -94,29 +96,33 @@ func _on_navigation_agent_2d_navigation_finished():
 	if (player_chase == false):
 		pick_idle_target()
 
-
-
 func do_damage(dmg, slow_mul = 1, slow_time = 0):
 	hp = hp - dmg
 	move_speed_multiplier = slow_mul
 	slow_timer.start(slow_time)
+	fire_rate = slow_mul * 10 / 2
 	animated_sprite.modulate = Color.RED
 	await get_tree().create_timer(0.1).timeout
 	animated_sprite.modulate = Color.WHITE
 	if (hp <= 0):
+		var player = AudioStreamPlayer.new()
+		player.stream = sound_death
+		player.set_bus("sfx")
+		get_tree().root.add_child(player)
+		player.connect("finished", Callable(player, "queue_free"))
+		player.play()
+		queue_free()
 		var select_drop : Array = ItemDrops.drop_collectable()
 		if (select_drop.size() > 0):
 			for collectable in select_drop:
 				var new = collectable.instantiate()
-				new.position = global_position - Vector2(16, 16)
+				new.position = global_position - Vector2(randi() % 16 + 8, randi() % 16 + 8)
 				NodeExtensions.get_collectable_container().add_child(new)
 		queue_free()
-		
-#func random_drops():
-			#
 
 func _on_slow_timer_timeout():
 	move_speed_multiplier = 1
+	fire_rate = 1
 
 func enemy():
 	pass

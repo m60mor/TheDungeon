@@ -3,13 +3,20 @@ extends Node2D
 
 @onready var bullet_basic_scene: PackedScene = preload("res://objects/Bullets/bullet_basic.tscn")
 @onready var bullet_slow_scene: PackedScene = preload("res://objects/Bullets/bullet_slow.tscn")
+@onready var bullet_cluster_scene: PackedScene = preload("res://objects/Bullets/bullet_cluster.tscn")
+@onready var bullet_loop_scene: PackedScene = preload("res://objects/Bullets/bullet_loop.tscn")
 
 func _ready():
 	SignalBus.connect("shoot", build_bullet)
 
 func build_bullet(resource : BulletBaseResource, location : Vector2, direction : Vector2, collision : int) -> void:
-	var new_bullet
-	if (resource.slow_time > 0): 
+	var new_bullet : Bullet
+	if (resource.loop):
+		new_bullet = bullet_loop_scene.instantiate() as Bullet
+	elif (resource.cluster_number > 1):
+		new_bullet = bullet_cluster_scene.instantiate() as Bullet
+		new_bullet.cluster_number = resource.cluster_number
+	elif (resource.slow_time > 0): 
 		new_bullet = bullet_slow_scene.instantiate() as Bullet
 	else:
 		new_bullet = bullet_basic_scene.instantiate() as Bullet

@@ -39,5 +39,5 @@ func _on_attack_timer_timeout():
 		attack_timer.start(1)
 	
 func do_damage(dmg, slow_mul = 1, slow_time = 0):
-	ItemDrops.collectables_list = [[100, ItemDrops.wid2]]
+	ItemDrops.collectables_list = []
 	super(dmg, slow_mul, slow_time)

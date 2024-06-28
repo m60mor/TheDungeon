@@ -19,7 +19,7 @@ func pick_direction():
 	super()	
 	
 func do_damage(dmg, slow_mul = 1, slow_time = 0):
-	ItemDrops.collectables_list = [[100, ItemDrops.pid0]]
+	ItemDrops.collectables_list = [[100, ItemDrops.pid0], [100, ItemDrops.wid1]]
 	super(dmg, slow_mul, slow_time)
 
 func _on_idle_timer_timeout():

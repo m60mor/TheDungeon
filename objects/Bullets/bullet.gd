@@ -12,6 +12,9 @@ var damage : float = 0
 var slow_multiplier : float = 1
 var slow_time : float = 0
 
+func _ready():
+	pass
+
 func _physics_process(delta):
 	bullet_move(delta)
 	

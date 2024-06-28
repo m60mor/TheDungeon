@@ -1,0 +1,12 @@
+[gd_scene load_steps=4 format=3 uid="uid://di02gw1k3y4ey"]
+
+[ext_resource type="PackedScene" uid="uid://d1fqtlib732nw" path="res://objects/MapObjects/Collectibles/weapons/collectable_weapon.tscn" id="1_w83wr"]
+[ext_resource type="Texture2D" uid="uid://diwo6nqo3137o" path="res://assets/Weapons/loop_staff.png" id="2_6l1y3"]
+[ext_resource type="Resource" uid="uid://wyq6sqs6bx4b" path="res://resources/inventory/weapons/loop_staff.tres" id="2_u07tp"]
+
+[node name="CollectableWeapon" instance=ExtResource("1_w83wr")]
+item_res = ExtResource("2_u07tp")
+
+[node name="Sprite2D" parent="." index="0"]
+position = Vector2(16, 16)
+texture = ExtResource("2_6l1y3")

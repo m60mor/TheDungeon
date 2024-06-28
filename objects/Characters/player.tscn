@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://bps2csw6lp0t4"]
+[gd_scene load_steps=9 format=3 uid="uid://bps2csw6lp0t4"]
 
 [ext_resource type="Script" path="res://objects/Characters/player.gd" id="1_22vqr"]
 [ext_resource type="Resource" uid="uid://c8qo8rsul3ifv" path="res://resources/bullet/bullet_basic_res.tres" id="2_rp7i4"]
 [ext_resource type="Texture2D" uid="uid://bni0tqjgixv77" path="res://assets/Characters/player2.png" id="4_3p4i7"]
 [ext_resource type="Texture2D" uid="uid://d2cdlk0ehp85j" path="res://assets/Characters/player1_3.png" id="4_15odg"]
+[ext_resource type="AudioStream" uid="uid://d00v0qcx7b2ho" path="res://assets/Weapons/base.mp3" id="5_ebw4x"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_nk28n"]
 animations = [{
@@ -28,7 +29,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_obnny"]
-size = Vector2(18, 36)
+size = Vector2(18, 31)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ctqkc"]
 radius = 16.0312
@@ -37,19 +38,20 @@ radius = 16.0312
 z_index = -1
 position = Vector2(161, 76)
 collision_layer = 40
-collision_mask = 0
+collision_mask = 257
 motion_mode = 1
 floor_snap_length = 0.0
 script = ExtResource("1_22vqr")
+player_speed = 200.0
 bullet_resource = ExtResource("2_rp7i4")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(-1, -14)
 sprite_frames = SubResource("SpriteFrames_nk28n")
-animation = &"walk"
+animation = &"idle"
 
 [node name="Hitbox" type="CollisionShape2D" parent="."]
-position = Vector2(-1, -2)
+position = Vector2(-1, -0.5)
 shape = SubResource("RectangleShape2D_obnny")
 
 [node name="CollectiblesDetection" type="Area2D" parent="."]
@@ -73,6 +75,10 @@ one_shot = true
 
 [node name="SpriteWeapon" type="Sprite2D" parent="."]
 position = Vector2(0, -2)
+
+[node name="SfxShoot" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_ebw4x")
+bus = &"sfx"
 
 [connection signal="timeout" from="PickUpTimer" to="." method="_on_pick_up_timer_timeout"]
 [connection signal="timeout" from="hotbarTimer0" to="." method="_on_hotbar_timer0_timeout"]

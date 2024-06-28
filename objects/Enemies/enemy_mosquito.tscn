@@ -40,6 +40,8 @@ radius = 175.103
 radius = 23.0868
 
 [node name="Enemy" instance=ExtResource("1_suth8")]
+collision_layer = 4
+collision_mask = 9
 script = ExtResource("2_bep41")
 damage = 10.0
 move_speed = 50.0
@@ -48,6 +50,7 @@ move_speed = 50.0
 navigation_layers = 17
 
 [node name="Hitbox" parent="." index="1"]
+visible = true
 position = Vector2(1, -1)
 shape = SubResource("RectangleShape2D_v36q5")
 
@@ -56,11 +59,13 @@ sprite_frames = SubResource("SpriteFrames_nxwew")
 animation = &"idle"
 autoplay = "idle"
 
+[node name="PlayerDetection" parent="." index="3"]
+visible = true
+
 [node name="CollisionShape2D" parent="PlayerDetection" index="0"]
 shape = SubResource("CircleShape2D_ca4xu")
 
 [node name="AttackDetection" type="Area2D" parent="." index="5"]
-visible = false
 collision_layer = 0
 collision_mask = 8
 
@@ -71,17 +76,32 @@ shape = SubResource("CircleShape2D_brnrw")
 [node name="AttackTimer" type="Timer" parent="." index="6"]
 one_shot = true
 
+[node name="RayCasts" parent="." index="8"]
+position = Vector2(1, 0)
+
+[node name="RayCastLeft" parent="RayCasts" index="0"]
+target_position = Vector2(-16, 0)
+
+[node name="RayCastRight" parent="RayCasts" index="1"]
+target_position = Vector2(16, 0)
+
+[node name="RayCastUp" parent="RayCasts" index="2"]
+target_position = Vector2(0, -16)
+
+[node name="RayCastDown" parent="RayCasts" index="3"]
+target_position = Vector2(0, 16)
+
 [node name="RayCastLU" parent="RayCasts" index="4"]
-target_position = Vector2(-16, -16)
+target_position = Vector2(-11, -8)
 
 [node name="RayCastLD" parent="RayCasts" index="5"]
-target_position = Vector2(-16, 16)
+target_position = Vector2(-11, 8)
 
 [node name="RayCastRU" parent="RayCasts" index="6"]
-target_position = Vector2(16, -16)
+target_position = Vector2(11, -8)
 
 [node name="RayCastRD" parent="RayCasts" index="7"]
-target_position = Vector2(16, 16)
+target_position = Vector2(11, 8)
 
 [connection signal="body_entered" from="AttackDetection" to="." method="_on_attack_detection_body_entered"]
 [connection signal="body_exited" from="AttackDetection" to="." method="_on_attack_detection_body_exited"]

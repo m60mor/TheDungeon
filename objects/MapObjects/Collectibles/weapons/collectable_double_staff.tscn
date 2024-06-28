@@ -1,0 +1,12 @@
+[gd_scene load_steps=4 format=3 uid="uid://dwjx8g4ul7hfu"]
+
+[ext_resource type="PackedScene" uid="uid://d1fqtlib732nw" path="res://objects/MapObjects/Collectibles/weapons/collectable_weapon.tscn" id="1_tnm5l"]
+[ext_resource type="Resource" uid="uid://grujfont5neu" path="res://resources/inventory/weapons/double_staff.tres" id="2_r7n8g"]
+[ext_resource type="Texture2D" uid="uid://cywoswxri2w10" path="res://assets/Weapons/double_staff.png" id="2_x81vv"]
+
+[node name="CollectableWeapon" instance=ExtResource("1_tnm5l")]
+item_res = ExtResource("2_r7n8g")
+
+[node name="Sprite2D" parent="." index="0"]
+position = Vector2(16, 16)
+texture = ExtResource("2_x81vv")

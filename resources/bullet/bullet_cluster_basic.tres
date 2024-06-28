@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="BulletBaseResource" load_steps=4 format=3 uid="uid://cj1eaqrkre5yc"]
+
+[ext_resource type="Script" path="res://resources/bullet/bullet_base-resource.gd" id="1_qbmgi"]
+[ext_resource type="Texture2D" uid="uid://be5fewqv6fyod" path="res://assets/Bullets/bullet_cluster_basic.png" id="2_j2dg4"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qtjdk"]
+size = Vector2(10, 10)
+
+[resource]
+script = ExtResource("1_qbmgi")
+sprite = ExtResource("2_j2dg4")
+shape = SubResource("RectangleShape2D_qtjdk")
+speed = 40.0
+damage = 0.0
+slow_multiplier = 1.0
+slow_time = 0.0
+cluster_number = 4
+loop = false

@@ -8,7 +8,8 @@ var can_fire : bool = true
 
 func _physics_process(_delta):
 	if (player_chase && can_fire == true):
-		attack_timer.start(1)
+		attack_timer.start(fire_rate)
+		fire_rate = 1
 		can_fire = false
 	super(_delta)
 	
@@ -22,6 +23,12 @@ func pick_direction():
 	if (player_chase and is_instance_valid(player)):
 		nav.target_position = player.global_position
 		selected_direction = (nav.get_next_path_position() - global_position).normalized()
+		if (global_position.distance_to(player.global_position) < 200):
+			danger_moves[ray_cast_moves.find(round(selected_direction))] = 2
+			danger_moves[ray_cast_moves.find(round(selected_direction)) - 1] = 2
+			danger_moves[(ray_cast_moves.find(round(selected_direction)) + 1) % 8] = 2
+			danger_moves[(ray_cast_moves.find(round(selected_direction)) + 3) % 8] = -2
+			danger_moves[(ray_cast_moves.find(round(selected_direction)) + 5) % 8] = -2
 	else:
 		selected_direction = (nav.get_next_path_position() - global_position).normalized()
 	super()
@@ -32,5 +39,5 @@ func _on_attack_timer_timeout():
 	can_fire = true
 
 func do_damage(dmg, slow_mul = 1, slow_time = 0):
-	ItemDrops.collectables_list = [[100, ItemDrops.wid1]]
+	ItemDrops.collectables_list = [[10, ItemDrops.pid0], [5, ItemDrops.wid1], [5, ItemDrops.wid5]]
 	super(dmg, slow_mul, slow_time)

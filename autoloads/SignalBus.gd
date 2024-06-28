@@ -9,7 +9,14 @@ signal options_close()
 func emit_options_close():
 	options_close.emit()
 	
+signal resume()
+func emit_resume():
+	resume.emit()
 	
+signal pause_menu()
+func emit_pause_menu():
+	pause_menu.emit()
+		
 signal change_room_camera(pos, size)
 func emit_change_room_camera(pos, size):
 	change_room_camera.emit(pos, size)

@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="InventoryItem" load_steps=4 format=3 uid="uid://grujfont5neu"]
+
+[ext_resource type="Script" path="res://resources/inventory/inventory_item.gd" id="1_5fqgc"]
+[ext_resource type="Resource" uid="uid://bgmjov0j3suqb" path="res://resources/bullet/bullet_fast2.tres" id="1_6jjck"]
+[ext_resource type="Texture2D" uid="uid://cywoswxri2w10" path="res://assets/Weapons/double_staff.png" id="3_w3ybt"]
+
+[resource]
+script = ExtResource("1_5fqgc")
+id = 3
+id_type = "w"
+name = "Double Staff"
+texture = ExtResource("3_w3ybt")
+drop_chance = 1.0
+bullet_resource = ExtResource("1_6jjck")
+fire_rate = 0.2
+heal = 0.0

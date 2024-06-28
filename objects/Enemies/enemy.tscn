@@ -4,7 +4,7 @@
 
 [node name="Enemy" type="CharacterBody2D"]
 collision_layer = 6
-collision_mask = 9
+collision_mask = 265
 motion_mode = 1
 wall_min_slide_angle = 0.818559
 floor_snap_length = 0.0
@@ -13,7 +13,7 @@ script = ExtResource("1_xgneh")
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 path_max_distance = 20.0
 navigation_layers = 19
-avoidance_mask = 3
+avoidance_mask = 19
 
 [node name="Hitbox" type="CollisionShape2D" parent="."]
 visible = false
@@ -36,31 +36,39 @@ one_shot = true
 
 [node name="RayCastLeft" type="RayCast2D" parent="RayCasts"]
 target_position = Vector2(-24, 0)
+collision_mask = 257
 collide_with_areas = true
 
 [node name="RayCastRight" type="RayCast2D" parent="RayCasts"]
 target_position = Vector2(24, 0)
+collision_mask = 257
 collide_with_areas = true
 
 [node name="RayCastUp" type="RayCast2D" parent="RayCasts"]
 target_position = Vector2(0, -24)
+collision_mask = 257
 collide_with_areas = true
 
 [node name="RayCastDown" type="RayCast2D" parent="RayCasts"]
 target_position = Vector2(0, 24)
+collision_mask = 257
 collide_with_areas = true
 
 [node name="RayCastLU" type="RayCast2D" parent="RayCasts"]
 target_position = Vector2(-12, -12)
+collision_mask = 257
 
 [node name="RayCastLD" type="RayCast2D" parent="RayCasts"]
 target_position = Vector2(-12, 12)
+collision_mask = 257
 
 [node name="RayCastRU" type="RayCast2D" parent="RayCasts"]
 target_position = Vector2(12, -12)
+collision_mask = 257
 
 [node name="RayCastRD" type="RayCast2D" parent="RayCasts"]
 target_position = Vector2(12, 12)
+collision_mask = 257
 
 [connection signal="navigation_finished" from="NavigationAgent2D" to="." method="_on_navigation_agent_2d_navigation_finished"]
 [connection signal="target_reached" from="NavigationAgent2D" to="." method="_on_navigation_agent_2d_target_reached"]

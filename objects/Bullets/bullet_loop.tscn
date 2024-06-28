@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://db632quepwdai"]
+
+[ext_resource type="PackedScene" uid="uid://byfsiak4dt5b" path="res://objects/Bullets/bullet.tscn" id="1_pgqqo"]
+[ext_resource type="Script" path="res://objects/Bullets/bullet_loop.gd" id="2_1dbrf"]
+
+[node name="Bullet" instance=ExtResource("1_pgqqo")]
+script = ExtResource("2_1dbrf")
+
+[node name="loopTimer" type="Timer" parent="." index="4"]
+one_shot = true
+
+[connection signal="timeout" from="loopTimer" to="." method="_on_loop_timer_timeout"]

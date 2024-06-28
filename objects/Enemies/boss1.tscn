@@ -1,23 +1,34 @@
-[gd_scene load_steps=8 format=3 uid="uid://dggvjmub1617n"]
+[gd_scene load_steps=9 format=3 uid="uid://dggvjmub1617n"]
 
 [ext_resource type="Script" path="res://objects/Enemies/boss1.gd" id="1_73s4t"]
-[ext_resource type="Texture2D" uid="uid://c8h6wn1sre6hb" path="res://assets/Enemies/tower1/tower1.png" id="2_cwyol"]
 [ext_resource type="Resource" uid="uid://c2ch6sq3eid07" path="res://resources/bullet/bulled_red_res.tres" id="2_yy7cl"]
-[ext_resource type="Resource" uid="uid://bv1ug74sd6dng" path="res://resources/bullet/bullet_fire_res.tres" id="3_b5t2t"]
+[ext_resource type="Resource" uid="uid://7w4rsdbtvao7" path="res://resources/bullet/bullet_knife.tres" id="3_1qu7q"]
+[ext_resource type="Texture2D" uid="uid://bgiea3eyjfe22" path="res://assets/Enemies/Boss1/boss11_3.png" id="4_rm6l4"]
+[ext_resource type="Texture2D" uid="uid://ckh4tuaon6gr0" path="res://assets/Enemies/Boss1/boss14.png" id="5_jg3pc"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_kcj8s"]
-radius = 23.0
-height = 90.0
+height = 48.0
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_jsp75"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_cwyol")
+"texture": ExtResource("4_rm6l4")
 }],
 "loop": true,
-"name": &"default",
+"name": &"idle",
 "speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_jg3pc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_rm6l4")
+}],
+"loop": true,
+"name": &"move",
+"speed": 8.0
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_2cosv"]
@@ -30,8 +41,9 @@ motion_mode = 1
 wall_min_slide_angle = 0.818559
 floor_snap_length = 0.0
 script = ExtResource("1_73s4t")
+hp = 500.0
 bullet1_resource = ExtResource("2_yy7cl")
-bullet2_resource = ExtResource("3_b5t2t")
+bullet2_resource = ExtResource("3_1qu7q")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 path_max_distance = 20.0
@@ -39,13 +51,13 @@ navigation_layers = 19
 avoidance_mask = 3
 
 [node name="Hitbox" type="CollisionShape2D" parent="."]
-position = Vector2(0, -20)
+position = Vector2(0, -15)
 shape = SubResource("CapsuleShape2D_kcj8s")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(1, -37)
-scale = Vector2(2.21875, 1.85938)
+position = Vector2(0, -23)
 sprite_frames = SubResource("SpriteFrames_jsp75")
+animation = &"move"
 
 [node name="PlayerDetection" type="Area2D" parent="."]
 visible = false

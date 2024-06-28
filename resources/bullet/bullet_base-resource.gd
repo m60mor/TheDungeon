@@ -8,3 +8,6 @@ extends Resource
 
 @export var slow_multiplier : float = 1
 @export var slow_time : float = 0
+
+@export var cluster_number : int = 1
+@export var loop : bool = false

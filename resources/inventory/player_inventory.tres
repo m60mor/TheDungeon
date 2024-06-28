@@ -1,27 +1,10 @@
-[gd_resource type="Resource" script_class="Inventory" load_steps=6 format=3 uid="uid://bopmek3c3jomp"]
+[gd_resource type="Resource" script_class="Inventory" load_steps=5 format=3 uid="uid://bopmek3c3jomp"]
 
-[ext_resource type="Script" path="res://resources/inventory/inventory_item.gd" id="1_scifa"]
 [ext_resource type="Resource" uid="uid://pv601aurd8o8" path="res://resources/inventory/weapons/basic_staff.tres" id="1_vlp5s"]
+[ext_resource type="Resource" uid="uid://wyq6sqs6bx4b" path="res://resources/inventory/weapons/loop_staff.tres" id="2_q8ssm"]
+[ext_resource type="Resource" uid="uid://n776mhbarl37" path="res://resources/inventory/weapons/quad_staff.tres" id="3_gmajn"]
 [ext_resource type="Script" path="res://resources/inventory/inventory.gd" id="3_no4na"]
-
-[sub_resource type="Resource" id="Resource_3beqi"]
-script = ExtResource("1_scifa")
-id = -1
-id_type = "w"
-name = ""
-drop_chance = 1.0
-fire_rate = 0.0
-heal = 0.0
-
-[sub_resource type="Resource" id="Resource_8jqrn"]
-script = ExtResource("1_scifa")
-id = -1
-id_type = "w"
-name = ""
-drop_chance = 1.0
-fire_rate = 0.0
-heal = 0.0
 
 [resource]
 script = ExtResource("3_no4na")
-items = Array[ExtResource("1_scifa")]([SubResource("Resource_3beqi"), SubResource("Resource_8jqrn"), ExtResource("1_vlp5s")])
+items = Array[Resource("res://resources/inventory/inventory_item.gd")]([ExtResource("1_vlp5s"), ExtResource("2_q8ssm"), ExtResource("3_gmajn")])

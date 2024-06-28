@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://c46pylbu81y6u" path="res://objects/Enemies/enemy.tscn" id="1_ah1t0"]
 [ext_resource type="Script" path="res://objects/Enemies/enemy_goblin.gd" id="2_kqecn"]
 [ext_resource type="Texture2D" uid="uid://bn0idt4urh580" path="res://assets/Enemies/Goblin/goblin1_3.png" id="2_pymqw"]
-[ext_resource type="Resource" uid="uid://c2ch6sq3eid07" path="res://resources/bullet/bulled_red_res.tres" id="3_lemyh"]
+[ext_resource type="Resource" uid="uid://7w4rsdbtvao7" path="res://resources/bullet/bullet_knife.tres" id="3_3gtfv"]
 [ext_resource type="Texture2D" uid="uid://deys24o1fjb5l" path="res://assets/Enemies/Goblin/goblin4.png" id="4_w3xl5"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_t4wq0"]
@@ -37,7 +37,7 @@ radius = 319.626
 
 [node name="Enemy" instance=ExtResource("1_ah1t0")]
 script = ExtResource("2_kqecn")
-bullet_resource = ExtResource("3_lemyh")
+bullet_resource = ExtResource("3_3gtfv")
 move_speed = 50.0
 
 [node name="Hitbox" parent="." index="1"]
@@ -50,6 +50,9 @@ position = Vector2(0, -20)
 sprite_frames = SubResource("SpriteFrames_g44b1")
 animation = &"move"
 autoplay = "idle"
+
+[node name="PlayerDetection" parent="." index="3"]
+visible = true
 
 [node name="CollisionShape2D" parent="PlayerDetection" index="0"]
 shape = SubResource("CircleShape2D_j5o7e")

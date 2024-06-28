@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="BulletBaseResource" load_steps=4 format=3 uid="uid://7w4rsdbtvao7"]
+
+[ext_resource type="Script" path="res://resources/bullet/bullet_base-resource.gd" id="1_eyejv"]
+[ext_resource type="Texture2D" uid="uid://dprwn12ig8ngj" path="res://assets/Bullets/bullet_knife.png" id="2_1fl7g"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rtbra"]
+size = Vector2(17, 3)
+
+[resource]
+script = ExtResource("1_eyejv")
+sprite = ExtResource("2_1fl7g")
+shape = SubResource("RectangleShape2D_rtbra")
+speed = 80.0
+damage = 10.0
+slow_multiplier = 1.0
+slow_time = 0.0
+cluster_number = 1
+loop = false

@@ -1,16 +1,19 @@
-[gd_resource type="Resource" script_class="InventoryItem" load_steps=4 format=3 uid="uid://pv601aurd8o8"]
+[gd_resource type="Resource" script_class="InventoryItem" load_steps=5 format=3 uid="uid://pv601aurd8o8"]
 
 [ext_resource type="Resource" uid="uid://c8qo8rsul3ifv" path="res://resources/bullet/bullet_basic_res.tres" id="1_j2n2i"]
 [ext_resource type="Script" path="res://resources/inventory/inventory_item.gd" id="1_x71ut"]
-[ext_resource type="Texture2D" uid="uid://pnnljo28nbub" path="res://assets/Weapons/staff.png" id="2_x4xrs"]
+[ext_resource type="AudioStream" uid="uid://d00v0qcx7b2ho" path="res://assets/Weapons/base.mp3" id="3_0nioc"]
+[ext_resource type="Texture2D" uid="uid://s5idc31fb2pc" path="res://assets/Weapons/basic_staff.png" id="3_2jb4c"]
 
 [resource]
 script = ExtResource("1_x71ut")
 id = 0
 id_type = "w"
 name = "Basic Staff"
-texture = ExtResource("2_x4xrs")
+texture = ExtResource("3_2jb4c")
 drop_chance = 1.0
 bullet_resource = ExtResource("1_j2n2i")
+sound = ExtResource("3_0nioc")
 fire_rate = 0.3
+shoot_mode = 1
 heal = 0.0

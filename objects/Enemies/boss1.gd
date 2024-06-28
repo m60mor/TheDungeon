@@ -58,6 +58,8 @@ func pick_idle_target():
 	nav.target_position = Vector2(randi_range(room_position.x + 80, select_max_x - 80), randi_range(room_position.y + 80, select_max_y - 80))
 			
 func pick_direction():
+	desirable_moves = []
+	danger_moves = [0, 0, 0, 0, 0, 0, 0, 0]
 	if (player_chase == true and is_instance_valid(player)):
 		nav.target_position = player.global_position
 		selected_direction = (nav.get_next_path_position() - global_position).normalized()
@@ -71,9 +73,6 @@ func pick_direction():
 			danger_moves[(ray_cast_moves.find(round(selected_direction)) + 6) % 8] = 2
 	else:
 		selected_direction = (nav.get_next_path_position() - global_position).normalized()
-	
-	desirable_moves = []
-	danger_moves = [0, 0, 0, 0, 0, 0, 0, 0]
 	for i in ray_cast_moves:
 		desirable_moves.push_back(selected_direction.dot(i))
 		
@@ -131,12 +130,12 @@ func do_damage(dmg, slow_mul = 1, slow_time = 0):
 	await get_tree().create_timer(0.1).timeout
 	animated_sprite.modulate = Color.WHITE
 	if (hp <= 0):
-		ItemDrops.collectables_list = [[100, ItemDrops.wid1]]
+		ItemDrops.collectables_list = [[100, ItemDrops.pid0], [100, ItemDrops.wid4]]
 		var select_drop : Array = ItemDrops.drop_collectable()
 		if (select_drop.size() > 0):
 			for collectable in select_drop:
 				var new = collectable.instantiate()
-				new.position = global_position - Vector2(16, 16)
+				new.position = global_position - Vector2(randi() % 16 + 8, randi() % 16 + 8)
 				NodeExtensions.get_collectable_container().add_child(new)
 		SignalBus.win_screen.emit()
 		player.hp = 1000
@@ -145,22 +144,16 @@ func do_damage(dmg, slow_mul = 1, slow_time = 0):
 func _on_attack_timer_timeout():
 	if (is_instance_valid(player)):
 		var player_direction = (player.global_position - global_position).normalized()
-		SignalBus.emit_shoot(bullet1_resource, global_position, player_direction, 4)
-		SignalBus.emit_shoot(bullet1_resource, global_position, player_direction.rotated(deg_to_rad(45)), 4)
-		SignalBus.emit_shoot(bullet1_resource, global_position, player_direction.rotated(deg_to_rad(90)), 4)
-		SignalBus.emit_shoot(bullet1_resource, global_position, player_direction.rotated(deg_to_rad(135)), 4)
-		SignalBus.emit_shoot(bullet1_resource, global_position, player_direction.rotated(deg_to_rad(180)), 4)
-		SignalBus.emit_shoot(bullet1_resource, global_position, player_direction.rotated(deg_to_rad(225)), 4)
-		SignalBus.emit_shoot(bullet1_resource, global_position, player_direction.rotated(deg_to_rad(270)), 4)
-		SignalBus.emit_shoot(bullet1_resource, global_position, player_direction.rotated(deg_to_rad(315)), 4)
+		for i in range(8):
+			SignalBus.emit_shoot(bullet1_resource, global_position, player_direction.rotated(deg_to_rad(45 * i)), 4)
 		
 		if (attack_pattern == 0):
 			SignalBus.emit_shoot(bullet2_resource, global_position, player_direction, 4)
 			SignalBus.emit_shoot(bullet2_resource, global_position, player_direction.rotated(deg_to_rad(15)), 4)
 			SignalBus.emit_shoot(bullet2_resource, global_position, player_direction.rotated(deg_to_rad(-15)), 4)
 		elif (attack_pattern == 1):
-			SignalBus.emit_shoot(bullet2_resource, global_position, player_direction.rotated(deg_to_rad(15)), 4)
-			SignalBus.emit_shoot(bullet2_resource, global_position, player_direction.rotated(deg_to_rad(-15)), 4)
+			SignalBus.emit_shoot(bullet2_resource, global_position, player_direction.rotated(deg_to_rad(5)), 4)
+			SignalBus.emit_shoot(bullet2_resource, global_position, player_direction.rotated(deg_to_rad(5)), 4)
 		elif (attack_pattern > 2):
 			attack_pattern = -1
 		attack_pattern += 1

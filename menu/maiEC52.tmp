@@ -1,0 +1,160 @@
+[gd_scene load_steps=18 format=3 uid="uid://b8ex0q41aches"]
+
+[ext_resource type="Script" path="res://menu/main_menu.gd" id="1_b25lk"]
+[ext_resource type="Texture2D" uid="uid://cchgu2u1h514" path="res://assets/Menu/main_menu.png" id="2_s760h"]
+[ext_resource type="PackedScene" uid="uid://c6qhtlb55fbxp" path="res://menu/options/options_menu.tscn" id="3_1yl7d"]
+[ext_resource type="Texture2D" uid="uid://cjcs3f3kg73d2" path="res://assets/Menu/button_select.png" id="3_72dsu"]
+
+[sub_resource type="SystemFont" id="SystemFont_nbojv"]
+font_names = PackedStringArray("Calisto MT")
+font_weight = 500
+font_stretch = 125
+
+[sub_resource type="SystemFont" id="SystemFont_qaoby"]
+font_names = PackedStringArray("Calisto MT")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_xfbxs"]
+texture = ExtResource("3_72dsu")
+modulate_color = Color(1, 1, 1, 0.862745)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_a0111"]
+texture = ExtResource("3_72dsu")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_dhy8u"]
+texture = ExtResource("3_72dsu")
+
+[sub_resource type="SystemFont" id="SystemFont_m6ng5"]
+font_names = PackedStringArray("Calisto MT")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_fo51m"]
+texture = ExtResource("3_72dsu")
+modulate_color = Color(1, 1, 1, 0.862745)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_f33c3"]
+texture = ExtResource("3_72dsu")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_vtukm"]
+texture = ExtResource("3_72dsu")
+
+[sub_resource type="SystemFont" id="SystemFont_ol0iw"]
+font_names = PackedStringArray("Calisto MT")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_5i4jr"]
+texture = ExtResource("3_72dsu")
+modulate_color = Color(1, 1, 1, 0.866667)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_pb8om"]
+texture = ExtResource("3_72dsu")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_a8lvh"]
+texture = ExtResource("3_72dsu")
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_b25lk")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_s760h")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 60
+
+[node name="Separator" type="Control" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 4
+theme_override_constants/shadow_offset_y = 8
+theme_override_constants/outline_size = 16
+theme_override_fonts/font = SubResource("SystemFont_nbojv")
+theme_override_font_sizes/font_size = 65
+text = "The Dungeon"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 18
+alignment = 1
+
+[node name="Separator3" type="Control" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+
+[node name="NewGame" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(270, 60)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.196078, 0, 0, 1)
+theme_override_fonts/font = SubResource("SystemFont_qaoby")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxTexture_xfbxs")
+theme_override_styles/hover = SubResource("StyleBoxTexture_a0111")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_dhy8u")
+text = "New Game
+"
+
+[node name="Options" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(200, 60)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.196078, 0, 0, 1)
+theme_override_fonts/font = SubResource("SystemFont_m6ng5")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxTexture_fo51m")
+theme_override_styles/hover = SubResource("StyleBoxTexture_f33c3")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_vtukm")
+text = "Options"
+
+[node name="Separator2" type="Control" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+
+[node name="Quit" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(200, 60)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.196078, 0, 0, 1)
+theme_override_fonts/font = SubResource("SystemFont_ol0iw")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxTexture_5i4jr")
+theme_override_styles/hover = SubResource("StyleBoxTexture_pb8om")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_a8lvh")
+text = "Quit
+"
+
+[node name="OptionsMenu" parent="." instance=ExtResource("3_1yl7d")]
+visible = false
+layout_mode = 1
+
+[connection signal="button_down" from="MarginContainer/HBoxContainer/VBoxContainer/NewGame" to="." method="_on_new_game_button_down"]
+[connection signal="button_down" from="MarginContainer/HBoxContainer/VBoxContainer/Options" to="." method="_on_options_button_down"]
+[connection signal="button_down" from="MarginContainer/HBoxContainer/VBoxContainer/Quit" to="." method="_on_quit_button_down"]

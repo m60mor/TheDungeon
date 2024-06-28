@@ -5,6 +5,11 @@ extends CharacterBody2D
 @onready var hitbox = $Hitbox
 @onready var sprite = $AnimatedSprite2D
 @onready var sprite_weapon = $SpriteWeapon
+@onready var sfx_shoot = $SfxShoot
+var sound_shoot = preload("res://assets/Weapons/base.mp3")
+var sound_hurt = preload("res://assets/Characters/hurt.mp3")
+var sound_pick_up_weapon = preload("res://assets/Weapons/pick_up_weapon.mp3")
+const bus = preload("res://default_bus_layout.tres")
 
 @onready var collectibles_detection = $CollectiblesDetection
 
@@ -14,6 +19,7 @@ extends CharacterBody2D
 var hotbar_timer_list : Array[Timer] = []
 
 @export var fire_rate: float = 0
+@export var shoot_mode : int = 1
 @export var player_speed : float = 1000
 @export var bullet_resource : BulletBaseResource = null
 @export var inventory : Inventory = preload("res://resources/inventory/player_inventory.tres")
@@ -40,16 +46,24 @@ func _ready():
 func update_selected_index(index):
 	selected_index = index
 	fire_rate = inventory.items[selected_index].fire_rate
+	shoot_mode = inventory.items[selected_index].shoot_mode
 	bullet_resource = inventory.items[selected_index].bullet_resource
 	sprite_weapon.texture = inventory.items[selected_index].texture
+	sound_shoot = inventory.items[selected_index].sound
 
 func pick_up_item():
+	var pick_up_player = AudioStreamPlayer.new()
+	pick_up_player.stream = sound_pick_up_weapon
+	pick_up_player.set_bus("sfx")
+	add_child(pick_up_player)
+	pick_up_player.connect("finished", Callable(pick_up_player, "queue_free"))
 	if (can_pick_up):
 		can_pick_up = false
 		var overlapping_areas = collectibles_detection.get_overlapping_areas()
 		for i in overlapping_areas:
 			i.collect(inventory)
 			if (i.has_method("weapon")):
+				pick_up_player.play()
 				can_fire_list[selected_index] = false
 				hotbar_timer_list[selected_index].start(i.cooldown)
 			update_selected_index(selected_index)
@@ -91,7 +105,18 @@ func _physics_process(_delta):
 	if (Input.is_action_pressed("shoot") and fire_rate > 0):
 		if (can_fire_list[selected_index]):
 			var dir = -(global_position - get_global_mouse_position()).normalized()
-			SignalBus.shoot.emit(bullet_resource, position + dir * Vector2(16, 16), dir, 3)
+			#sfx_shoot.play()
+			var player : AudioStreamPlayer = AudioStreamPlayer.new()
+			player.stream = sound_shoot
+			player.set_bus("sfx")
+			add_child(player)
+			player.connect("finished", Callable(player, "queue_free"))
+			player.play()
+			if (shoot_mode == 1):
+				SignalBus.shoot.emit(bullet_resource, position + dir * Vector2(16, 16), dir, 3)
+			elif (shoot_mode == 2):		
+				SignalBus.shoot.emit(bullet_resource, position + dir * Vector2(16, 16) + dir.rotated(3.14/2) * Vector2(8, 8), dir.rotated(0.1), 3)
+				SignalBus.shoot.emit(bullet_resource, position + dir * Vector2(16, 16) + dir.rotated(-3.14/2) * Vector2(8, 8), dir.rotated(-0.1), 3)
 			can_fire_list[selected_index] = false
 			hotbar_timer_list[selected_index].start(fire_rate)
 	
@@ -101,8 +126,14 @@ func _physics_process(_delta):
 		sprite.flip_h = false
 	elif (body_rotation.x < 0):
 		sprite.flip_h = true
-	
+
 func do_damage(dmg, slow_mul = 1, slow_time = 0):
+	var hurt_player = AudioStreamPlayer.new()
+	hurt_player.stream = sound_hurt
+	hurt_player.set_bus("sfx")
+	add_child(hurt_player)
+	hurt_player.connect("finished", Callable(hurt_player, "queue_free"))
+	hurt_player.play()
 	hp = hp - dmg
 	SignalBus.health_bar_set.emit(hp)
 	if (hp <= 0):

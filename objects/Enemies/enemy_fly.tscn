@@ -38,10 +38,13 @@ radius = 111.113
 
 [node name="Enemy" instance=ExtResource("1_5v106")]
 z_index = 1
+collision_layer = 4
+collision_mask = 9
 script = ExtResource("2_k1vvr")
 move_speed = 30.0
 
 [node name="Hitbox" parent="." index="1"]
+visible = true
 shape = SubResource("CircleShape2D_3rsiq")
 
 [node name="AnimatedSprite2D" parent="." index="2"]
@@ -49,8 +52,35 @@ sprite_frames = SubResource("SpriteFrames_jaj02")
 animation = &"move"
 autoplay = "idle"
 
+[node name="PlayerDetection" parent="." index="3"]
+visible = true
+
 [node name="CollisionShape2D" parent="PlayerDetection" index="0"]
 shape = SubResource("CircleShape2D_8u36r")
+
+[node name="RayCastLeft" parent="RayCasts" index="0"]
+target_position = Vector2(-14, 0)
+
+[node name="RayCastRight" parent="RayCasts" index="1"]
+target_position = Vector2(14, 0)
+
+[node name="RayCastUp" parent="RayCasts" index="2"]
+target_position = Vector2(0, -14)
+
+[node name="RayCastDown" parent="RayCasts" index="3"]
+target_position = Vector2(0, 14)
+
+[node name="RayCastLU" parent="RayCasts" index="4"]
+target_position = Vector2(-8, -8)
+
+[node name="RayCastLD" parent="RayCasts" index="5"]
+target_position = Vector2(-8, 8)
+
+[node name="RayCastRU" parent="RayCasts" index="6"]
+target_position = Vector2(8, -8)
+
+[node name="RayCastRD" parent="RayCasts" index="7"]
+target_position = Vector2(8, 8)
 
 [node name="IdleTimer" type="Timer" parent="." index="7"]
 one_shot = true

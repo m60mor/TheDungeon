@@ -39,6 +39,8 @@ func walk(steps):
 	while step_count < steps:	
 		if change_direction():
 			var diff = round((float(step_count) / steps) * 5)
+			if (diff < 1):
+				diff = 1
 			if (step_count == steps - 1):
 				step("boss", diff)
 			else:
@@ -50,6 +52,7 @@ func walk(steps):
 		step_count += 1
 	
 	add_loot_rooms(steps, 10)
+	room_manager.append_doors()
 	return room_positions
 	
 func add_loot_rooms(steps, repeat):
@@ -103,5 +106,8 @@ func create_door(position, target_position, prev_room_size, room_size):
 	var next_teleport_position = ((target_position - direction * Vector2(int(room_size.x / 2), int(room_size.y / 2))) * 32) + Vector2(16, 16)
 	teleport_manager.spawn_teleport(prev_teleport_position, next_teleport_position, direction, room_manager.rooms[room_manager.rooms.size() - 2])
 	teleport_manager.spawn_teleport(next_teleport_position, prev_teleport_position, -direction, room_manager.rooms[room_manager.rooms.size() - 1])
-	room_manager.rooms[room_manager.rooms.size() - 2].door_positions.append(floor(prev_teleport_position / 32) - room_positions[room_positions.size() - 2])
-	room_manager.rooms[room_manager.rooms.size() - 1].door_positions.append(floor(next_teleport_position / 32) - room_positions[room_positions.size() - 1])
+	var door_prev = floor(prev_teleport_position / 32) - room_positions[room_positions.size() - 2]
+	var door_next = floor(next_teleport_position / 32) - room_positions[room_positions.size() - 1]
+	#print(room_manager.rooms[room_manager.rooms.size() - 2].door_positions)
+	room_manager.rooms[room_manager.rooms.size() - 2].door_positions.append(Vector2i(door_prev.x, door_prev.y))
+	room_manager.rooms[room_manager.rooms.size() - 1].door_positions.append(Vector2i(door_next.x, door_next.y))

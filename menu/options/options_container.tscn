@@ -1,15 +1,19 @@
-[gd_scene load_steps=5 format=3 uid="uid://htku1qlr7tmb"]
+[gd_scene load_steps=6 format=3 uid="uid://htku1qlr7tmb"]
 
+[ext_resource type="Script" path="res://menu/options/sfx_slider.gd" id="1_8yvlj"]
 [ext_resource type="PackedScene" uid="uid://b0l636jjl3rw3" path="res://menu/options/button_rebind.tscn" id="1_ya63h"]
 
 [sub_resource type="SystemFont" id="SystemFont_dvrxx"]
 font_names = PackedStringArray("Calisto MT")
+subpixel_positioning = 0
 
 [sub_resource type="SystemFont" id="SystemFont_yhx0v"]
 font_names = PackedStringArray("Calisto MT")
+subpixel_positioning = 0
 
 [sub_resource type="SystemFont" id="SystemFont_mnvtc"]
 font_names = PackedStringArray("Calisto MT")
+subpixel_positioning = 0
 
 [node name="OptionsContainer" type="Control"]
 layout_mode = 3
@@ -33,10 +37,8 @@ grow_vertical = 2
 theme_override_fonts/font = SubResource("SystemFont_dvrxx")
 theme_override_font_sizes/font_size = 20
 tab_alignment = 1
-current_tab = 2
 
 [node name="General" type="TabBar" parent="TabContainer"]
-visible = false
 layout_mode = 2
 tab_alignment = 1
 
@@ -57,18 +59,83 @@ layout_mode = 2
 theme_override_constants/separation = 60
 
 [node name="Label" type="Label" parent="TabContainer/General/MarginContainer/VBoxContainer"]
+visible = false
 layout_mode = 2
 theme_override_fonts/font = SubResource("SystemFont_yhx0v")
 text = "Mouse
 "
 
-[node name="Label2" type="Label" parent="TabContainer/General/MarginContainer/VBoxContainer"]
+[node name="MasterSelector1" type="HBoxContainer" parent="TabContainer/General/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label1" type="Label" parent="TabContainer/General/MarginContainer/VBoxContainer/MasterSelector1"]
+custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 theme_override_fonts/font = SubResource("SystemFont_mnvtc")
 theme_override_font_sizes/font_size = 16
-text = "Sound
-
+text = "General
 "
+
+[node name="VSeparator" type="VSeparator" parent="TabContainer/General/MarginContainer/VBoxContainer/MasterSelector1"]
+custom_minimum_size = Vector2(60, 0)
+layout_mode = 2
+
+[node name="MasterSlider" type="HSlider" parent="TabContainer/General/MarginContainer/VBoxContainer/MasterSelector1"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+max_value = 1.0
+step = 0.001
+script = ExtResource("1_8yvlj")
+bus_name = "Master"
+
+[node name="MusicSelector" type="HBoxContainer" parent="TabContainer/General/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="TabContainer/General/MarginContainer/VBoxContainer/MusicSelector"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme_override_fonts/font = SubResource("SystemFont_mnvtc")
+theme_override_font_sizes/font_size = 16
+text = "Music
+"
+
+[node name="VSeparator2" type="VSeparator" parent="TabContainer/General/MarginContainer/VBoxContainer/MusicSelector"]
+custom_minimum_size = Vector2(60, 0)
+layout_mode = 2
+
+[node name="MusicSlider" type="HSlider" parent="TabContainer/General/MarginContainer/VBoxContainer/MusicSelector"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+max_value = 1.0
+step = 0.001
+script = ExtResource("1_8yvlj")
+bus_name = "music"
+
+[node name="SfxSelector" type="HBoxContainer" parent="TabContainer/General/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label3" type="Label" parent="TabContainer/General/MarginContainer/VBoxContainer/SfxSelector"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme_override_fonts/font = SubResource("SystemFont_mnvtc")
+theme_override_font_sizes/font_size = 16
+text = "Sound Effects
+"
+
+[node name="VSeparator" type="VSeparator" parent="TabContainer/General/MarginContainer/VBoxContainer/SfxSelector"]
+custom_minimum_size = Vector2(60, 0)
+layout_mode = 2
+
+[node name="SfxSlider" type="HSlider" parent="TabContainer/General/MarginContainer/VBoxContainer/SfxSelector"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+max_value = 1.0
+step = 0.001
+script = ExtResource("1_8yvlj")
+bus_name = "sfx"
 
 [node name="Graphics" type="TabBar" parent="TabContainer"]
 visible = false
@@ -106,6 +173,7 @@ text = "Res
 "
 
 [node name="Controls" type="TabBar" parent="TabContainer"]
+visible = false
 layout_mode = 2
 tab_alignment = 1
 

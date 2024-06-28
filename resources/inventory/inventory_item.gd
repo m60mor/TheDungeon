@@ -8,6 +8,8 @@ class_name InventoryItem
 @export var drop_chance : float = 1
 
 @export var bullet_resource : BulletBaseResource
+@export var sound = preload("res://assets/Weapons/mechanical.mp3")
 @export var fire_rate : float = 0
+@export var shoot_mode : int = 1
 
 @export var heal : float = 0

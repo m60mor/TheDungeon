@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://objects/Enemies/enemy_cloack.gd" id="1_ht40x"]
 [ext_resource type="PackedScene" uid="uid://c46pylbu81y6u" path="res://objects/Enemies/enemy.tscn" id="1_utmqs"]
 [ext_resource type="Texture2D" uid="uid://cnacybaf2lx22" path="res://assets/Enemies/Cloack/Cloak.png" id="2_rvwsu"]
-[ext_resource type="Resource" uid="uid://c2ch6sq3eid07" path="res://resources/bullet/bulled_red_res.tres" id="3_n7lw1"]
+[ext_resource type="Resource" uid="uid://cj1eaqrkre5yc" path="res://resources/bullet/bullet_cluster_basic.tres" id="3_gdmld"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_f272f"]
 radius = 13.7676
@@ -30,7 +30,7 @@ radius = 259.031
 
 [node name="EnemyCloack" instance=ExtResource("1_utmqs")]
 script = ExtResource("1_ht40x")
-bullet_resource = ExtResource("3_n7lw1")
+bullet_resource = ExtResource("3_gdmld")
 move_speed = 20.0
 hp = 150.0
 
